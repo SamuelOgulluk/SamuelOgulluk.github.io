@@ -1,0 +1,5 @@
+{
+  "name": "Interactive Portfolio",
+  "description": "A personal portfolio website with a dark theme, bilingual support (French/English), and sections for projects, experience, and an interactive CV. The layout is optimized for a vertical, smartphone-like experience.",
+  "requestFramePermissions": []
+}
