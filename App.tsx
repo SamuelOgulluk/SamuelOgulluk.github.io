@@ -1,16 +1,16 @@
 import React, { useState, createContext, useContext, useMemo, useEffect } from 'react';
 import type { Language, SectionId, TranslationContent } from './types';
 import { TRANSLATIONS } from './constants';
-import Navbar from './components/Navbar';
-import Home from './components/Home';
-import About from './components/About';
-import Skills from './components/Skills';
-import Experience from './components/Experience';
-import Projects from './components/Projects';
-import BackgroundAnimation from './components/BackgroundAnimation';
-import Contact from './components/Contact';
-import Education from './components/Education';
-import AnimatedSection from './components/AnimatedSection';
+import Navbar from './src/components/Navbar';
+import Home from './src/components/Home';
+import About from './src/components/About';
+import Skills from './src/components/Skills';
+import Experience from './src/components/Experience';
+import Projects from './src/components/Projects';
+import BackgroundAnimation from './src/components/BackgroundAnimation';
+import Contact from './src/components/Contact';
+import Education from './src/components/Education';
+import AnimatedSection from './src/components/AnimatedSection';
 
 // Language Context
 interface LanguageContextType {

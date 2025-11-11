@@ -1,6 +1,6 @@
 import React from 'react';
-import { useLanguage } from '../App';
-import { CONTACT_DATA } from '../constants';
+import { useLanguage } from '@/App';
+import { CONTACT_DATA } from '@/constants';
 import Icon from './Icon';
 
 const Contact: React.FC = () => {

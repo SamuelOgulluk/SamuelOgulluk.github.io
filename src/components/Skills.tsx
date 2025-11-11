@@ -1,6 +1,6 @@
 import React from 'react';
-import { useLanguage } from '../App';
-import { LANGUAGES_DATA, SOFTWARE_DATA } from '../constants';
+import { useLanguage } from '@/App';
+import { LANGUAGES_DATA, SOFTWARE_DATA } from '@/constants';
 
 const Skills: React.FC = () => {
     const { t } = useLanguage();

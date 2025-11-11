@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLanguage } from '../App';
+import { useLanguage } from '@/App';
 
 const Header: React.FC = () => {
   const { language, setLanguage, t } = useLanguage();

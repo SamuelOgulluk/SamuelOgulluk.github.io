@@ -1,7 +1,7 @@
 import React from 'react';
-import { useLanguage } from '../App';
+import { useLanguage } from '@/App';
 import Icon from './Icon';
-import type { EducationItem } from '../types';
+import type { EducationItem } from '@/types';
 
 
 const EducationCard: React.FC<{ item: EducationItem }> = ({ item }) => {

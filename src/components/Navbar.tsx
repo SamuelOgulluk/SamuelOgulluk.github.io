@@ -1,6 +1,6 @@
 import React from 'react';
-import type { SectionId } from '../types';
-import { useLanguage } from '../App';
+import type { SectionId } from '@/types';
+import { useLanguage } from '@/App';
 import Icon from './Icon';
 
 interface NavbarProps {

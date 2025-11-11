@@ -1,7 +1,7 @@
 import React from 'react';
-import { useLanguage } from '../App';
+import { useLanguage } from '@/App';
 import Icon from './Icon';
-import type { Project } from '../types';
+import type { Project } from '@/types';
 
 
 const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, index }) => {

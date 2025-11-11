@@ -1,7 +1,7 @@
 import React from 'react';
-import { useLanguage } from '../App';
+import { useLanguage } from '@/App';
 import Icon from './Icon';
-import type { ExperienceItem } from '../types';
+import type { ExperienceItem } from '@/types';
 
 
 const ExperienceCard: React.FC<{ item: ExperienceItem }> = ({ item }) => {
