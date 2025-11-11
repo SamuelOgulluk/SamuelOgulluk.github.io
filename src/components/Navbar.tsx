@@ -49,7 +49,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
         aria-label={language === 'en' ? 'Switch to French' : 'Switch to English'}
       >
         <div className="w-10 h-10 p-1 rounded-full bg-zinc-800 group-hover:bg-zinc-700 transition-all duration-300 group-hover:scale-110 flex items-center justify-center">
-          <img src={`assets/${language === 'en' ? 'uk-flag' : 'france-flag'}.svg`} alt={language === 'en' ? 'UK Flag' : 'French Flag'} className="rounded-full" />
+          <img src={`/assets/${language === 'en' ? 'uk-flag' : 'france-flag'}.svg`} alt={language === 'en' ? 'UK Flag' : 'French Flag'} className="rounded-full" />
         </div>
         <span className="absolute left-full ml-4 px-2 py-1 bg-zinc-700 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
           {language === 'en' ? 'Français' : 'English'}

@@ -38,7 +38,7 @@ const PROJECTS_EN: Project[] = [
   {
     title: "Portfolio Website",
     description: "My personal portfolio website built with React and TypeScript, featuring smooth animations, responsive design, and interactive elements. The site showcases my projects, skills, and experience.",
-    videoUrl: "assets/video_site.mp4",
+    videoUrl: "/assets/video_site.mp4",
     githubUrl: "https://github.com/OgullukSamuel/portfolio",
     technologies: [
     LANGUAGES_DATA.find(l => l.name === 'TypeScript'),
@@ -50,7 +50,7 @@ const PROJECTS_EN: Project[] = [
   {
     title: "Otternet",
     description: "A C framework specialized in efficient and easy Machine learning and data science",
-    imageUrl: "assets/otternet-logo.png",
+    imageUrl: "/assets/otternet-logo.png",
     githubUrl: "https://github.com/OgullukSamuel/Otternet",
     technologies: [
     LANGUAGES_DATA.find(l => l.name === 'C'),
@@ -61,7 +61,7 @@ const PROJECTS_EN: Project[] = [
   {
     title: "7 colors game",
     description: "The classic 7 colors game implemented in C using SDL2 library with different AI opponents including Minimax and Monte Carlo Tree Search algorithms.",
-    imageUrl: "assets/7color.png",
+    imageUrl: "/assets/7color.png",
     githubUrl: "https://github.com/OgullukSamuel/7Colors",
      technologies: [
     LANGUAGES_DATA.find(l => l.name === 'C'),
@@ -74,7 +74,7 @@ const PROJECTS_FR: Project[] = [
     {
       title: "Site Web Portfolio",
       description: "Mon site web personnel construit avec React et TypeScript, présentant des animations fluides, un design responsive et des éléments interactifs. Le site met en valeur mes projets, compétences et expériences.",
-      videoUrl: "assets/video_site.mp4",
+      videoUrl: "/assets/video_site.mp4",
       githubUrl: "https://github.com/OgullukSamuel/portfolio",
       technologies: [
         LANGUAGES_DATA.find(l => l.name === 'TypeScript'),
@@ -86,7 +86,7 @@ const PROJECTS_FR: Project[] = [
     {
       title: "Otternet",
       description: "Une librairie en C spécialisée dans l'apprentissage automatique et la science des données, conçue pour être efficace et facile à utiliser.",
-      imageUrl: "assets/otternet-logo.svg",
+      imageUrl: "/assets/otternet-logo.svg",
       githubUrl: "https://github.com/OgullukSamuel/Otternet",
       technologies: [
         LANGUAGES_DATA.find(l => l.name === 'Python'),
@@ -97,7 +97,7 @@ const PROJECTS_FR: Project[] = [
     {
       title: "Jeu des 7 couleurs",
       description: "Le classique jeu des 7 couleurs implémenté en C utilisant la bibliothèque SDL2 avec différents adversaires IA incluant les algorithmes Minimax et Monte Carlo Tree Search.",
-      imageUrl: "assets/7color.png",
+      imageUrl: "/assets/7color.png",
       githubUrl: "https://github.com/OgullukSamuel/7Colors",
        technologies: [
         LANGUAGES_DATA.find(l => l.name === 'C++'),

@@ -6,7 +6,7 @@ interface IconProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const Icon: React.FC<IconProps> = ({ name, className, ...props }) => {
-  const iconUrl = `assets/${name}.svg`;
+  const iconUrl = `/assets/${name}.svg`;
   const style: React.CSSProperties = {
     maskImage: `url(${iconUrl})`,
     WebkitMaskImage: `url(${iconUrl})`,

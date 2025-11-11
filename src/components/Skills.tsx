@@ -25,7 +25,7 @@ const Skills: React.FC = () => {
                                 aria-label={skill.name}
                                 className="w-16 h-16 md:w-20 md:h-20 p-3 bg-zinc-800/50 rounded-lg flex items-center justify-center text-slate-400 hover:text-red-500 hover:bg-zinc-700/70 transition-all duration-300 transform hover:scale-110"
                             >
-                                <img src={`assets/${skill.icon}`} alt={skill.name} className="w-full h-full object-contain" />
+                                <img src={`/assets/${skill.icon}`} alt={skill.name} className="w-full h-full object-contain" />
                             </a>
                             <span className="text-sm mt-2 text-slate-300">{skill.name}</span>
 
@@ -43,7 +43,7 @@ const Skills: React.FC = () => {
                                                 className="flex flex-col items-center text-slate-400 hover:text-red-500 transition-colors duration-200"
                                             >
                                                 <div className="w-10 h-10 p-1">
-                                                     <img src={`assets/${lib.icon}`} alt={lib.name} className="w-full h-full object-contain" />
+                                                     <img src={`/assets/${lib.icon}`} alt={lib.name} className="w-full h-full object-contain" />
                                                 </div>
                                                 <span className="text-xs mt-1">{lib.name}</span>
                                             </a>
@@ -71,7 +71,7 @@ const Skills: React.FC = () => {
                                 className="w-16 h-16 md:w-20 md:h-20 p-3 bg-zinc-800/50 rounded-lg flex items-center justify-center text-slate-400 hover:text-red-500 hover:bg-zinc-700/70 transition-all duration-300 transform hover:scale-110"
                             >
                                 <img 
-                                    src={`assets/${software.icon}`} 
+                                    src={`/assets/${software.icon}`} 
                                     alt={software.name} 
                                     className="w-full h-full object-contain transition-transform duration-300"
                                     style={{ transform: `scale(${software.scale || 1})` }}

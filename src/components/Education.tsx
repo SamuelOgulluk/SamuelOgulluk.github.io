@@ -9,7 +9,7 @@ const EducationCard: React.FC<{ item: EducationItem }> = ({ item }) => {
         const iconName = item.icon.replace('.svg', '');
 
         const iconElement = item.isIconMultiColor
-            ? <img src={`assets/${item.icon}`} alt="" className="w-full h-full object-contain" />
+            ? <img src={`/assets/${item.icon}`} alt="" className="w-full h-full object-contain" />
             : <Icon name={iconName} className="w-full h-full" />;
 
         // Per-icon scale: make logos fit the circle by default (scale = 1)

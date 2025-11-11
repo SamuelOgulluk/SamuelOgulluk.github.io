@@ -9,7 +9,7 @@ const ExperienceCard: React.FC<{ item: ExperienceItem }> = ({ item }) => {
     const iconName = item.icon ? item.icon.replace('.svg', '') : 'briefcase';
 
     const iconElement = item.isIconMultiColor
-      ? <img src={`assets/${item.icon}`} alt="" className="w-full h-full object-contain" />
+      ? <img src={`/assets/${item.icon}`} alt="" className="w-full h-full object-contain" />
       : <Icon name={iconName} className="w-full h-full" />;
 
     // Make icons fit the circle by default; allow per-icon adjustments (CERN slightly larger)

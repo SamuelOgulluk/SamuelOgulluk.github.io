@@ -52,7 +52,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
                   className="w-6 h-6 text-slate-400" 
                   title={tech.name}
                 >
-                  <img src={`assets/${tech.icon}`} alt={tech.name} className="w-full h-full" />
+                  <img src={`/assets/${tech.icon}`} alt={tech.name} className="w-full h-full" />
                 </div>
               ))}
           </div>
