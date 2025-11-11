@@ -39,7 +39,7 @@ const PROJECTS_EN: Project[] = [
     title: "Portfolio Website",
     description: "My personal portfolio website built with React and TypeScript, featuring smooth animations, responsive design, and interactive elements. The site showcases my projects, skills, and experience.",
     videoUrl: "/assets/video_site.mp4",
-    githubUrl: "https://github.com/OgullukSamuel/portfolio",
+    githubUrl: "https://github.com/SamuelOgulluk/portfolio",
     technologies: [
     LANGUAGES_DATA.find(l => l.name === 'TypeScript'),
     LANGUAGES_DATA.find(l => l.name === 'HTML'),
@@ -51,7 +51,7 @@ const PROJECTS_EN: Project[] = [
     title: "Otternet",
     description: "A C framework specialized in efficient and easy Machine learning and data science",
     imageUrl: "/assets/otternet-logo.png",
-    githubUrl: "https://github.com/OgullukSamuel/Otternet",
+    githubUrl: "https://github.com/SamuelOgulluk/Otternet",
     technologies: [
     LANGUAGES_DATA.find(l => l.name === 'C'),
     LANGUAGES_DATA.find(l => l.name === 'Python'),
@@ -62,7 +62,7 @@ const PROJECTS_EN: Project[] = [
     title: "7 colors game",
     description: "The classic 7 colors game implemented in C using SDL2 library with different AI opponents including Minimax and Monte Carlo Tree Search algorithms.",
     imageUrl: "/assets/7color.png",
-    githubUrl: "https://github.com/OgullukSamuel/7Colors",
+    githubUrl: "https://github.com/SamuelOgulluk/7Colors",
      technologies: [
     LANGUAGES_DATA.find(l => l.name === 'C'),
     LANGUAGES_DATA.find(l => l.name === 'Git'),
@@ -75,7 +75,7 @@ const PROJECTS_FR: Project[] = [
       title: "Site Web Portfolio",
       description: "Mon site web personnel construit avec React et TypeScript, présentant des animations fluides, un design responsive et des éléments interactifs. Le site met en valeur mes projets, compétences et expériences.",
       videoUrl: "/assets/video_site.mp4",
-      githubUrl: "https://github.com/OgullukSamuel/portfolio",
+      githubUrl: "https://github.com/SamuelOgulluk/portfolio",
       technologies: [
         LANGUAGES_DATA.find(l => l.name === 'TypeScript'),
         LANGUAGES_DATA.find(l => l.name === 'HTML'),
@@ -236,7 +236,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
           duration: "2025 - Présent",
           description: "Département d'Ingénierie Électronique et Numérique - Élève fonctionnaire-stagiaire. Cours clés : Architecture des microprocesseurs, Informatique, Traitement du signal et de l'image, Physique, IA.",
           institutionLink: "https://ens-paris-saclay.fr/",
-          icon: 'ens-paris-saclay-universite.svg',
+          icon: 'ens_ps.svg',
           isIconMultiColor: true,
         },
         {
@@ -245,7 +245,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
           duration: "2025 - Présent",
           description: "Cours clés : Physique quantique, Analyse complexe, Mécanique des matériaux.",
           institutionLink: "https://www.sorbonne-universite.fr/",
-          icon: 'sorbonne.svg',
+          icon: 'sorbonne_universite_logo.svg',
           isIconMultiColor: true,
         },
         {
@@ -263,7 +263,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
           duration: "2022 - 2024",
           description: "Cursus généraliste intensif en Mathématiques et Chimie avec une Majeure en Physique et Sciences de l'Ingénieur.",
           institutionLink: "https://www.lycee-hoche.fr/",
-          icon: 'lycee-hoche.svg',
+          icon: 'hoche.svg',
           isIconMultiColor: true,
         },
       ]
@@ -308,7 +308,7 @@ export const SOFTWARE_DATA: SoftwareDetails[] = [
 export const CONTACT_DATA = {
   email: "samuel.ogulluk@ens-paris-saclay.fr",
   linkedin: "https://www.linkedin.com/in/samuel-ogulluk/",
-  github: "https://github.com/OgullukSamuel",
+  github: "https://github.com/SamuelOgulluk",
   linkedinHandle: "@samuel-ogulluk",
-  githubHandle: "@OgullukSamuel",
+  githubHandle: "@SamuelOgulluk",
 };

@@ -24,8 +24,8 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({ children, className =
                 });
             },
             {
-                threshold: 0.1,
-                rootMargin: "-100px"
+                threshold: [0, 0.1],
+                rootMargin: "-150px 0px -150px 0px"
             }
         );
 
