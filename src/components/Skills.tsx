@@ -6,7 +6,7 @@ const Skills: React.FC = () => {
     const { t } = useLanguage();
 
     return (
-        <section id="skills" className="pt-8 pb-8 animate-fade-in">
+        <div className="pt-8 pb-8">
             <h2 className="text-3xl font-bold text-white mb-12">
                 {t.skills.title}
                 <span className="text-red-500">.</span>
@@ -16,8 +16,12 @@ const Skills: React.FC = () => {
             <div className="mb-16">
                 <h3 className="text-xl font-semibold text-slate-200 mb-6">{t.skills.languages}</h3>
                 <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-8">
-                    {LANGUAGES_DATA.map((skill) => (
-                        <div key={skill.name} className="relative group flex flex-col items-center">
+                    {LANGUAGES_DATA.map((skill, index) => (
+                        <div 
+                            key={skill.name} 
+                            className="relative group flex flex-col items-center stagger-item"
+                            style={{ animationDelay: `${index * 50 + 200}ms` }}
+                        >
                             <a 
                                 href={skill.link} 
                                 target="_blank" 
@@ -61,8 +65,12 @@ const Skills: React.FC = () => {
             <div>
                 <h3 className="text-xl font-semibold text-slate-200 mb-6">{t.skills.software}</h3>
                 <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-8">
-                    {SOFTWARE_DATA.map((software) => (
-                        <div key={software.name} className="flex flex-col items-center">
+                    {SOFTWARE_DATA.map((software, index) => (
+                        <div 
+                            key={software.name} 
+                            className="flex flex-col items-center stagger-item"
+                            style={{ animationDelay: `${(index + LANGUAGES_DATA.length) * 50 + 200}ms` }}
+                        >
                             <a 
                                 href={software.link} 
                                 target="_blank" 
@@ -82,7 +90,7 @@ const Skills: React.FC = () => {
                     ))}
                 </div>
             </div>
-        </section>
+        </div>
     );
 };
 

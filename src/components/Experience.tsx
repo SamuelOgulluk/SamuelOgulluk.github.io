@@ -22,13 +22,13 @@ const ExperienceCard: React.FC<{ item: ExperienceItem }> = ({ item }) => {
     }
 
     return (
-        <div className="relative pl-28 sm:pl-32 py-4 group">
+        <div className="relative pl-20 sm:pl-32 py-4 group">
             <a 
               href={item.institutionLink} 
               target="_blank" 
               rel="noopener noreferrer" 
               aria-label={`${item.company} website`}
-              className="absolute left-0 z-10 w-[80px] h-[80px] sm:w-[96px] sm:h-[96px] bg-white rounded-full -translate-x-1/2 flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105"
+              className="absolute left-0 z-10 w-[60px] h-[60px] sm:w-[96px] sm:h-[96px] bg-white rounded-full -translate-x-1/2 flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105"
             >
               <div className="relative w-full h-full flex items-center justify-center">
                 <div style={{ transform: `scale(${iconScale})`, transformOrigin: 'center' }} className="w-full h-full flex items-center justify-center">
@@ -36,7 +36,7 @@ const ExperienceCard: React.FC<{ item: ExperienceItem }> = ({ item }) => {
                 </div>
               </div>
             </a>
-            <div className="pl-6">
+            <div className="pl-2 sm:pl-6">
               <h4 className="font-bold text-lg text-white">{item.role}</h4>
               <p className="text-red-400 text-sm mb-2">{item.company} | {item.duration}</p>
               <p className="text-slate-400 text-sm md:text-base whitespace-pre-line">

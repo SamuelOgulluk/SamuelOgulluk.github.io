@@ -23,7 +23,14 @@ const LANGUAGES_DATA: SkillDetails[] = [
       { name: 'SDL2', link: '#', icon: 'sdl2.svg' },
     ]
   },
-  { name: 'C++', link: 'https://en.wikipedia.org/wiki/C%2B%2B', icon: 'cpp.svg' },
+  { 
+    name: 'C++', 
+    link: 'https://en.wikipedia.org/wiki/C%2B%2B', 
+    icon: 'cpp.svg',
+    libraries: [
+      { name: 'CUDA', link: 'https://en.wikipedia.org/wiki/CUDA', icon: 'cuda.svg' },
+    ]
+  },
   { name: 'ARM assembler', link: 'https://en.wikipedia.org/wiki/ARM_architecture', icon: 'ARM_powered_Badge.svg' },
 
   { name: 'HTML', link: 'https://en.wikipedia.org/wiki/HTML', icon: 'html5.svg' },
@@ -110,7 +117,7 @@ const PROJECTS_FR: Project[] = [
 export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = {
   en: {
     headerTitle: "Samuel Ogulluk",
-    headerSubtitle: "Electrical & IT Engineering Student",
+    headerSubtitle: "Electronic & IT Engineering Student",
     nav: {
       home: "Home",
       about: "About",
@@ -122,12 +129,12 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
     home: {
       greeting: "Welcome.",
-      intro: "I'm an electronical and IT engineering graduate student passionate about space, AI, and music.",
-      paragraph1: "I'm currently seeking an internship in embedded systems and robotics from May to July 2026. Explore my portfolio to see my work and get in touch!",
+      intro: "I'm a graduate student in Electronic engineering, Computer Science, and Applied mathematics, with a strong interest in Robotics.",
+      paragraph1: "Passionate about solving complex problems at the intersection of algorithms and physical systems. Explore my portfolio to see my work and get in touch!",
     },
     about: {
       title: "About Me",
-      bio: "As an electrical and IT engineering graduate student with a deep passion for space, AI, and music, I am driven to build innovative solutions at the intersection of hardware and software. I am actively seeking an internship opportunity in embedded systems and robotics for May-July 2026 to apply my skills to real-world challenges.",
+      bio: "As a graduate student in Electronic engineering, Computer Science, and Applied mathematics, I am driven to build innovative solutions at the intersection of algorithms and robotics. I am open to opportunities, don't hesitate to contact me.",
       downloadCV: "Download CV",
     },
     skills: {
@@ -202,7 +209,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
   },
   fr: {
     headerTitle: "Samuel Ogulluk",
-    headerSubtitle: "Étudiant en Génie Électrique et Informatique",
+    headerSubtitle: "Étudiant en Électronique et Informatique",
     nav: {
       home: "Accueil",
       about: "À Propos",
@@ -214,12 +221,12 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
     home: {
       greeting: "Bienvenue.",
-      intro: "Je suis Samuel, un étudiant en Master de génie électronique et informatique, passionné par l'espace, l'IA et la musique.",
-      paragraph1: "Je suis actuellement à la recherche d'un stage en systèmes embarqués et robotique de mai à juillet 2026. Explorez mon portfolio pour découvrir mes travaux et n'hésitez pas à me contacter !",
+      intro: "Je suis étudiant en Ingénierie Electronique, Informatique et Mathématiques Appliquées, avec un fort intérêt pour la Robotique.",
+      paragraph1: "Passionné par la résolution de problèmes complexes à l'intersection des algorithmes et des systèmes physiques. Explorez mon portfolio pour découvrir mes travaux et n'hésitez pas à me contacter !",
     },
     about: {
       title: "À Propos de Moi",
-      bio: "En tant qu'étudiant en génie électrique et informatique passionné par l'espace, l'IA et la musique, je suis motivé à créer des solutions innovantes à l'intersection du matériel et du logiciel. Je recherche activement une opportunité de stage en systèmes embarqués et robotique pour mai-juillet 2026 afin d'appliquer mes compétences à des défis concrets.",
+      bio: "En tant qu'étudiant en Ingénierie Electronique, Informatique et Mathématiques Appliquées, je suis motivé à créer des solutions innovantes à l'intersection des algorithmes et de la robotique. Je suis ouvert aux opportunités, n'hésitez pas à me contacter.",
       downloadCV: "Télécharger le CV",
     },
      skills: {
@@ -232,7 +239,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
       items: [
         {
           degree: "Master en sciences pour l'ingénieur électronique et numérique",
-          institution: "Ecole Normale Supérieure Paris-Saclay, Paris",
+          institution: "École Normale Supérieure Paris-Saclay, Paris",
           duration: "2025 - Présent",
           description: "Département d'Ingénierie Électronique et Numérique - Élève fonctionnaire-stagiaire. Cours clés : Architecture des microprocesseurs, Informatique, Traitement du signal et de l'image, Physique, IA.",
           institutionLink: "https://ens-paris-saclay.fr/",

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Interactive Portfolio</title>
+    <title>Samuel Ogulluk</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
       /* Simple scrollbar styling for a better dark mode aesthetic */
@@ -45,6 +45,11 @@
 
       .animate-fade-in {
         animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      .animate-fade-in .stagger-item {
+        opacity: 0;
+        animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       }
 
       .animate-fade-out {

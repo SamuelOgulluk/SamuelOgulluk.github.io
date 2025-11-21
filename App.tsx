@@ -68,8 +68,8 @@ const App: React.FC = () => {
       <BackgroundAnimation />
       <div className="bg-zinc-950/75 font-sans text-slate-300">
         <Navbar activeSection={activeSection} />
-        <div className="pl-24">
-            <main className="max-w-4xl mx-auto p-8 md:p-12">
+        <div className="pb-24 md:pb-0 md:pl-24">
+            <main className="max-w-4xl mx-auto p-6 md:p-12">
                 <div className="space-y-16">
                     <Home />
                     <AnimatedSection id="about"><About /></AnimatedSection>

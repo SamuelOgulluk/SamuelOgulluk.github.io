@@ -44,8 +44,12 @@ const BackgroundAnimation: React.FC = () => {
 
             update(width: number, height: number) {
                 // Wall collision
-                if (this.x > width || this.x < 0) this.speedX *= -1;
-                if (this.y > height || this.y < 0) this.speedY *= -1;
+                if ((this.x > width && this.speedX > 0) || (this.x < 0 && this.speedX < 0)) {
+                    this.speedX *= -1;
+                }
+                if ((this.y > height && this.speedY > 0) || (this.y < 0 && this.speedY < 0)) {
+                    this.speedY *= -1;
+                }
 
                 // Center repulsion (keep particles away from the content area)
                 const centerX = width / 2;
