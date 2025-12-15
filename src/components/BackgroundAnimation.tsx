@@ -103,9 +103,18 @@ const BackgroundAnimation: React.FC = () => {
                 const particle = new Particle(canvas.width, canvas.height);
                 // Ensure initial positions are not in the center content area
                 const centerX = canvas.width / 2;
-                const centerWidth = 600;
-                while (particle.x > centerX - centerWidth/2 && particle.x < centerX + centerWidth/2) {
+                // Adjust center exclusion zone based on screen width to avoid infinite loops
+                const centerWidth = Math.min(600, canvas.width * 0.8); 
+                
+                // Safety counter to prevent infinite loops
+                let attempts = 0;
+                while (
+                    particle.x > centerX - centerWidth/2 && 
+                    particle.x < centerX + centerWidth/2 && 
+                    attempts < 50
+                ) {
                     particle.x = Math.random() * canvas.width;
+                    attempts++;
                 }
                 particles.push(particle);
             }
