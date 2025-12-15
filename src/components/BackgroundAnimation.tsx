@@ -94,7 +94,11 @@ const BackgroundAnimation: React.FC = () => {
 
         const init = () => {
             particles.length = 0; // Clear existing particles
-            const numberOfParticles = (canvas.width * canvas.height) / 6000; // Higher density for more particles
+            // Reduce particle density for better performance, especially on mobile
+            const isMobile = window.innerWidth < 768;
+            const densityDivisor = isMobile ? 15000 : 9000; 
+            const numberOfParticles = Math.min((canvas.width * canvas.height) / densityDivisor, 80); // Cap at 80 particles
+            
             for (let i = 0; i < numberOfParticles; i++) {
                 const particle = new Particle(canvas.width, canvas.height);
                 // Ensure initial positions are not in the center content area

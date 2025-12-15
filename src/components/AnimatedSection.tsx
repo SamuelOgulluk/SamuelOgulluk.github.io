@@ -16,17 +16,14 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({ children, className =
                     if (entry.isIntersecting) {
                         entry.target.classList.remove('opacity-0');
                         entry.target.classList.add('animate-fade-in');
-                    } else {
-                        // When scrolling out, remove the animation class and hide it again
-                        // This allows the animation to replay when scrolling back in
-                        entry.target.classList.remove('animate-fade-in');
-                        entry.target.classList.add('opacity-0');
+                        // Stop observing once the animation has triggered
+                        observer.unobserve(entry.target);
                     }
                 });
             },
             {
                 threshold: 0.1,
-                rootMargin: "-50px 0px"
+                rootMargin: "0px 0px -50px 0px" // Trigger slightly before it enters fully, but keep it simple
             }
         );
 

@@ -15,11 +15,11 @@ const Skills: React.FC = () => {
             {/* Languages & Technologies */}
             <div className="mb-16">
                 <h3 className="text-xl font-semibold text-slate-200 mb-6">{t.skills.languages}</h3>
-                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-8">
+                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 sm:gap-8">
                     {LANGUAGES_DATA.map((skill, index) => (
                         <div 
                             key={skill.name} 
-                            className="relative group flex flex-col items-center stagger-item"
+                            className="relative group flex flex-col items-center stagger-item hover:z-50"
                             style={{ animationDelay: `${index * 50 + 200}ms` }}
                         >
                             <a 
@@ -35,8 +35,8 @@ const Skills: React.FC = () => {
 
                             {/* Libraries Popover */}
                             {skill.libraries && (
-                                <div className="absolute -top-4 -right-4 translate-x-full z-10 w-40 p-3 bg-zinc-900 border border-zinc-700 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
-                                   <div className="grid grid-cols-2 gap-3">
+                                <div className={`absolute -top-4 -right-4 translate-x-full z-10 ${skill.libraries.length === 1 ? 'w-28' : 'w-40'} p-3 bg-zinc-900 border border-zinc-700 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300`}>
+                                   <div className={`grid ${skill.libraries.length === 1 ? 'grid-cols-1' : 'grid-cols-2'} gap-3`}>
                                         {skill.libraries.map(lib => (
                                              <a 
                                                 key={lib.name}
@@ -64,7 +64,7 @@ const Skills: React.FC = () => {
             {/* Software */}
             <div>
                 <h3 className="text-xl font-semibold text-slate-200 mb-6">{t.skills.software}</h3>
-                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-8">
+                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 sm:gap-8">
                     {SOFTWARE_DATA.map((software, index) => (
                         <div 
                             key={software.name} 
