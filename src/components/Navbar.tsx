@@ -25,7 +25,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 w-full h-16 bg-zinc-900/90 backdrop-blur-md border-t border-zinc-800 z-50 md:top-0 md:left-0 md:h-full md:w-24 md:bg-zinc-900/80 md:border-r md:border-t-0 md:flex md:flex-col md:items-center md:justify-between md:py-10">
+    <nav className="fixed bottom-0 left-0 w-full h-16 bg-zinc-900/90 backdrop-blur-md border-t border-zinc-800 z-50 md:top-0 md:bottom-auto md:h-full md:w-24 md:bg-zinc-900/80 md:border-r md:border-t-0 md:flex md:flex-col md:items-center md:justify-between md:py-10">
       <div className="flex flex-row items-center justify-around w-full h-full md:flex-col md:justify-start md:gap-6 md:h-auto">
         {navItems.map((item) => (
           <a
