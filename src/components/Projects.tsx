@@ -18,7 +18,6 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
           <div className="relative overflow-hidden transition-all duration-500 ease-in-out h-48 md:h-48 md:group-hover:h-96 transform-gpu">
             {project.videoUrl ? (
               <video
-                src={project.videoUrl}
                 className="w-full h-full object-cover object-top md:group-hover:object-contain transition-all duration-500 ease-out origin-top
                 scale-100 md:group-hover:scale-100 md:group-hover:origin-center
                 motion-safe:md:group-hover:animate-expand motion-safe:md:group-not-hover:animate-collapse"
@@ -26,7 +25,10 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
                 loop
                 muted
                 playsInline
-              />
+                preload="metadata"
+              >
+                <source src={project.videoUrl} type="video/mp4" />
+              </video>
             ) : (
               <img 
                 src={project.imageUrl} 
