@@ -64,18 +64,7 @@ const App: React.FC = () => {
     <LanguageContext.Provider value={languageContextValue}>
       <div className="site-shell font-body text-soft">
         <div className="site-atmosphere" aria-hidden="true" />
-        <div className="site-foliage" aria-hidden="true">
-          <svg viewBox="0 0 320 480" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M160 40c-8 70-70 120-110 150 55 8 100 40 120 90 18-52 70-90 120-100-42-28-98-70-130-140Z" stroke="currentColor" strokeWidth="1.4" fill="currentColor" fillOpacity="0.08"/>
-            <path d="M160 150c-6 60-55 100-90 125 45 10 82 38 98 78 16-44 58-78 100-86-36-24-82-60-108-117Z" stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.06"/>
-            <path d="M160 240c-5 55-48 90-78 112 38 8 70 34 84 70 14-38 50-68 86-74-30-22-70-54-92-108Z" stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.05"/>
-            <path d="M160 40v360" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-            <path d="M160 120c40 20 70 30 95 34M160 180c-38 18-68 28-92 30M160 250c42 16 74 24 100 26M160 310c-36 14-64 22-88 24" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.7"/>
-            <circle cx="250" cy="90" r="18" stroke="currentColor" strokeWidth="1" fill="currentColor" fillOpacity="0.05"/>
-            <circle cx="70" cy="200" r="12" stroke="currentColor" strokeWidth="1" fill="currentColor" fillOpacity="0.05"/>
-            <path d="M230 340c30 40 20 80-10 110 50-10 80-50 70-95-20 5-40 0-60-15Z" stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.07"/>
-          </svg>
-        </div>
+        <div className="site-nature" aria-hidden="true" />
         <Navbar activeSection={activeSection} />
         <main className="site-main">
           <Home />
