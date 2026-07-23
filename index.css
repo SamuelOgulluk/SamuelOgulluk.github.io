@@ -74,11 +74,54 @@ a {
   inset: 0;
   z-index: -1;
   pointer-events: none;
+  overflow: hidden;
   background:
-    radial-gradient(ellipse 70% 48% at 0% -5%, rgba(63, 169, 110, 0.16), transparent 55%),
-    radial-gradient(ellipse 55% 40% at 100% 0%, rgba(180, 220, 190, 0.35), transparent 50%),
-    radial-gradient(ellipse 65% 45% at 80% 100%, rgba(47, 143, 91, 0.1), transparent 55%),
+    radial-gradient(ellipse 70% 48% at 0% -5%, rgba(63, 169, 110, 0.18), transparent 55%),
+    radial-gradient(ellipse 55% 40% at 100% 0%, rgba(180, 220, 190, 0.4), transparent 50%),
+    radial-gradient(ellipse 65% 45% at 80% 100%, rgba(47, 143, 91, 0.12), transparent 55%),
     linear-gradient(180deg, #ffffff 0%, var(--bg) 45%, var(--bg-deep) 100%);
+}
+
+.site-atmosphere::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.45;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cpath d='M0 60c20-18 40-18 60 0s40 18 60 0' fill='none' stroke='%232f8f5b' stroke-opacity='0.14' stroke-width='1'/%3E%3Cpath d='M0 90c20-18 40-18 60 0s40 18 60 0' fill='none' stroke='%232f8f5b' stroke-opacity='0.1' stroke-width='1'/%3E%3Cpath d='M0 30c20-18 40-18 60 0s40 18 60 0' fill='none' stroke='%232f8f5b' stroke-opacity='0.1' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
+  mask-image: radial-gradient(ellipse 80% 70% at 75% 40%, black, transparent 75%);
+}
+
+.site-foliage {
+  position: fixed;
+  right: -4%;
+  top: 12%;
+  width: min(42vw, 420px);
+  height: auto;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.22;
+  color: #2f8f5b;
+  animation: foliage-drift 14s ease-in-out infinite;
+}
+
+.site-foliage svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@keyframes foliage-drift {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(12px) rotate(1deg); }
+}
+
+@media (max-width: 767px) {
+  .site-foliage {
+    width: min(70vw, 280px);
+    top: 8%;
+    opacity: 0.14;
+  }
 }
 
 .site-main {
