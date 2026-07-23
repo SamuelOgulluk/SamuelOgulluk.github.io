@@ -76,34 +76,39 @@ a {
   pointer-events: none;
   overflow: hidden;
   background:
-    radial-gradient(ellipse 70% 48% at 0% -5%, rgba(63, 169, 110, 0.12), transparent 55%),
-    radial-gradient(ellipse 55% 40% at 100% 0%, rgba(180, 220, 190, 0.22), transparent 50%),
-    radial-gradient(ellipse 65% 45% at 80% 100%, rgba(47, 143, 91, 0.08), transparent 55%),
-    linear-gradient(180deg, #ffffff 0%, var(--bg) 45%, var(--bg-deep) 100%);
+    radial-gradient(ellipse 42% 36% at 8% 12%, rgba(126, 190, 140, 0.1), transparent 70%),
+    radial-gradient(ellipse 38% 32% at 92% 18%, rgba(126, 190, 140, 0.09), transparent 68%),
+    radial-gradient(ellipse 40% 30% at 88% 88%, rgba(47, 143, 91, 0.05), transparent 70%),
+    radial-gradient(ellipse 36% 28% at 10% 85%, rgba(47, 143, 91, 0.04), transparent 70%),
+    linear-gradient(180deg, #ffffff 0%, var(--bg) 50%, var(--bg-deep) 100%);
 }
 
 .site-atmosphere::before {
   content: "";
   position: absolute;
   inset: 0;
-  opacity: 0.28;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cpath d='M0 80c28-22 52-22 80 0s52 22 80 0' fill='none' stroke='%232f8f5b' stroke-opacity='0.11' stroke-width='1'/%3E%3Cpath d='M0 120c28-22 52-22 80 0s52 22 80 0' fill='none' stroke='%232f8f5b' stroke-opacity='0.07' stroke-width='1'/%3E%3Cpath d='M0 40c28-22 52-22 80 0s52 22 80 0' fill='none' stroke='%232f8f5b' stroke-opacity='0.07' stroke-width='1'/%3E%3C/svg%3E");
-  background-size: 180px 180px;
-  mask-image: linear-gradient(90deg, transparent 0%, transparent 48%, black 78%, black 100%);
+  opacity: 0.14;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cpath d='M0 80c28-22 52-22 80 0s52 22 80 0' fill='none' stroke='%232f8f5b' stroke-opacity='0.09' stroke-width='1'/%3E%3Cpath d='M0 120c28-22 52-22 80 0s52 22 80 0' fill='none' stroke='%232f8f5b' stroke-opacity='0.05' stroke-width='1'/%3E%3Cpath d='M0 40c28-22 52-22 80 0s52 22 80 0' fill='none' stroke='%232f8f5b' stroke-opacity='0.05' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  mask-image: linear-gradient(
+    90deg,
+    black 0%,
+    transparent 28%,
+    transparent 72%,
+    black 100%
+  );
 }
 
 .site-nature {
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: min(42vw, 480px);
+  inset: 0;
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 90% 70% at 70% 25%, rgba(126, 190, 140, 0.28), transparent 60%),
-    radial-gradient(ellipse 80% 65% at 90% 70%, rgba(47, 143, 91, 0.14), transparent 55%),
-    linear-gradient(115deg, transparent 0%, rgba(190, 220, 195, 0.22) 45%, rgba(170, 210, 180, 0.3) 100%);
+    radial-gradient(ellipse 28% 42% at 0% 30%, rgba(126, 190, 140, 0.11), transparent 72%),
+    radial-gradient(ellipse 26% 40% at 100% 28%, rgba(126, 190, 140, 0.1), transparent 72%),
+    radial-gradient(ellipse 24% 34% at 100% 78%, rgba(47, 143, 91, 0.06), transparent 75%),
+    radial-gradient(ellipse 22% 32% at 0% 82%, rgba(47, 143, 91, 0.05), transparent 75%);
 }
 
 .site-nature::after {
@@ -112,14 +117,14 @@ a {
 
 @media (max-width: 767px) {
   .site-nature {
-    width: 100%;
     background:
-      radial-gradient(ellipse 100% 55% at 50% 0%, rgba(126, 190, 140, 0.2), transparent 60%);
+      radial-gradient(ellipse 70% 40% at 0% 10%, rgba(126, 190, 140, 0.1), transparent 70%),
+      radial-gradient(ellipse 70% 40% at 100% 8%, rgba(126, 190, 140, 0.09), transparent 70%);
   }
 
   .site-atmosphere::before {
-    opacity: 0.16;
-    mask-image: linear-gradient(180deg, black 0%, transparent 50%);
+    opacity: 0.1;
+    mask-image: linear-gradient(180deg, black 0%, transparent 42%);
   }
 }
 
