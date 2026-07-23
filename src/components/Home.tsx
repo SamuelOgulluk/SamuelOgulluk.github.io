@@ -10,7 +10,7 @@ const Home: React.FC = () => {
         {t.headerSubtitle}
       </p>
       <h1
-        className="animate-rise font-display text-[clamp(2.75rem,8vw,4.75rem)] font-semibold leading-[1.02] tracking-[-0.02em] text-ink"
+        className="animate-rise font-display text-[clamp(2.75rem,8vw,4.75rem)] font-bold leading-[1.02] tracking-[-0.03em] text-ink"
         style={{ animationDelay: '160ms' }}
       >
         {t.headerTitle}

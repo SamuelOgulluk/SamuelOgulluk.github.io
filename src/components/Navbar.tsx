@@ -25,7 +25,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
 
   return (
     <>
-      <header className="fixed top-0 inset-x-0 z-50 border-b border-line bg-[rgba(244,247,244,0.88)] backdrop-blur-md">
+      <header className="fixed top-0 inset-x-0 z-50 border-b border-line bg-[rgba(251,253,251,0.9)] backdrop-blur-md">
         <div className="mx-auto flex h-14 w-full max-w-5xl items-center justify-end gap-4 px-4 md:h-16 md:px-6 lg:justify-between">
           <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
             {navItems.map((item) => {
@@ -58,7 +58,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
       </header>
 
       <nav
-        className="fixed bottom-0 inset-x-0 z-50 border-t border-line bg-[rgba(244,247,244,0.94)] backdrop-blur-md lg:hidden"
+        className="fixed bottom-0 inset-x-0 z-50 border-t border-line bg-[rgba(251,253,251,0.95)] backdrop-blur-md lg:hidden"
         aria-label="Mobile"
       >
         <div className="flex h-14 items-stretch justify-between overflow-x-auto px-1">
