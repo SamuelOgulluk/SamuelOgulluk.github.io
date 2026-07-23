@@ -8,7 +8,7 @@ const Contact: React.FC = () => {
 
   return (
     <>
-      <p className="section-kicker">06</p>
+      <p className="section-kicker">05</p>
       <h2 className="section-title">{t.contact.title}</h2>
       <p className="max-w-xl text-base leading-relaxed text-soft md:text-lg">{t.contact.subtitle}</p>
 

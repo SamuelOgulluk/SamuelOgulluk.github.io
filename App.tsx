@@ -3,7 +3,6 @@ import type { Language, SectionId, TranslationContent } from './types';
 import { TRANSLATIONS } from './constants';
 import Navbar from './src/components/Navbar';
 import Home from './src/components/Home';
-import About from './src/components/About';
 import Skills from './src/components/Skills';
 import Experience from './src/components/Experience';
 import Projects from './src/components/Projects';
@@ -46,7 +45,7 @@ const App: React.FC = () => {
       { rootMargin: '-45% 0px -45% 0px' }
     );
 
-    const sections: SectionId[] = ['home', 'about', 'experience', 'education', 'skills', 'projects', 'contact'];
+    const sections: SectionId[] = ['home', 'experience', 'education', 'skills', 'projects', 'contact'];
     sections.forEach((id) => {
       const element = document.getElementById(id);
       if (element) observer.observe(element);
@@ -68,7 +67,6 @@ const App: React.FC = () => {
         <Navbar activeSection={activeSection} />
         <main className="site-main">
           <Home />
-          <AnimatedSection id="about"><About /></AnimatedSection>
           <AnimatedSection id="experience"><Experience /></AnimatedSection>
           <AnimatedSection id="education"><Education /></AnimatedSection>
           <AnimatedSection id="skills"><Skills /></AnimatedSection>

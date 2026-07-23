@@ -102,7 +102,7 @@ const Projects: React.FC = () => {
 
   return (
     <>
-      <p className="section-kicker">05</p>
+      <p className="section-kicker">04</p>
       <h2 className="section-title">{t.projects.title}</h2>
       <div>
         {t.projects.items.map((project, index) => (

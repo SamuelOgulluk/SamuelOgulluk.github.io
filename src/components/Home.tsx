@@ -16,10 +16,10 @@ const Home: React.FC = () => {
         {t.headerTitle}
       </h1>
       <p
-        className="animate-rise mt-6 max-w-xl text-lg leading-relaxed text-soft md:text-xl"
+        className="animate-rise mt-6 max-w-2xl text-lg leading-relaxed text-soft md:text-xl"
         style={{ animationDelay: '260ms' }}
       >
-        {t.home.intro}
+        {t.about.bio}
       </p>
       <div className="animate-rise mt-8 flex flex-wrap gap-3" style={{ animationDelay: '340ms' }}>
         <a href="#contact" className="btn btn-primary">

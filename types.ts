@@ -1,6 +1,6 @@
 export type Language = 'en' | 'fr';
 
-export type SectionId = 'home' | 'about' | 'skills' | 'education' | 'experience' | 'projects' | 'contact';
+export type SectionId = 'home' | 'skills' | 'education' | 'experience' | 'projects' | 'contact';
 
 export interface TranslationContent {
   headerTitle: string;

@@ -7,7 +7,7 @@ const Skills: React.FC = () => {
 
   return (
     <>
-      <p className="section-kicker">04</p>
+      <p className="section-kicker">03</p>
       <h2 className="section-title">{t.skills.title}</h2>
 
       <div className="space-y-10">
