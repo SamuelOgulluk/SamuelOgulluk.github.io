@@ -21,13 +21,7 @@ const Home: React.FC = () => {
       >
         {t.home.intro}
       </p>
-      <p
-        className="animate-rise mt-3 max-w-xl text-base leading-relaxed text-muted md:text-lg"
-        style={{ animationDelay: '340ms' }}
-      >
-        {t.home.paragraph1}
-      </p>
-      <div className="animate-rise mt-8 flex flex-wrap gap-3" style={{ animationDelay: '420ms' }}>
+      <div className="animate-rise mt-8 flex flex-wrap gap-3" style={{ animationDelay: '340ms' }}>
         <a href="#contact" className="btn btn-primary">
           {t.contact.emailText}
         </a>

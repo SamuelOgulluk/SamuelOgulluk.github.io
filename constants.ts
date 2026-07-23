@@ -156,7 +156,6 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     home: {
       greeting: "Welcome.",
       intro: "Graduate student in electronic engineering, computer science, and applied mathematics — focused on robotics.",
-      paragraph1: "I work where algorithms meet physical systems: sensing, control, and computation under real constraints.",
     },
     about: {
       title: "About",
@@ -248,7 +247,6 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     home: {
       greeting: "Bienvenue.",
       intro: "Étudiant en ingénierie électronique, informatique et mathématiques appliquées — orienté robotique.",
-      paragraph1: "Je travaille à l'intersection des algorithmes et des systèmes physiques : perception, contrôle et calcul sous contraintes réelles.",
     },
     about: {
       title: "À propos",

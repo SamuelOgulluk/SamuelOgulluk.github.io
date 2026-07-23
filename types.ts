@@ -17,7 +17,6 @@ export interface TranslationContent {
   home: {
     greeting: string;
     intro: string;
-    paragraph1: string;
   };
   about: {
     title: string;
