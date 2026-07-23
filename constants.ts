@@ -93,7 +93,7 @@ const PROJECTS_EN: Project[] = [
 const PROJECTS_FR: Project[] = [
     {
       title: "Otty",
-      description: "DAW locale (station de travail audio) en Tauri 2, React et Web Audio : arrangement, piano roll, instruments, effets et mixer.",
+      description: "J'ai conçu Otty, une DAW locale (Tauri 2, React, Web Audio) avec arrangement, piano roll, instruments, effets et mixer.",
       imageUrl: "/assets/otty.svg",
       siteUrl: "https://samuelogulluk.github.io/otty/",
       githubUrl: "https://github.com/SamuelOgulluk/otty",
@@ -106,7 +106,7 @@ const PROJECTS_FR: Project[] = [
     },
     {
       title: "Site Web Portfolio",
-      description: "Site personnel en React et TypeScript : contenu bilingue, mise en page responsive et présentation des projets.",
+      description: "J'ai développé ce site personnel en React et TypeScript, bilingue et responsive, pour présenter mon parcours et mes projets.",
       videoUrl: "/assets/Video_site.mp4",
       githubUrl: "https://github.com/SamuelOgulluk/SamuelOgulluk.github.io",
       technologies: [
@@ -118,7 +118,7 @@ const PROJECTS_FR: Project[] = [
     },
     {
       title: "Otternet",
-      description: "Bibliothèque en C pour le machine learning et la data science, pensée pour rester simple tout en restant efficace.",
+      description: "J'ai écrit Otternet, une bibliothèque en C pour le machine learning et la data science, pensée pour rester simple et efficace.",
       imageUrl: "/assets/otternet-logo.svg",
       githubUrl: "https://github.com/OgullukSamuel/Otternet",
       technologies: [
@@ -129,7 +129,7 @@ const PROJECTS_FR: Project[] = [
     },
     {
       title: "Jeu des 7 couleurs",
-      description: "Implémentation en C du jeu des 7 couleurs avec SDL2, et des adversaires IA basés sur Minimax et Monte Carlo Tree Search.",
+      description: "J'ai implémenté le jeu des 7 couleurs en C avec SDL2, et des adversaires IA basés sur Minimax et Monte Carlo Tree Search.",
       imageUrl: "/assets/7color.png",
       githubUrl: "https://github.com/OgullukSamuel/7Colors",
        technologies: [
@@ -246,11 +246,11 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
     home: {
       greeting: "Bienvenue.",
-      intro: "Étudiant en ingénierie électronique, informatique et mathématiques appliquées.",
+      intro: "Je suis étudiant en ingénierie électronique, informatique et mathématiques appliquées.",
     },
     about: {
       title: "À propos",
-      bio: "Élève à l'ENS Paris-Saclay en ingénierie électronique et numérique, je m'intéresse surtout au traitement du signal et aux algorithmes appliqués. N'hésitez pas à me contacter pour un stage ou une collaboration.",
+      bio: "Je suis élève à l'ENS Paris-Saclay en ingénierie électronique et numérique, et je m'intéresse surtout au traitement du signal et aux algorithmes appliqués. N'hésitez pas à me contacter pour un stage ou une collaboration.",
       downloadCV: "Télécharger le CV",
     },
      skills: {
@@ -265,7 +265,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
           degree: "Master en sciences pour l'ingénieur électronique et numérique",
           institution: "École Normale Supérieure Paris-Saclay, Paris",
           duration: "2025 - Présent",
-          description: "Élève fonctionnaire-stagiaire au département d'ingénierie électronique et numérique. Enseignements notamment en architecture des microprocesseurs, informatique, traitement du signal et de l'image, physique et IA.",
+          description: "Je suis élève fonctionnaire-stagiaire au département d'ingénierie électronique et numérique. J'y suis formé notamment en architecture des microprocesseurs, informatique, traitement du signal et de l'image, physique et IA.",
           institutionLink: "https://ens-paris-saclay.fr/",
           icon: 'ens_ps.svg',
           isIconMultiColor: true,
@@ -274,7 +274,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
           degree: "Licence en ingénierie mécanique (Mention très bien) & Licence en ingénierie électronique (Mention bien)",
           institution: "École Normale Supérieure de Rennes, Rennes",
           duration: "2024 - 2025",
-          description: "Élève fonctionnaire-stagiaire en mécatronique. Au programme notamment : mécanique des milieux continus et du solide, dessin technique, CAO 3D et électronique analogique.",
+          description: "J'étais élève fonctionnaire-stagiaire en mécatronique. J'y ai suivi notamment de la mécanique des milieux continus et du solide, du dessin technique, de la CAO 3D et de l'électronique analogique.",
           institutionLink: "https://www.ens-rennes.fr/",
           icon: 'ens-rennes.svg',
           isIconMultiColor: true,
@@ -283,7 +283,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
           degree: "Classe préparatoire aux grandes écoles d'ingénieurs",
           institution: "Lycée Hoche, Versailles",
           duration: "2022 - 2024",
-          description: "Filière PCSI puis PSI* — formation intensive en mathématiques, physique et sciences de l'ingénieur.",
+          description: "J'ai fait PCSI puis PSI* — une formation intensive en mathématiques, physique et sciences de l'ingénieur.",
           institutionLink: "https://fr.wikipedia.org/wiki/Lyc%C3%A9e_Hoche",
           icon: 'hoche.svg',
           isIconMultiColor: true,
@@ -306,7 +306,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
           role: "Stage",
           company: "CERN, Meyrin, Suisse",
           duration: "Juin-Juillet 2025",
-          description: "Au département BEAMS, j'ai contribué au projet FCC (Future Circular Collider) : développement et comparaison d'algorithmes d'estimation de pose pour la robotique, montage d'un banc d'essai dédié, et tests de robustesse en conditions exigeantes. J'ai aussi suivi les cours d'été sur la physique des particules, la physique expérimentale et l'informatique.",
+          description: "Au département BEAMS, j'ai contribué au projet FCC (Future Circular Collider). J'ai développé et comparé des algorithmes d'estimation de pose pour la robotique, monté un banc d'essai dédié, et testé leur robustesse en conditions exigeantes. J'ai aussi suivi les cours d'été sur la physique des particules, la physique expérimentale et l'informatique.",
           icon: 'cern.svg',
           isIconMultiColor: true,
           institutionLink: "https://home.cern/",
@@ -319,7 +319,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
      contact: {
       title: "Contact",
-      subtitle: "N'hésitez pas à m'écrire — avec plaisir d'échanger.",
+      subtitle: "N'hésitez pas à m'écrire — j'ai plaisir à échanger.",
       emailText: "M'écrire"
     }
   },
