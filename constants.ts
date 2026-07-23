@@ -32,6 +32,7 @@ const LANGUAGES_DATA: SkillDetails[] = [
     ]
   },
   { name: 'ARM assembler', link: 'https://en.wikipedia.org/wiki/ARM_architecture', icon: 'ARM_powered_Badge.svg' },
+  { name: 'VHDL/Verilog', link: 'https://en.wikipedia.org/wiki/VHDL', icon: 'vhdl-verilog.svg' },
 
   { name: 'HTML', link: 'https://en.wikipedia.org/wiki/HTML', icon: 'html5.svg' },
   { name: 'CSS', link: 'https://en.wikipedia.org/wiki/CSS', icon: 'CSS3.svg' },
