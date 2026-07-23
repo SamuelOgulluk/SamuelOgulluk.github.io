@@ -4,10 +4,8 @@ import Icon from './Icon';
 import type { Project } from '@/types';
 
 const ProjectBlock: React.FC<{ project: Project; index: number }> = ({ project, index }) => {
-  const { language } = useLanguage();
   const primaryUrl = project.siteUrl || project.githubUrl;
   const hasSite = Boolean(project.siteUrl);
-  const siteLabel = language === 'fr' ? 'Site →' : 'Site →';
 
   return (
     <article className="border-t border-line py-8 first:border-t-0 first:pt-0">
