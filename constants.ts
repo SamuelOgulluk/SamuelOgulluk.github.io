@@ -274,7 +274,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
           degree: "Licence en ingénierie mécanique (Mention très bien) & Licence en ingénierie électronique (Mention bien)",
           institution: "École Normale Supérieure de Rennes, Rennes",
           duration: "2024 - 2025",
-          description: "Élève fonctionnaire-stagiaire au département de mécatronique. Enseignements notamment en mécanique des milieux continus, mécanique du solide, dessin technique, CAO 3D et électronique analogique.",
+          description: "Élève fonctionnaire-stagiaire en mécatronique. Au programme notamment : mécanique des milieux continus et du solide, dessin technique, CAO 3D et électronique analogique.",
           institutionLink: "https://www.ens-rennes.fr/",
           icon: 'ens-rennes.svg',
           isIconMultiColor: true,
