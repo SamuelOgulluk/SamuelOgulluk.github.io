@@ -26,14 +26,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
   return (
     <>
       <header className="fixed top-0 inset-x-0 z-50 border-b border-line bg-[rgba(15,23,22,0.78)] backdrop-blur-md">
-        <div className="mx-auto flex h-14 w-full max-w-5xl items-center justify-between gap-4 px-4 md:h-16 md:px-6">
-          <a
-            href="#home"
-            className="font-display text-lg font-bold tracking-tight text-ink transition-colors hover:text-accent"
-          >
-            Samuel<span className="text-accent">.</span>
-          </a>
-
+        <div className="mx-auto flex h-14 w-full max-w-5xl items-center justify-end gap-4 px-4 md:h-16 md:px-6 lg:justify-between">
           <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
             {navItems.map((item) => {
               const isActive = activeSection === item.id;
