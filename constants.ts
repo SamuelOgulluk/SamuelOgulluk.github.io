@@ -159,7 +159,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
     about: {
       title: "About",
-      bio: "I am a student at ENS Paris-Saclay, training for a research career in electrical engineering, computer science and applied mathematics. I am especially interested in signal processing and the theoretical side of machine learning. I am open to research internships and collaborations.",
+      bio: "As a student at École Normale Supérieure Paris-Saclay, I aim to become a researcher at the intersection of electrical engineering, computer science and applied mathematics. I am particularly interested in machine learning, both from theoretical and practical perspectives. Feel free to reach out for any collaboration.",
       downloadCV: "Download CV",
     },
     skills: {
