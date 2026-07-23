@@ -129,7 +129,7 @@ const PROJECTS_FR: Project[] = [
     },
     {
       title: "Jeu des 7 couleurs",
-      description: "Le classique jeu des 7 couleurs implémenté en C utilisant la bibliothèque SDL2 avec différents adversaires IA incluant les algorithmes Minimax et Monte Carlo Tree Search.",
+      description: "Implémentation en C du jeu des 7 couleurs avec SDL2, et des adversaires IA basés sur Minimax et Monte Carlo Tree Search.",
       imageUrl: "/assets/7color.png",
       githubUrl: "https://github.com/OgullukSamuel/7Colors",
        technologies: [
