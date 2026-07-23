@@ -234,7 +234,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
   },
   fr: {
     headerTitle: "Samuel Ogulluk",
-    headerSubtitle: "Génie électrique, informatique et mathématiques appliquées",
+    headerSubtitle: "Étudiant-chercheur · EE, info & maths appliquées",
     nav: {
       home: "Accueil",
       about: "À Propos",
@@ -246,11 +246,11 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
     home: {
       greeting: "Bienvenue.",
-      intro: "J'étudie le génie électrique, l'informatique et les mathématiques appliquées.",
+      intro: "Je suis étudiant, en formation pour devenir chercheur, à l'intersection du génie électrique, de l'informatique et des mathématiques appliquées.",
     },
     about: {
       title: "À propos",
-      bio: "J'étudie le génie électrique, l'informatique et les mathématiques appliquées à l'ENS Paris-Saclay. Je m'intéresse surtout au traitement du signal et aux algorithmes appliqués. N'hésitez pas à me contacter pour un stage ou une collaboration.",
+      bio: "Je suis élève à l'ENS Paris-Saclay, et je me destine à la recherche en génie électrique, informatique et mathématiques appliquées. Je m'intéresse surtout au traitement du signal et aux algorithmes appliqués. N'hésitez pas à me contacter pour un stage de recherche ou une collaboration.",
       downloadCV: "Télécharger le CV",
     },
      skills: {
@@ -303,10 +303,10 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
           institutionLink: "https://ethz.ch/",
         },
         {
-          role: "Stage",
+          role: "Stage de recherche",
           company: "CERN, Meyrin, Suisse",
           duration: "Juin-Juillet 2025",
-          description: "Au département BEAMS, j'ai contribué au projet FCC (Future Circular Collider). J'ai développé et comparé des algorithmes d'estimation de pose pour la robotique, monté un banc d'essai dédié, et testé leur robustesse en conditions exigeantes. J'ai aussi suivi les cours d'été sur la physique des particules, la physique expérimentale et l'informatique.",
+          description: "Au département BEAMS, j'ai contribué à la recherche sur le projet FCC (Future Circular Collider). J'ai développé et comparé des algorithmes d'estimation de pose pour la robotique, monté un banc d'essai dédié, et testé leur robustesse en conditions exigeantes. J'ai aussi suivi les cours d'été sur la physique des particules, la physique expérimentale et l'informatique.",
           icon: 'cern.svg',
           isIconMultiColor: true,
           institutionLink: "https://home.cern/",
