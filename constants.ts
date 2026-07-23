@@ -228,7 +228,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
     contact: {
       title: "Contact",
-      subtitle: "For internships, research, or collaborations — write anytime.",
+      subtitle: "Feel free to reach out — happy to chat.",
       emailText: "Email me"
     }
   },
@@ -319,7 +319,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
      contact: {
       title: "Contact",
-      subtitle: "Pour un stage, un projet de recherche ou une collaboration — écrivez-moi.",
+      subtitle: "N'hésitez pas à m'écrire — avec plaisir d'échanger.",
       emailText: "M'écrire"
     }
   },
