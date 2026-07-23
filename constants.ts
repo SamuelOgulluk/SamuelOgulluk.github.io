@@ -297,7 +297,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
           role: "Stage de recherche",
           company: "ETH Zurich, Zurich, Suisse",
           duration: "2026",
-          description: "Travail sur les réseaux de neurones récurrents et leur interprétabilité, au travers du test d'algorithmes d'apprentissage exacts. Démonstration de la PP-complétude de l'apprentissage par des réseaux de neurones récurrents sur un nombre d'itérations polynomial en la taille de l'entrée.",
+          description: "J'ai travaillé sur les réseaux de neurones récurrents et leur interprétabilité, en testant des algorithmes d'apprentissage exacts. J'ai montré que cet apprentissage est PP-complet lorsque le nombre d'itérations est polynomial en la taille de l'entrée.",
           icon: 'ethz.svg',
           isIconMultiColor: true,
           institutionLink: "https://ethz.ch/",
