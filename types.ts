@@ -92,5 +92,6 @@ export interface Project {
   imageUrl?: string;
   videoUrl?: string;
   githubUrl: string;
+  siteUrl?: string;
   technologies: SkillDetails[];
 }

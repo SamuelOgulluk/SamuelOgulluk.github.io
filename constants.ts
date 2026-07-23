@@ -43,6 +43,19 @@ const LANGUAGES_DATA: SkillDetails[] = [
 
 const PROJECTS_EN: Project[] = [
   {
+    title: "Otty",
+    description: "Local digital audio workstation (DAW) built with Tauri 2, React and Web Audio: arrangement, piano roll, instruments, effects and mixer.",
+    imageUrl: "/assets/otty.svg",
+    siteUrl: "https://samuelogulluk.github.io/otty/",
+    githubUrl: "https://github.com/SamuelOgulluk/otty",
+    technologies: [
+      LANGUAGES_DATA.find(l => l.name === 'TypeScript'),
+      LANGUAGES_DATA.find(l => l.name === 'HTML'),
+      LANGUAGES_DATA.find(l => l.name === 'CSS'),
+      LANGUAGES_DATA.find(l => l.name === 'Git'),
+    ].filter(Boolean) as SkillDetails[],
+  },
+  {
     title: "Portfolio Website",
     description: "Personal portfolio built with React and TypeScript: bilingual content, responsive layout, and project showcases.",
     videoUrl: "/assets/Video_site.mp4",
@@ -78,6 +91,19 @@ const PROJECTS_EN: Project[] = [
 ];
 
 const PROJECTS_FR: Project[] = [
+    {
+      title: "Otty",
+      description: "DAW locale (station de travail audio) en Tauri 2, React et Web Audio : arrangement, piano roll, instruments, effets et mixer.",
+      imageUrl: "/assets/otty.svg",
+      siteUrl: "https://samuelogulluk.github.io/otty/",
+      githubUrl: "https://github.com/SamuelOgulluk/otty",
+      technologies: [
+        LANGUAGES_DATA.find(l => l.name === 'TypeScript'),
+        LANGUAGES_DATA.find(l => l.name === 'HTML'),
+        LANGUAGES_DATA.find(l => l.name === 'CSS'),
+        LANGUAGES_DATA.find(l => l.name === 'Git'),
+      ].filter(Boolean) as SkillDetails[],
+    },
     {
       title: "Site Web Portfolio",
       description: "Site personnel en React et TypeScript : contenu bilingue, mise en page responsive et présentation des projets.",
