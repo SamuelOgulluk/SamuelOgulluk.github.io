@@ -160,7 +160,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
     about: {
       title: "About",
-      bio: "I study electronic and digital engineering at ENS Paris-Saclay, with parallel work in physics at Sorbonne. My interests sit between robotics, signal processing, and applied algorithms. Open to internships and collaborations.",
+      bio: "I study electronic and digital engineering at ENS Paris-Saclay. My interests sit between robotics, signal processing, and applied algorithms. Open to internships and collaborations.",
       downloadCV: "Download CV",
     },
     skills: {
@@ -178,15 +178,6 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
           description: "Department of Electronic and Digital Engineering - Student civil servant. The key courses included: Microprocessors architecture, Computer science, Signal & Image Processing, Physics, AI.",
           institutionLink: "https://ens-paris-saclay.fr/",
           icon: 'ens_ps.svg',
-          isIconMultiColor: true,
-        },
-        {
-          degree: "BSc in Theoretical Physics",
-          institution: "Sorbonne Université, Paris",
-          duration: "2025 - Present",
-          description: "The key courses included: Quantum Physics, Complex Analysis, Mechanics of Materials.",
-          institutionLink: "https://www.sorbonne-universite.fr/",
-          icon: 'sorbonne_universite_logo.svg',
           isIconMultiColor: true,
         },
         {
@@ -261,7 +252,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
     about: {
       title: "À propos",
-      bio: "Je suis élève à l'ENS Paris-Saclay en ingénierie électronique et numérique, et j'étudie aussi la physique à Sorbonne Université. Mes intérêts se situent entre robotique, traitement du signal et algorithmes appliqués. Ouvert aux stages et collaborations.",
+      bio: "Je suis élève à l'ENS Paris-Saclay en ingénierie électronique et numérique. Mes intérêts se situent entre robotique, traitement du signal et algorithmes appliqués. Ouvert aux stages et collaborations.",
       downloadCV: "Télécharger le CV",
     },
      skills: {
@@ -279,15 +270,6 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
           description: "Département d'Ingénierie Électronique et Numérique - Élève fonctionnaire-stagiaire. Cours clés : Architecture des microprocesseurs, Informatique, Traitement du signal et de l'image, Physique, IA.",
           institutionLink: "https://ens-paris-saclay.fr/",
           icon: 'ens_ps.svg',
-          isIconMultiColor: true,
-        },
-        {
-          degree: "Licence de physique fondamentale",
-          institution: "Sorbonne Université, Paris",
-          duration: "2025 - Présent",
-          description: "Cours clés : Physique quantique, Analyse complexe, Mécanique des matériaux.",
-          institutionLink: "https://www.sorbonne-universite.fr/",
-          icon: 'sorbonne_universite_logo.svg',
           isIconMultiColor: true,
         },
         {
