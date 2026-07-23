@@ -6,7 +6,10 @@ const Home: React.FC = () => {
 
   return (
     <section id="home" className="flex min-h-[calc(100vh-5.5rem)] flex-col justify-center pb-10 pt-6">
-      <p className="section-kicker animate-rise" style={{ animationDelay: '60ms' }}>
+      <p
+        className="animate-rise mb-2 max-w-3xl text-[0.95rem] font-semibold leading-snug tracking-normal text-accent normal-case"
+        style={{ animationDelay: '60ms' }}
+      >
         {t.headerSubtitle}
       </p>
       <h1

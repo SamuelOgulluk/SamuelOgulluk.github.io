@@ -143,7 +143,7 @@ const PROJECTS_FR: Project[] = [
 export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = {
   en: {
     headerTitle: "Samuel Ogulluk",
-    headerSubtitle: "Aspiring researcher · EE, CS & applied mathematics",
+    headerSubtitle: "Aspiring researcher in electrical engineering, computer science and applied mathematics",
     nav: {
       home: "Home",
       about: "About",
@@ -234,7 +234,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
   },
   fr: {
     headerTitle: "Samuel Ogulluk",
-    headerSubtitle: "Étudiant-chercheur · EE, info & maths appliquées",
+    headerSubtitle: "Étudiant-chercheur en ingénierie électronique, informatique et en mathématiques appliquées",
     nav: {
       home: "Accueil",
       about: "À Propos",
