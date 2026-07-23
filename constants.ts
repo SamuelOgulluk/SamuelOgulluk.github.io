@@ -118,7 +118,7 @@ const PROJECTS_FR: Project[] = [
     },
     {
       title: "Otternet",
-      description: "Une librairie en C spécialisée dans l'apprentissage automatique et la science des données, conçue pour être efficace et facile à utiliser.",
+      description: "Bibliothèque en C pour le machine learning et la data science, pensée pour rester simple tout en restant efficace.",
       imageUrl: "/assets/otternet-logo.svg",
       githubUrl: "https://github.com/OgullukSamuel/Otternet",
       technologies: [
