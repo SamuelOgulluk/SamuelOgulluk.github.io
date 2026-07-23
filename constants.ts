@@ -143,7 +143,7 @@ const PROJECTS_FR: Project[] = [
 export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = {
   en: {
     headerTitle: "Samuel Ogulluk",
-    headerSubtitle: "Electronic & IT Engineering Student",
+    headerSubtitle: "Electrical Engineering, CS & Applied Mathematics",
     nav: {
       home: "Home",
       about: "About",
@@ -155,11 +155,11 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
     home: {
       greeting: "Welcome.",
-      intro: "I am a graduate student in electronic engineering, computer science, and applied mathematics.",
+      intro: "I study electrical engineering, computer science and applied mathematics.",
     },
     about: {
       title: "About",
-      bio: "I am a graduate student in electronic and digital engineering at ENS Paris-Saclay. I focus mainly on signal processing and applied algorithms, and I am open to internships and collaborations.",
+      bio: "I study electrical engineering, computer science and applied mathematics at ENS Paris-Saclay. I focus mainly on signal processing and applied algorithms, and I am open to internships and collaborations.",
       downloadCV: "Download CV",
     },
     skills: {
@@ -234,7 +234,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
   },
   fr: {
     headerTitle: "Samuel Ogulluk",
-    headerSubtitle: "Étudiant en Électronique et Informatique",
+    headerSubtitle: "Génie électrique, informatique et mathématiques appliquées",
     nav: {
       home: "Accueil",
       about: "À Propos",
@@ -246,11 +246,11 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
     home: {
       greeting: "Bienvenue.",
-      intro: "Je suis étudiant en ingénierie électronique, informatique et mathématiques appliquées.",
+      intro: "J'étudie le génie électrique, l'informatique et les mathématiques appliquées.",
     },
     about: {
       title: "À propos",
-      bio: "Je suis élève à l'ENS Paris-Saclay en ingénierie électronique et numérique, et je m'intéresse surtout au traitement du signal et aux algorithmes appliqués. N'hésitez pas à me contacter pour un stage ou une collaboration.",
+      bio: "J'étudie le génie électrique, l'informatique et les mathématiques appliquées à l'ENS Paris-Saclay. Je m'intéresse surtout au traitement du signal et aux algorithmes appliqués. N'hésitez pas à me contacter pour un stage ou une collaboration.",
       downloadCV: "Télécharger le CV",
     },
      skills: {
