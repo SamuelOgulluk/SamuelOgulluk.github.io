@@ -7,15 +7,15 @@ const ExperienceRow: React.FC<{ item: ExperienceItem }> = ({ item }) => {
     <article className="grid gap-4 border-t border-line py-8 first:border-t-0 first:pt-0 md:grid-cols-[7.5rem_1fr] md:gap-8">
       <div className="text-sm font-medium text-muted md:pt-1">{item.duration}</div>
       <div>
-        <div className="mb-3 flex items-start gap-4">
+        <div className="mb-4 flex items-start gap-5">
           <a
             href={item.institutionLink}
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`${item.company} website`}
-            className="logo-tile flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden border"
+            className="logo-tile flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden border md:h-32 md:w-32"
           >
-            <img src={`/assets/${item.icon}`} alt="" className="h-full w-full object-contain p-1.5" />
+            <img src={`/assets/${item.icon}`} alt="" className="h-full w-full object-contain p-2 md:p-3" />
           </a>
           <div>
             <h3 className="font-display text-xl font-bold tracking-tight text-ink">{item.role}</h3>
