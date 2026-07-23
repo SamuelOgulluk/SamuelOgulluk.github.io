@@ -187,6 +187,15 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
       title: "Work Experience",
       items: [
         {
+          role: "Research internship",
+          company: "ETH Zurich, Zurich, Switzerland",
+          duration: "2026",
+          description: "Worked on recurrent neural networks and their interpretability by testing exact learning algorithms. Demonstrated the PP-completeness of learning with recurrent neural networks over a number of iterations polynomial in the input size.",
+          icon: 'ethz.svg',
+          isIconMultiColor: true,
+          institutionLink: "https://ethz.ch/",
+        },
+        {
           role: "Internship",
           company: "CERN, Meyrin, Switzerland",
           duration: "June-July 2025",
@@ -278,7 +287,16 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     experience: {
       title: "Expérience Professionnelle",
       items: [
-         {
+        {
+          role: "Stage de recherche",
+          company: "ETH Zurich, Zurich, Suisse",
+          duration: "2026",
+          description: "Travail sur les réseaux de neurones récurrents et leur interprétabilité, au travers du test d'algorithmes d'apprentissage exacts. Démonstration de la PP-complétude de l'apprentissage par des réseaux de neurones récurrents sur un nombre d'itérations polynomial en la taille de l'entrée.",
+          icon: 'ethz.svg',
+          isIconMultiColor: true,
+          institutionLink: "https://ethz.ch/",
+        },
+        {
           role: "Stage",
           company: "CERN, Meyrin, Suisse",
           duration: "Juin-Juillet 2025",
