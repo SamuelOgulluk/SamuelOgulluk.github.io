@@ -120,21 +120,21 @@ const PROJECTS_FR: Project[] = [
     {
       title: "Otternet",
       description: "J'ai écrit Otternet, une bibliothèque en C pour le machine learning et la data science, pensée pour rester simple et efficace.",
-      imageUrl: "/assets/otternet-logo.svg",
-      githubUrl: "https://github.com/OgullukSamuel/Otternet",
+      imageUrl: "/assets/otternet-logo.png",
+      githubUrl: "https://github.com/SamuelOgulluk/Otternet",
       technologies: [
+        LANGUAGES_DATA.find(l => l.name === 'C'),
         LANGUAGES_DATA.find(l => l.name === 'Python'),
-        LANGUAGES_DATA.find(l => l.name === 'HTML'),
-        LANGUAGES_DATA.find(l => l.name === 'CSS'),
+        LANGUAGES_DATA.find(l => l.name === 'Git'),
       ].filter(Boolean) as SkillDetails[],
     },
     {
       title: "Jeu des 7 couleurs",
       description: "J'ai implémenté le jeu des 7 couleurs en C avec SDL2, et des adversaires IA basés sur Minimax et Monte Carlo Tree Search.",
       imageUrl: "/assets/7color.png",
-      githubUrl: "https://github.com/OgullukSamuel/7Colors",
-       technologies: [
-        LANGUAGES_DATA.find(l => l.name === 'C++'),
+      githubUrl: "https://github.com/SamuelOgulluk/7Colors",
+      technologies: [
+        LANGUAGES_DATA.find(l => l.name === 'C'),
         LANGUAGES_DATA.find(l => l.name === 'Git'),
       ].filter(Boolean) as SkillDetails[],
     },

@@ -20,11 +20,11 @@ const LanguageContext = createContext<LanguageContextType | null>(null);
 
 export const useLanguage = (): LanguageContextType => {
   const context = useContext(LanguageContext);
-  if (!context) {
-    throw new Error('useLanguage must be used within a LanguageProvider');
-  }
+  if (!context) throw new Error('useLanguage must be used within a LanguageProvider');
   return context;
 };
+
+const SECTIONS: SectionId[] = ['home', 'experience', 'education', 'skills', 'projects', 'contact'];
 
 const App: React.FC = () => {
   const [language, setLanguage] = useState<Language>('en');
@@ -34,29 +34,25 @@ const App: React.FC = () => {
   const languageContextValue = useMemo(() => ({ language, setLanguage, t }), [language, t]);
 
   useEffect(() => {
+    document.documentElement.lang = language;
+  }, [language]);
+
+  useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id as SectionId);
-          }
-        });
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActiveSection(entry.target.id as SectionId);
+        }
       },
       { rootMargin: '-45% 0px -45% 0px' }
     );
 
-    const sections: SectionId[] = ['home', 'experience', 'education', 'skills', 'projects', 'contact'];
-    sections.forEach((id) => {
+    for (const id of SECTIONS) {
       const element = document.getElementById(id);
       if (element) observer.observe(element);
-    });
+    }
 
-    return () => {
-      sections.forEach((id) => {
-        const element = document.getElementById(id);
-        if (element) observer.unobserve(element);
-      });
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (

@@ -27,6 +27,8 @@ const Skills: React.FC = () => {
                   <img
                     src={`/assets/${skill.icon}`}
                     alt=""
+                    loading="lazy"
+                    decoding="async"
                     className="h-7 w-7 object-contain opacity-90"
                   />
                   <span className="text-sm font-medium md:text-[0.95rem]">{skill.name}</span>
@@ -70,6 +72,8 @@ const Skills: React.FC = () => {
                   <img
                     src={`/assets/${software.icon}`}
                     alt=""
+                    loading="lazy"
+                    decoding="async"
                     className="h-7 w-7 object-contain opacity-90"
                     style={{ transform: `scale(${software.scale || 1})` }}
                   />
