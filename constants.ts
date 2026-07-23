@@ -143,7 +143,7 @@ const PROJECTS_FR: Project[] = [
 export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = {
   en: {
     headerTitle: "Samuel Ogulluk",
-    headerSubtitle: "Electrical Engineering, CS & Applied Mathematics",
+    headerSubtitle: "Aspiring researcher · EE, CS & applied mathematics",
     nav: {
       home: "Home",
       about: "About",
@@ -155,11 +155,11 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
     home: {
       greeting: "Welcome.",
-      intro: "I study electrical engineering, computer science and applied mathematics.",
+      intro: "I am a student training for a research career, working at the intersection of electrical engineering, computer science and applied mathematics.",
     },
     about: {
       title: "About",
-      bio: "I study electrical engineering, computer science and applied mathematics at ENS Paris-Saclay. I focus mainly on signal processing and applied algorithms, and I am open to internships and collaborations.",
+      bio: "I am a student at ENS Paris-Saclay, training for a research career in electrical engineering, computer science and applied mathematics. I am especially interested in signal processing and the theoretical side of machine learning. I am open to research internships and collaborations.",
       downloadCV: "Download CV",
     },
     skills: {
@@ -212,10 +212,10 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
           institutionLink: "https://ethz.ch/",
         },
         {
-          role: "Internship",
+          role: "Research internship",
           company: "CERN, Meyrin, Switzerland",
           duration: "June-July 2025",
-          description: "In the BEAMS department, I contributed to the FCC (Future Circular Collider) project. I developed and compared robotic pose estimation algorithms, built a dedicated testbed, and tested robustness under demanding conditions. I also attended Summer Student lectures on particle physics, experimental physics and computer science.",
+          description: "In the BEAMS department, I contributed to research on the FCC (Future Circular Collider) project. I developed and compared robotic pose estimation algorithms, built a dedicated testbed, and tested robustness under demanding conditions. I also attended Summer Student lectures on particle physics, experimental physics and computer science.",
           icon: 'cern.svg',
           isIconMultiColor: true,
           institutionLink: "https://home.cern/",
@@ -228,7 +228,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
     contact: {
       title: "Contact",
-      subtitle: "Feel free to reach out — I am happy to chat.",
+      subtitle: "Feel free to reach out — I am always glad to discuss research ideas.",
       emailText: "Email me"
     }
   },
@@ -250,7 +250,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
     about: {
       title: "À propos",
-      bio: "Je suis élève à l'ENS Paris-Saclay, et je me destine à la recherche en génie électrique, informatique et mathématiques appliquées. Je m'intéresse surtout au traitement du signal et aux algorithmes appliqués. N'hésitez pas à me contacter pour un stage de recherche ou une collaboration.",
+      bio: "Je suis élève à l'ENS Paris-Saclay, et je me destine à la recherche en génie électrique, informatique et mathématiques appliquées. Je m'intéresse surtout au traitement du signal et aux aspects théoriques de l'apprentissage automatique. N'hésitez pas à me contacter pour un stage de recherche ou une collaboration.",
       downloadCV: "Télécharger le CV",
     },
      skills: {
@@ -319,7 +319,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
      contact: {
       title: "Contact",
-      subtitle: "N'hésitez pas à m'écrire — j'ai plaisir à échanger.",
+      subtitle: "N'hésitez pas à m'écrire — j'aime échanger autour de la recherche.",
       emailText: "M'écrire"
     }
   },
