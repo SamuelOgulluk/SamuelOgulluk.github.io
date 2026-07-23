@@ -6,22 +6,22 @@ const Home: React.FC = () => {
 
   return (
     <section id="home" className="flex min-h-[calc(100vh-5.5rem)] flex-col justify-center pb-10 pt-6">
-      <p className="section-kicker animate-rise" style={{ animationDelay: '80ms' }}>
+      <p className="section-kicker animate-rise" style={{ animationDelay: '60ms' }}>
         {t.headerSubtitle}
       </p>
       <h1
         className="animate-rise font-display text-[clamp(2.75rem,8vw,4.75rem)] font-bold leading-[1.02] tracking-[-0.03em] text-ink"
-        style={{ animationDelay: '160ms' }}
+        style={{ animationDelay: '120ms' }}
       >
         {t.headerTitle}
       </h1>
       <p
         className="animate-rise mt-6 max-w-2xl text-lg leading-relaxed text-soft md:text-xl"
-        style={{ animationDelay: '260ms' }}
+        style={{ animationDelay: '200ms' }}
       >
         {t.about.bio}
       </p>
-      <div className="animate-rise mt-8 flex flex-wrap gap-3" style={{ animationDelay: '340ms' }}>
+      <div className="animate-rise mt-8 flex flex-wrap gap-3" style={{ animationDelay: '280ms' }}>
         <a href="#contact" className="btn btn-primary">
           {t.contact.emailText}
         </a>
