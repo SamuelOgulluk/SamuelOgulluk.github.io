@@ -4,28 +4,26 @@ import type { ExperienceItem } from '@/types';
 
 const ExperienceRow: React.FC<{ item: ExperienceItem }> = ({ item }) => {
   return (
-    <article className="grid gap-4 border-t border-line py-8 first:border-t-0 first:pt-0 md:grid-cols-[7.5rem_1fr] md:gap-8">
-      <div className="text-sm font-medium text-muted md:pt-1">{item.duration}</div>
-      <div>
-        <div className="mb-4 flex items-start gap-5">
-          <a
-            href={item.institutionLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${item.company} website`}
-            className="logo-tile flex h-20 w-44 shrink-0 items-center justify-center overflow-hidden border md:h-24 md:w-56"
-          >
-            <img src={`/assets/${item.icon}`} alt="" className="h-full w-full object-contain p-3 md:p-4" />
-          </a>
-          <div>
-            <h3 className="font-display text-xl font-bold tracking-tight text-ink">{item.role}</h3>
-            <p className="mt-0.5 text-sm font-medium text-accent">{item.company}</p>
-          </div>
+    <article className="border-t border-line py-8 first:border-t-0 first:pt-0">
+      <div className="mb-4 flex items-start gap-4 md:gap-5">
+        <a
+          href={item.institutionLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${item.company} website`}
+          className="logo-tile flex h-20 w-40 shrink-0 items-center justify-center overflow-hidden border md:h-24 md:w-52"
+        >
+          <img src={`/assets/${item.icon}`} alt="" className="h-full w-full object-contain p-3 md:p-4" />
+        </a>
+        <div className="min-w-0 pt-0.5">
+          <h3 className="font-display text-xl font-bold tracking-tight text-ink">{item.role}</h3>
+          <p className="mt-0.5 text-sm font-medium text-accent">{item.company}</p>
+          <p className="mt-1 text-sm font-medium text-muted">{item.duration}</p>
         </div>
-        <p className="whitespace-pre-line text-sm leading-relaxed text-soft md:text-base">
-          {item.description}
-        </p>
       </div>
+      <p className="whitespace-pre-line text-sm leading-relaxed text-soft md:text-base">
+        {item.description}
+      </p>
     </article>
   );
 };
