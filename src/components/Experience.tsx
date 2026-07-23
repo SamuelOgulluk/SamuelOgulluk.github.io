@@ -13,7 +13,7 @@ const ExperienceRow: React.FC<{ item: ExperienceItem }> = ({ item }) => {
           aria-label={`${item.company} website`}
           className="logo-tile flex h-20 w-40 shrink-0 items-center justify-center overflow-hidden border md:h-24 md:w-52"
         >
-          <img src={`/assets/${item.icon}`} alt="" className="h-full w-full object-contain p-3 md:p-4" />
+          <img src={`/assets/${item.icon}`} alt="" className="h-full w-full object-contain p-1" />
         </a>
         <div className="min-w-0 pt-0.5">
           <h3 className="font-display text-xl font-bold tracking-tight text-ink">{item.role}</h3>
