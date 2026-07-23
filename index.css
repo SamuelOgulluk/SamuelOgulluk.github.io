@@ -1,13 +1,16 @@
 :root {
-  --bg: #e9eef2;
-  --bg-deep: #dfe7ee;
-  --ink: #12171c;
-  --ink-soft: #3d4752;
-  --muted: #6b7682;
-  --line: #c5d0da;
-  --accent: #1f6f63;
-  --accent-hover: #17574e;
-  --surface: rgba(255, 255, 255, 0.55);
+  --bg: #15201f;
+  --bg-deep: #0f1716;
+  --ink: #f4efe6;
+  --ink-soft: #d5cfc3;
+  --muted: #9a9488;
+  --line: rgba(244, 239, 230, 0.14);
+  --accent: #e0a045;
+  --accent-hover: #f0b45c;
+  --accent-2: #5eb8a8;
+  --surface: rgba(244, 239, 230, 0.06);
+  --surface-strong: rgba(244, 239, 230, 0.1);
+  --logo-bg: #f4efe6;
   --font-display: "Syne", sans-serif;
   --font-body: "IBM Plex Sans", sans-serif;
   --radius: 2px;
@@ -35,7 +38,7 @@ body {
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--accent) 28%, white);
+  background: color-mix(in srgb, var(--accent) 45%, transparent);
   color: var(--ink);
 }
 
@@ -48,12 +51,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #9aabba;
+  background: #3d4f4c;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #7f93a4;
+  background: #536863;
 }
 
 a {
@@ -72,22 +75,20 @@ a {
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 80% 50% at 12% -10%, rgba(31, 111, 99, 0.14), transparent 55%),
-    radial-gradient(ellipse 70% 45% at 100% 8%, rgba(60, 90, 130, 0.12), transparent 50%),
-    radial-gradient(ellipse 60% 40% at 70% 100%, rgba(31, 111, 99, 0.08), transparent 55%),
-    linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+    radial-gradient(ellipse 70% 55% at 8% -5%, rgba(224, 160, 69, 0.22), transparent 52%),
+    radial-gradient(ellipse 65% 50% at 95% 12%, rgba(94, 184, 168, 0.18), transparent 50%),
+    radial-gradient(ellipse 80% 55% at 50% 110%, rgba(224, 160, 69, 0.1), transparent 55%),
+    linear-gradient(165deg, #1c2c2a 0%, var(--bg) 42%, var(--bg-deep) 100%);
 }
 
-.site-atmosphere::after {
+.site-atmosphere::before {
   content: "";
   position: absolute;
   inset: 0;
-  opacity: 0.35;
-  background-image:
-    linear-gradient(rgba(18, 23, 28, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(18, 23, 28, 0.04) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black, transparent);
+  opacity: 0.45;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(244, 239, 230, 0.04), transparent 25%),
+    radial-gradient(circle at 80% 70%, rgba(94, 184, 168, 0.05), transparent 28%);
 }
 
 .site-main {
@@ -152,7 +153,7 @@ a {
 
 .btn-primary {
   background: var(--accent);
-  color: #fff;
+  color: #1a140c;
 }
 
 .btn-primary:hover {
@@ -166,8 +167,13 @@ a {
 }
 
 .btn-ghost:hover {
-  border-color: var(--ink);
-  background: rgba(255, 255, 255, 0.45);
+  border-color: var(--accent);
+  background: var(--surface);
+}
+
+.logo-tile {
+  background: var(--logo-bg);
+  border-color: transparent;
 }
 
 @keyframes rise-in {
@@ -190,8 +196,17 @@ a {
   }
 }
 
+@keyframes glow-shift {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 1; }
+}
+
 .animate-rise {
   animation: rise-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.site-atmosphere {
+  animation: glow-shift 12s ease-in-out infinite;
 }
 
 .reveal {

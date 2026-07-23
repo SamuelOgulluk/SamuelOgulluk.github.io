@@ -12,7 +12,7 @@ const ProjectBlock: React.FC<{ project: Project; index: number }> = ({ project, 
       className="group block border-t border-line py-8 first:border-t-0 first:pt-0 transition-colors"
     >
       <div className={`flex flex-col gap-5 md:flex-row md:items-start md:gap-8 ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
-        <div className="relative w-full overflow-hidden border border-line bg-white md:w-56 md:shrink-0">
+        <div className="relative w-full overflow-hidden border border-line bg-[rgba(244,239,230,0.04)] md:w-56 md:shrink-0">
           <div className="h-44 overflow-hidden md:h-40 md:transition-all md:duration-500 md:group-hover:h-56">
             {project.videoUrl ? (
               <video
@@ -33,7 +33,7 @@ const ProjectBlock: React.FC<{ project: Project; index: number }> = ({ project, 
               />
             )}
           </div>
-          <div className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center bg-ink/80 text-white">
+          <div className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center bg-[#0f1716]/90 text-ink">
             <Icon name="github" className="h-4 w-4" />
           </div>
         </div>

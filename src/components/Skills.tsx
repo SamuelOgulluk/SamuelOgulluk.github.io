@@ -32,7 +32,7 @@ const Skills: React.FC = () => {
                   <span className="text-sm font-medium md:text-[0.95rem]">{skill.name}</span>
                 </a>
                 {skill.libraries && (
-                  <div className="pointer-events-none absolute left-0 top-full z-20 mt-1 hidden min-w-[10rem] border border-line bg-paper p-3 shadow-sm group-hover:pointer-events-auto group-hover:block">
+                  <div className="pointer-events-none absolute left-0 top-full z-20 mt-1 hidden min-w-[10rem] border border-line bg-paper p-3 shadow-lg shadow-black/30 group-hover:pointer-events-auto group-hover:block">
                     <div className={`grid gap-2 ${skill.libraries.length === 1 ? 'grid-cols-1' : 'grid-cols-2'}`}>
                       {skill.libraries.map((lib) => (
                         <a

@@ -25,7 +25,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
 
   return (
     <>
-      <header className="fixed top-0 inset-x-0 z-50 border-b border-line/70 bg-[rgba(233,238,242,0.82)] backdrop-blur-md">
+      <header className="fixed top-0 inset-x-0 z-50 border-b border-line bg-[rgba(15,23,22,0.78)] backdrop-blur-md">
         <div className="mx-auto flex h-14 w-full max-w-5xl items-center justify-between gap-4 px-4 md:h-16 md:px-6">
           <a
             href="#home"
@@ -56,7 +56,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
 
           <button
             onClick={toggleLanguage}
-            className="rounded-[2px] border border-line bg-white/50 px-2.5 py-1 text-xs font-semibold tracking-wide text-ink transition-colors hover:border-ink"
+            className="rounded-[2px] border border-line bg-[rgba(244,239,230,0.06)] px-2.5 py-1 text-xs font-semibold tracking-wide text-ink transition-colors hover:border-accent hover:text-accent"
             aria-label={language === 'en' ? 'Switch to French' : 'Switch to English'}
           >
             {language === 'en' ? 'FR' : 'EN'}
@@ -65,7 +65,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
       </header>
 
       <nav
-        className="fixed bottom-0 inset-x-0 z-50 border-t border-line/70 bg-[rgba(233,238,242,0.92)] backdrop-blur-md lg:hidden"
+        className="fixed bottom-0 inset-x-0 z-50 border-t border-line bg-[rgba(15,23,22,0.9)] backdrop-blur-md lg:hidden"
         aria-label="Mobile"
       >
         <div className="flex h-14 items-stretch justify-between overflow-x-auto px-1">

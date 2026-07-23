@@ -13,7 +13,7 @@ const EducationRow: React.FC<{ item: EducationItem }> = ({ item }) => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`${item.institution} website`}
-            className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden border border-line bg-white"
+            className="logo-tile flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden border"
           >
             <img src={`/assets/${item.icon}`} alt="" className="h-full w-full object-contain p-1.5" />
           </a>
