@@ -1,46 +1,33 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    "./index.html",
-    "./**/*.{js,ts,jsx,tsx}",
+    './index.html',
+    './index.tsx',
+    './App.tsx',
+    './src/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
-      keyframes: {
-        expand: {
-          '0%': { 
-            transform: 'scale(1) translateY(0)',
-            transformOrigin: 'top'
-          },
-          '50%': { 
-            transform: 'scale(1.02) translateY(0)',
-            transformOrigin: 'center'
-          },
-          '100%': { 
-            transform: 'scale(1) translateY(0)',
-            transformOrigin: 'center'
-          }
-        },
-        collapse: {
-          '0%': { 
-            transform: 'scale(1) translateY(0)',
-            transformOrigin: 'center'
-          },
-          '50%': { 
-            transform: 'scale(1.02) translateY(0)',
-            transformOrigin: 'top'
-          },
-          '100%': { 
-            transform: 'scale(1) translateY(0)',
-            transformOrigin: 'top'
-          }
-        }
+      fontFamily: {
+        display: ['Outfit', 'IBM Plex Sans', 'sans-serif'],
+        body: ['IBM Plex Sans', 'sans-serif'],
       },
-      animation: {
-        'expand': 'expand 500ms ease-out forwards',
-        'collapse': 'collapse 500ms ease-out forwards'
-      }
+      colors: {
+        ink: '#14241c',
+        soft: '#3a4f44',
+        muted: '#6a7d72',
+        line: '#d5e4da',
+        accent: {
+          DEFAULT: '#2f8f5b',
+          hover: '#247448',
+          teal: '#3fa96e',
+        },
+        paper: {
+          DEFAULT: '#fbfdfb',
+          deep: '#eef6f0',
+        },
+      },
     },
   },
   plugins: [],
-}
+};

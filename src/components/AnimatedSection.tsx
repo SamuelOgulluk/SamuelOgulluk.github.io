@@ -25,16 +25,14 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({ children, className =
 
     node.classList.add('is-pending');
     const fallback = window.setTimeout(reveal, 800);
-
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            window.clearTimeout(fallback);
-            reveal();
-            observer.unobserve(entry.target);
-          }
-        });
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          window.clearTimeout(fallback);
+          reveal();
+          observer.unobserve(entry.target);
+        }
       },
       { threshold: 0.08, rootMargin: '0px 0px -24px 0px' }
     );

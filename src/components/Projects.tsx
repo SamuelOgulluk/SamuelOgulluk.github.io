@@ -32,6 +32,8 @@ const ProjectBlock: React.FC<{ project: Project; index: number }> = ({ project, 
               <img
                 src={project.imageUrl}
                 alt={project.title}
+                loading="lazy"
+                decoding="async"
                 className="h-full w-full object-contain object-center p-4"
               />
             )}

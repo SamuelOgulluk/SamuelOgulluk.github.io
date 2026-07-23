@@ -1,11 +1,19 @@
-Samuel Ogulluk - Portfolio Personnel
-Code source de mon site personnel et portfolio, accessible à l'adresse https://samuelogulluk.github.io.
+# Samuel Ogulluk — Portfolio
 
-Ce projet est une application web présentant mon parcours, mes compétences et mes projets.
+Site personnel bilingue (EN/FR), React + TypeScript + Vite.
 
-Stack Technique
-Core : React 19 / TypeScript
+## Développement
 
-Build Tool : Vite
+```bash
+npm install
+npm run dev
+```
 
-Déploiement : GitHub Pages (via GitHub Actions)
+## Build
+
+```bash
+npm run build
+npm run preview
+```
+
+Déploiement automatique sur GitHub Pages via Actions (`main`).
