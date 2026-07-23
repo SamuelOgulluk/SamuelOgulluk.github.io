@@ -155,7 +155,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
     home: {
       greeting: "Welcome.",
-      intro: "Graduate student in electronic engineering, computer science, and applied mathematics — focused on robotics.",
+      intro: "Graduate student in electronic engineering, computer science, and applied mathematics.",
     },
     about: {
       title: "About",
@@ -246,7 +246,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
     home: {
       greeting: "Bienvenue.",
-      intro: "Étudiant en ingénierie électronique, informatique et mathématiques appliquées — orienté robotique.",
+      intro: "Étudiant en ingénierie électronique, informatique et mathématiques appliquées.",
     },
     about: {
       title: "À propos",
