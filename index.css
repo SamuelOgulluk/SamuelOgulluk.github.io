@@ -119,12 +119,13 @@ a {
 @media (max-width: 767px) {
   .site-nature {
     background:
-      radial-gradient(ellipse 70% 40% at 0% 10%, rgba(126, 190, 140, 0.1), transparent 70%),
-      radial-gradient(ellipse 70% 40% at 100% 8%, rgba(126, 190, 140, 0.09), transparent 70%);
+      linear-gradient(90deg, rgba(190, 220, 195, 0.16) 0%, transparent 30%, transparent 70%, rgba(190, 220, 195, 0.16) 100%),
+      radial-gradient(ellipse 60% 45% at 0% 12%, rgba(126, 190, 140, 0.14), transparent 70%),
+      radial-gradient(ellipse 60% 45% at 100% 10%, rgba(126, 190, 140, 0.13), transparent 70%);
   }
 
   .site-atmosphere::before {
-    opacity: 0.1;
+    opacity: 0.12;
     mask-image: linear-gradient(180deg, black 0%, transparent 42%);
   }
 }

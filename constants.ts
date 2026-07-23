@@ -250,7 +250,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
     about: {
       title: "À propos",
-      bio: "Je suis élève à l'ENS Paris-Saclay, et je me destine à la recherche en génie électrique, informatique et mathématiques appliquées. Je m'intéresse surtout au traitement du signal et aux aspects théoriques de l'apprentissage automatique. N'hésitez pas à me contacter pour un stage de recherche ou une collaboration.",
+      bio: "Élève à l'École Normale Supérieure de Paris-Saclay, je souhaite devenir chercheur à l'intersection de l'ingénierie électronique, informatique et des mathématiques appliquées. Je m'intéresse tout particulièrement à l'apprentissage automatique, tant de manière théorique que pratique. N'hésitez pas à me contacter pour toute collaboration.",
       downloadCV: "Télécharger le CV",
     },
      skills: {
