@@ -16,9 +16,9 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
   const navItems = [
     { id: 'home' as SectionId, label: t.nav.home },
     { id: 'about' as SectionId, label: t.nav.about },
-    { id: 'skills' as SectionId, label: t.nav.skills },
     { id: 'experience' as SectionId, label: t.nav.experience },
     { id: 'education' as SectionId, label: t.nav.education },
+    { id: 'skills' as SectionId, label: t.nav.skills },
     { id: 'projects' as SectionId, label: t.nav.projects },
     { id: 'contact' as SectionId, label: t.nav.contact },
   ];

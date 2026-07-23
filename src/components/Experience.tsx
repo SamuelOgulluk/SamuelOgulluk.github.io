@@ -35,7 +35,7 @@ const Experience: React.FC = () => {
 
   return (
     <>
-      <p className="section-kicker">03</p>
+      <p className="section-kicker">02</p>
       <h2 className="section-title">{t.experience.title}</h2>
       <div>
         {t.experience.items.map((item, index) => (

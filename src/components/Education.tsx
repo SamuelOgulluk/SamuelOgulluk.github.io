@@ -35,7 +35,7 @@ const Education: React.FC = () => {
 
   return (
     <>
-      <p className="section-kicker">04</p>
+      <p className="section-kicker">03</p>
       <h2 className="section-title">{t.education.title}</h2>
       <div>
         {t.education.items.map((item, index) => (

@@ -46,7 +46,7 @@ const App: React.FC = () => {
       { rootMargin: '-45% 0px -45% 0px' }
     );
 
-    const sections: SectionId[] = ['home', 'about', 'skills', 'experience', 'education', 'projects', 'contact'];
+    const sections: SectionId[] = ['home', 'about', 'experience', 'education', 'skills', 'projects', 'contact'];
     sections.forEach((id) => {
       const element = document.getElementById(id);
       if (element) observer.observe(element);
@@ -69,9 +69,9 @@ const App: React.FC = () => {
         <main className="site-main">
           <Home />
           <AnimatedSection id="about"><About /></AnimatedSection>
-          <AnimatedSection id="skills"><Skills /></AnimatedSection>
           <AnimatedSection id="experience"><Experience /></AnimatedSection>
           <AnimatedSection id="education"><Education /></AnimatedSection>
+          <AnimatedSection id="skills"><Skills /></AnimatedSection>
           <AnimatedSection id="projects"><Projects /></AnimatedSection>
           <AnimatedSection id="contact"><Contact /></AnimatedSection>
         </main>
