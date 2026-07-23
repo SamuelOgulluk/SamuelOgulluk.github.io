@@ -3,24 +3,20 @@ import { useLanguage } from '@/App';
 import Icon from './Icon';
 import type { Project } from '@/types';
 
-
-const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, index }) => {
+const ProjectBlock: React.FC<{ project: Project; index: number }> = ({ project, index }) => {
   return (
-    <a 
-      href={project.githubUrl} 
-      target="_blank" 
+    <a
+      href={project.githubUrl}
+      target="_blank"
       rel="noopener noreferrer"
-      className="block bg-zinc-800/50 backdrop-blur-sm rounded-lg overflow-hidden shadow-lg transition-all duration-500 hover:shadow-red-500/20 group relative z-10 hover:z-20 stagger-item"
-      style={{ animationDelay: `${index * 150 + 200}ms` }}
+      className="group block border-t border-line py-8 first:border-t-0 first:pt-0 transition-colors"
     >
-      <div className={`flex flex-col md:flex-row md:group-hover:flex-col transition-all duration-500 ease-in-out ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
-        <div className={`relative w-full md:w-48 md:group-hover:w-full transition-all duration-500 ease-in-out ${index % 2 === 1 ? 'md:ml-auto' : 'md:mr-auto'}`}>
-          <div className="relative overflow-hidden transition-all duration-500 ease-in-out h-48 md:h-48 md:group-hover:h-96 transform-gpu">
+      <div className={`flex flex-col gap-5 md:flex-row md:items-start md:gap-8 ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
+        <div className="relative w-full overflow-hidden border border-line bg-white md:w-56 md:shrink-0">
+          <div className="h-44 overflow-hidden md:h-40 md:transition-all md:duration-500 md:group-hover:h-56">
             {project.videoUrl ? (
               <video
-                className="w-full h-full object-cover object-top md:group-hover:object-contain transition-all duration-500 ease-out origin-top
-                scale-100 md:group-hover:scale-100 md:group-hover:origin-center
-                motion-safe:md:group-hover:animate-expand motion-safe:md:group-not-hover:animate-collapse"
+                className="h-full w-full object-cover object-top"
                 autoPlay
                 loop
                 muted
@@ -30,34 +26,34 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
                 <source src={project.videoUrl} type="video/mp4" />
               </video>
             ) : (
-              <img 
-                src={project.imageUrl} 
-                alt={project.title} 
-                className="w-full h-full object-cover object-top md:group-hover:object-contain transition-all duration-500 ease-out origin-top
-                scale-100 md:group-hover:scale-100 md:group-hover:origin-center
-                motion-safe:md:group-hover:animate-expand motion-safe:md:group-not-hover:animate-collapse" 
+              <img
+                src={project.imageUrl}
+                alt={project.title}
+                className="h-full w-full object-cover object-top"
               />
             )}
-            <div className={`absolute top-3 w-8 h-8 text-white bg-black/50 rounded-full p-1.5 transition-transform duration-300 group-hover:scale-110 ${index % 2 === 0 ? 'right-3' : 'left-3'}`}>
-              <Icon name="github" className="w-full h-full bg-white" />
-            </div>
+          </div>
+          <div className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center bg-ink/80 text-white">
+            <Icon name="github" className="h-4 w-4" />
           </div>
         </div>
-        <div className="flex-1 p-5 transition-all duration-500 ease-in-out">
-          <h3 className="font-bold text-xl text-white mb-2">{project.title}</h3>
-          <p className="text-slate-400 text-sm mb-4">{project.description}</p>
-          
-          <div className="flex flex-wrap items-center gap-3">
-              <span className="text-xs font-semibold text-slate-300 mr-2">Tech Stack:</span>
-              {project.technologies.map(tech => (
-                <div 
-                  key={tech.name} 
-                  className="w-6 h-6 text-slate-400" 
-                  title={tech.name}
-                >
-                  <img src={`/assets/${tech.icon}`} alt={tech.name} className="w-full h-full" />
-                </div>
-              ))}
+
+        <div className="min-w-0 flex-1">
+          <h3 className="font-display text-xl font-bold tracking-tight text-ink transition-colors group-hover:text-accent">
+            {project.title}
+          </h3>
+          <p className="mt-2 text-sm leading-relaxed text-soft md:text-base">{project.description}</p>
+          <div className="mt-4 flex flex-wrap items-center gap-2.5">
+            <span className="text-xs font-semibold uppercase tracking-wide text-muted">Stack</span>
+            {project.technologies.map((tech) => (
+              <img
+                key={tech.name}
+                src={`/assets/${tech.icon}`}
+                alt={tech.name}
+                title={tech.name}
+                className="h-5 w-5 object-contain"
+              />
+            ))}
           </div>
         </div>
       </div>
@@ -65,22 +61,19 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
   );
 };
 
-
 const Projects: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-    <div className="pt-8 pb-8">
-      <h2 className="text-3xl font-bold text-white mb-8">
-          {t.projects.title}
-          <span className="text-red-500">.</span>
-      </h2>
-      <div className="grid gap-8">
+    <>
+      <p className="section-kicker">05</p>
+      <h2 className="section-title">{t.projects.title}</h2>
+      <div>
         {t.projects.items.map((project, index) => (
-          <ProjectCard key={index} project={project} index={index} />
+          <ProjectBlock key={index} project={project} index={index} />
         ))}
       </div>
-    </div>
+    </>
   );
 };
 

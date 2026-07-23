@@ -7,12 +7,10 @@ import About from './src/components/About';
 import Skills from './src/components/Skills';
 import Experience from './src/components/Experience';
 import Projects from './src/components/Projects';
-import BackgroundAnimation from './src/components/BackgroundAnimation';
 import Contact from './src/components/Contact';
 import Education from './src/components/Education';
 import AnimatedSection from './src/components/AnimatedSection';
 
-// Language Context
 interface LanguageContextType {
   language: Language;
   setLanguage: React.Dispatch<React.SetStateAction<Language>>;
@@ -35,7 +33,7 @@ const App: React.FC = () => {
 
   const t = useMemo(() => TRANSLATIONS[language], [language]);
   const languageContextValue = useMemo(() => ({ language, setLanguage, t }), [language, t]);
-  
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -45,13 +43,13 @@ const App: React.FC = () => {
           }
         });
       },
-      { rootMargin: '-50% 0px -50% 0px' } // Set active when section is in the vertical center
+      { rootMargin: '-45% 0px -45% 0px' }
     );
 
     const sections: SectionId[] = ['home', 'about', 'skills', 'experience', 'education', 'projects', 'contact'];
     sections.forEach((id) => {
-        const element = document.getElementById(id);
-        if (element) observer.observe(element);
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
     });
 
     return () => {
@@ -62,29 +60,20 @@ const App: React.FC = () => {
     };
   }, []);
 
-
   return (
     <LanguageContext.Provider value={languageContextValue}>
-      <BackgroundAnimation />
-      <div className="bg-zinc-950/75 font-sans text-slate-300">
+      <div className="site-shell font-body text-soft">
+        <div className="site-atmosphere" aria-hidden="true" />
         <Navbar activeSection={activeSection} />
-        <div className="pb-24 md:pb-0 md:pl-24">
-            <main className="max-w-4xl mx-auto p-6 md:p-12">
-                <div className="space-y-16">
-                    <Home />
-                    <AnimatedSection id="about"><About /></AnimatedSection>
-                    <AnimatedSection id="skills"><Skills /></AnimatedSection>
-                </div>
-                <div className="space-y-8"> {/* Reduced space between experience and education */}
-                    <AnimatedSection id="experience"><Experience /></AnimatedSection>
-                    <AnimatedSection id="education"><Education /></AnimatedSection>
-                </div>
-                <div className="space-y-16 mt-16">
-                    <AnimatedSection id="projects"><Projects /></AnimatedSection>
-                    <AnimatedSection id="contact"><Contact /></AnimatedSection>
-                </div>
-            </main>
-        </div>
+        <main className="site-main">
+          <Home />
+          <AnimatedSection id="about"><About /></AnimatedSection>
+          <AnimatedSection id="skills"><Skills /></AnimatedSection>
+          <AnimatedSection id="experience"><Experience /></AnimatedSection>
+          <AnimatedSection id="education"><Education /></AnimatedSection>
+          <AnimatedSection id="projects"><Projects /></AnimatedSection>
+          <AnimatedSection id="contact"><Contact /></AnimatedSection>
+        </main>
       </div>
     </LanguageContext.Provider>
   );

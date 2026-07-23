@@ -1,73 +1,59 @@
 <!DOCTYPE html>
-<html lang="en" style="scroll-behavior: smooth;">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Samuel Ogulluk — Electronic & IT Engineering student. Robotics, algorithms, and physical systems." />
     <title>Samuel Ogulluk</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      /* Simple scrollbar styling for a better dark mode aesthetic */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #09090b; /* zinc-950 */
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #3f3f46; /* zinc-700 */
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #52525b; /* zinc-600 */
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      @keyframes fadeOut {
-        from {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        to {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-      }
-
-      .animate-fade-in {
-        animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      }
-
-      .animate-fade-in .stagger-item {
-        opacity: 0;
-        animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      }
-
-      .animate-fade-out {
-        animation: fadeOut 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      }
-    </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "react": "https://aistudiocdn.com/react@^19.2.0"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
-</head>
-  <body class="bg-zinc-950">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ['Syne', 'sans-serif'],
+              body: ['IBM Plex Sans', 'sans-serif'],
+            },
+            colors: {
+              ink: '#12171c',
+              soft: '#3d4752',
+              muted: '#6b7682',
+              line: '#c5d0da',
+              accent: {
+                DEFAULT: '#1f6f63',
+                hover: '#17574e',
+              },
+              paper: {
+                DEFAULT: '#e9eef2',
+                deep: '#dfe7ee',
+              },
+            },
+            keyframes: {
+              expand: {
+                '0%': { transform: 'scale(1) translateY(0)', transformOrigin: 'top' },
+                '50%': { transform: 'scale(1.02) translateY(0)', transformOrigin: 'center' },
+                '100%': { transform: 'scale(1) translateY(0)', transformOrigin: 'center' },
+              },
+              collapse: {
+                '0%': { transform: 'scale(1) translateY(0)', transformOrigin: 'center' },
+                '50%': { transform: 'scale(1.02) translateY(0)', transformOrigin: 'top' },
+                '100%': { transform: 'scale(1) translateY(0)', transformOrigin: 'top' },
+              },
+            },
+            animation: {
+              expand: 'expand 500ms ease-out forwards',
+              collapse: 'collapse 500ms ease-out forwards',
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="stylesheet" href="/index.css" />
+  </head>
+  <body>
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>

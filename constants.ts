@@ -44,8 +44,8 @@ const LANGUAGES_DATA: SkillDetails[] = [
 const PROJECTS_EN: Project[] = [
   {
     title: "Portfolio Website",
-    description: "My personal portfolio website built with React and TypeScript, featuring smooth animations, responsive design, and interactive elements. The site showcases my projects, skills, and experience.",
-    videoUrl: "/assets/video_site.mp4",
+    description: "Personal portfolio built with React and TypeScript: bilingual content, responsive layout, and project showcases.",
+    videoUrl: "/assets/Video_site.mp4",
     githubUrl: "https://github.com/SamuelOgulluk/SamuelOgulluk.github.io",
     technologies: [
     LANGUAGES_DATA.find(l => l.name === 'TypeScript'),
@@ -80,8 +80,8 @@ const PROJECTS_EN: Project[] = [
 const PROJECTS_FR: Project[] = [
     {
       title: "Site Web Portfolio",
-      description: "Mon site web personnel construit avec React et TypeScript, présentant des animations fluides, un design responsive et des éléments interactifs. Le site met en valeur mes projets, compétences et expériences.",
-      videoUrl: "/assets/video_site.mp4",
+      description: "Site personnel en React et TypeScript : contenu bilingue, mise en page responsive et présentation des projets.",
+      videoUrl: "/assets/Video_site.mp4",
       githubUrl: "https://github.com/SamuelOgulluk/SamuelOgulluk.github.io",
       technologies: [
         LANGUAGES_DATA.find(l => l.name === 'TypeScript'),
@@ -129,12 +129,12 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
     home: {
       greeting: "Welcome.",
-      intro: "I'm a graduate student in Electronic engineering, Computer Science, and Applied mathematics, with a strong interest in Robotics.",
-      paragraph1: "Passionate about solving complex problems at the intersection of algorithms and physical systems. Explore my portfolio to see my work and get in touch!",
+      intro: "Graduate student in electronic engineering, computer science, and applied mathematics — focused on robotics.",
+      paragraph1: "I work where algorithms meet physical systems: sensing, control, and computation under real constraints.",
     },
     about: {
-      title: "About Me",
-      bio: "As a graduate student in Electronic engineering, Computer Science, and Applied mathematics, I am driven to build innovative solutions at the intersection of algorithms and robotics. I am open to opportunities, don't hesitate to contact me.",
+      title: "About",
+      bio: "I study electronic and digital engineering at ENS Paris-Saclay, with parallel work in physics at Sorbonne. My interests sit between robotics, signal processing, and applied algorithms. Open to internships and collaborations.",
       downloadCV: "Download CV",
     },
     skills: {
@@ -202,9 +202,9 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
       items: PROJECTS_EN,
     },
     contact: {
-      title: "Get In Touch",
-      subtitle: "I'm always open to discussing new projects, creative ideas or opportunities to be part of your visions. Feel free to reach out!",
-      emailText: "Say Hello"
+      title: "Contact",
+      subtitle: "For internships, research, or collaborations — write anytime.",
+      emailText: "Email me"
     }
   },
   fr: {
@@ -221,12 +221,12 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
     home: {
       greeting: "Bienvenue.",
-      intro: "Je suis étudiant en Ingénierie Electronique, Informatique et Mathématiques Appliquées, avec un fort intérêt pour la Robotique.",
-      paragraph1: "Passionné par la résolution de problèmes complexes à l'intersection des algorithmes et des systèmes physiques. Explorez mon portfolio pour découvrir mes travaux et n'hésitez pas à me contacter !",
+      intro: "Étudiant en ingénierie électronique, informatique et mathématiques appliquées — orienté robotique.",
+      paragraph1: "Je travaille à l'intersection des algorithmes et des systèmes physiques : perception, contrôle et calcul sous contraintes réelles.",
     },
     about: {
-      title: "À Propos de Moi",
-      bio: "En tant qu'étudiant en Ingénierie Electronique, Informatique et Mathématiques Appliquées, je suis motivé à créer des solutions innovantes à l'intersection des algorithmes et de la robotique. Je suis ouvert aux opportunités, n'hésitez pas à me contacter.",
+      title: "À propos",
+      bio: "Je suis élève à l'ENS Paris-Saclay en ingénierie électronique et numérique, et j'étudie aussi la physique à Sorbonne Université. Mes intérêts se situent entre robotique, traitement du signal et algorithmes appliqués. Ouvert aux stages et collaborations.",
       downloadCV: "Télécharger le CV",
     },
      skills: {
@@ -294,9 +294,9 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
       items: PROJECTS_FR,
     },
      contact: {
-      title: "Contactez-moi",
-      subtitle: "Je suis toujours ouvert à discuter de nouveaux projets, d'idées créatives ou d'opportunités pour faire partie de vos visions. N'hésitez pas à me contacter !",
-      emailText: "Dites Bonjour"
+      title: "Contact",
+      subtitle: "Pour un stage, un projet de recherche ou une collaboration — écrivez-moi.",
+      emailText: "M'écrire"
     }
   },
 };
