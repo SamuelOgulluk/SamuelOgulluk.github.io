@@ -159,7 +159,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
     about: {
       title: "About",
-      bio: "I am a graduate student in electronic and digital engineering at ENS Paris-Saclay, with a focus on signal processing and applied algorithms. Open to internships and collaborations.",
+      bio: "I am a graduate student in electronic and digital engineering at ENS Paris-Saclay. My work focuses on signal processing and applied algorithms, and I am open to internships and collaborations.",
       downloadCV: "Download CV",
     },
     skills: {
@@ -250,7 +250,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
     about: {
       title: "À propos",
-      bio: "Je suis élève en ingénierie électronique et numérique à l'ENS Paris-Saclay, avec un intérêt marqué pour le traitement du signal et les algorithmes appliqués. Ouvert aux stages et collaborations.",
+      bio: "Élève à l'ENS Paris-Saclay en ingénierie électronique et numérique, je m'intéresse surtout au traitement du signal et aux algorithmes appliqués. N'hésitez pas à me contacter pour un stage ou une collaboration.",
       downloadCV: "Télécharger le CV",
     },
      skills: {
