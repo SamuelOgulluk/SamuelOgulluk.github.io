@@ -306,7 +306,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
           role: "Stage",
           company: "CERN, Meyrin, Suisse",
           duration: "Juin-Juillet 2025",
-          description: "Travail sur le projet FCC (Future Circular Collider) dans le département BEAMS. Développement et évaluation d'algorithmes de pointe pour l'estimation de la pose de robots, assemblage d'un banc d'essai dédié et garantie de la robustesse dans des conditions de fonctionnement critiques. Participation aux cours d'été pour étudiants sur la physique des particules, la physique expérimentale et l'informatique.",
+          description: "Au département BEAMS, j'ai contribué au projet FCC (Future Circular Collider) : développement et comparaison d'algorithmes d'estimation de pose pour la robotique, montage d'un banc d'essai dédié, et tests de robustesse en conditions exigeantes. J'ai aussi suivi les cours d'été sur la physique des particules, la physique expérimentale et l'informatique.",
           icon: 'cern.svg',
           isIconMultiColor: true,
           institutionLink: "https://home.cern/",
