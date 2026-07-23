@@ -13,11 +13,22 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({ children, className =
     const node = sectionRef.current;
     if (!node) return;
 
+    node.classList.add('is-pending');
+
+    const reveal = () => {
+      node.classList.remove('is-pending');
+      node.classList.add('is-visible');
+    };
+
+    // Fallback if IntersectionObserver is delayed/unavailable
+    const fallback = window.setTimeout(reveal, 1200);
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
+            window.clearTimeout(fallback);
+            reveal();
             observer.unobserve(entry.target);
           }
         });
@@ -26,7 +37,10 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({ children, className =
     );
 
     observer.observe(node);
-    return () => observer.disconnect();
+    return () => {
+      window.clearTimeout(fallback);
+      observer.disconnect();
+    };
   }, []);
 
   return (
