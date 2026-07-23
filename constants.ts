@@ -44,7 +44,7 @@ const LANGUAGES_DATA: SkillDetails[] = [
 const PROJECTS_EN: Project[] = [
   {
     title: "Otty",
-    description: "Local digital audio workstation (DAW) built with Tauri 2, React and Web Audio: arrangement, piano roll, instruments, effects and mixer.",
+    description: "I built Otty, a local DAW with Tauri 2, React and Web Audio: arrangement, piano roll, instruments, effects and mixer.",
     imageUrl: "/assets/otty.svg",
     siteUrl: "https://samuelogulluk.github.io/otty/",
     githubUrl: "https://github.com/SamuelOgulluk/otty",
@@ -57,7 +57,7 @@ const PROJECTS_EN: Project[] = [
   },
   {
     title: "Portfolio Website",
-    description: "Personal portfolio built with React and TypeScript: bilingual content, responsive layout, and project showcases.",
+    description: "I developed this personal portfolio in React and TypeScript — bilingual and responsive — to present my background and projects.",
     videoUrl: "/assets/Video_site.mp4",
     githubUrl: "https://github.com/SamuelOgulluk/SamuelOgulluk.github.io",
     technologies: [
@@ -69,7 +69,7 @@ const PROJECTS_EN: Project[] = [
   },
   {
     title: "Otternet",
-    description: "A C framework specialized in efficient and easy Machine learning and data science",
+    description: "I wrote Otternet, a C library for machine learning and data science, designed to stay simple and efficient.",
     imageUrl: "/assets/otternet-logo.png",
     githubUrl: "https://github.com/SamuelOgulluk/Otternet",
     technologies: [
@@ -80,7 +80,7 @@ const PROJECTS_EN: Project[] = [
   },
   {
     title: "7 colors game",
-    description: "The classic 7 colors game implemented in C using SDL2 library with different AI opponents including Minimax and Monte Carlo Tree Search algorithms.",
+    description: "I implemented the 7 colors game in C with SDL2, including AI opponents based on Minimax and Monte Carlo Tree Search.",
     imageUrl: "/assets/7color.png",
     githubUrl: "https://github.com/SamuelOgulluk/7Colors",
      technologies: [
@@ -155,11 +155,11 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
     home: {
       greeting: "Welcome.",
-      intro: "Graduate student in electronic engineering, computer science, and applied mathematics.",
+      intro: "I am a graduate student in electronic engineering, computer science, and applied mathematics.",
     },
     about: {
       title: "About",
-      bio: "I am a graduate student in electronic and digital engineering at ENS Paris-Saclay. My work focuses on signal processing and applied algorithms, and I am open to internships and collaborations.",
+      bio: "I am a graduate student in electronic and digital engineering at ENS Paris-Saclay. I focus mainly on signal processing and applied algorithms, and I am open to internships and collaborations.",
       downloadCV: "Download CV",
     },
     skills: {
@@ -174,7 +174,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
           degree: "MSc in Electronic and Digital Engineering",
           institution: "Ecole Normale Supérieure Paris-Saclay, Paris",
           duration: "2025 - Present",
-          description: "Department of Electronic and Digital Engineering - Student civil servant. The key courses included: Microprocessors architecture, Computer science, Signal & Image Processing, Physics, AI.",
+          description: "I am a student civil servant in the Department of Electronic and Digital Engineering. I study topics such as microprocessor architecture, computer science, signal and image processing, physics and AI.",
           institutionLink: "https://ens-paris-saclay.fr/",
           icon: 'ens_ps.svg',
           isIconMultiColor: true,
@@ -183,7 +183,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
           degree: "BSc in Mechanical Engineering with the highest honours & BSc in Electrical Engineering with high honours",
           institution: "École Normale Supérieure de Rennes, Rennes",
           duration: "2024 - 2025",
-          description: "Department of Mechatronics - Student civil servant. The key courses included : Continuum Mechanics, Rigid-Body Mechanics, Engineering Drawing, 3D CAD, Analog Electronics.",
+          description: "I was a student civil servant in mechatronics. I took courses in continuum mechanics, rigid-body mechanics, engineering drawing, 3D CAD and analog electronics.",
           institutionLink: "https://www.ens-rennes.fr/",
           icon: 'ens-rennes.svg',
           isIconMultiColor: true,
@@ -192,7 +192,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
           degree: "Preparatory class for France's leading engineering Universities",
           institution: "Lycée Hoche, Versailles",
           duration: "2022 - 2024",
-          description: "PCSI then PSI* — intensive preparatory track in mathematics, physics and engineering sciences.",
+          description: "I completed PCSI then PSI* — an intensive preparatory track in mathematics, physics and engineering sciences.",
           institutionLink: "https://en.wikipedia.org/wiki/Lyc%C3%A9e_Hoche",
           icon: 'hoche.svg',
           isIconMultiColor: true,
@@ -206,7 +206,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
           role: "Research internship",
           company: "ETH Zurich, Zurich, Switzerland",
           duration: "2026",
-          description: "Worked on recurrent neural networks and their interpretability by testing exact learning algorithms. Demonstrated the PP-completeness of learning with recurrent neural networks over a number of iterations polynomial in the input size.",
+          description: "I worked on recurrent neural networks and their interpretability by testing exact learning algorithms. I showed that this learning problem is PP-complete when the number of iterations is polynomial in the input size.",
           icon: 'ethz.svg',
           isIconMultiColor: true,
           institutionLink: "https://ethz.ch/",
@@ -215,7 +215,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
           role: "Internship",
           company: "CERN, Meyrin, Switzerland",
           duration: "June-July 2025",
-          description: "Worked on the FCC (Future Circular Collider) project in the BEAMS department. Developed and benchmarked state-of-the-art robotic pose estimation algorithms, assembled a dedicated testbed, and ensured robustness under critical operating conditions. Attended Summer Student lectures on Particle Physics, Experimental Physics and Computer Sciences.",
+          description: "In the BEAMS department, I contributed to the FCC (Future Circular Collider) project. I developed and compared robotic pose estimation algorithms, built a dedicated testbed, and tested robustness under demanding conditions. I also attended Summer Student lectures on particle physics, experimental physics and computer science.",
           icon: 'cern.svg',
           isIconMultiColor: true,
           institutionLink: "https://home.cern/",
@@ -228,7 +228,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
     contact: {
       title: "Contact",
-      subtitle: "Feel free to reach out — happy to chat.",
+      subtitle: "Feel free to reach out — I am happy to chat.",
       emailText: "Email me"
     }
   },
