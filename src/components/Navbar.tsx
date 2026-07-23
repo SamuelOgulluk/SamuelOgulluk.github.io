@@ -14,12 +14,12 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
   };
 
   const navItems = [
-    { id: 'home' as SectionId, label: t.nav.home },
-    { id: 'experience' as SectionId, label: t.nav.experience },
-    { id: 'education' as SectionId, label: t.nav.education },
-    { id: 'skills' as SectionId, label: t.nav.skills },
-    { id: 'projects' as SectionId, label: t.nav.projects },
-    { id: 'contact' as SectionId, label: t.nav.contact },
+    { id: 'home' as SectionId, label: t.nav.home, short: language === 'fr' ? 'Accueil' : 'Home' },
+    { id: 'experience' as SectionId, label: t.nav.experience, short: language === 'fr' ? 'Exp.' : 'Work' },
+    { id: 'education' as SectionId, label: t.nav.education, short: language === 'fr' ? 'Form.' : 'Edu' },
+    { id: 'skills' as SectionId, label: t.nav.skills, short: language === 'fr' ? 'Comp.' : 'Skills' },
+    { id: 'projects' as SectionId, label: t.nav.projects, short: language === 'fr' ? 'Projets' : 'Projects' },
+    { id: 'contact' as SectionId, label: t.nav.contact, short: language === 'fr' ? 'Contact' : 'Contact' },
   ];
 
   return (
@@ -57,21 +57,22 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
       </header>
 
       <nav
-        className="fixed bottom-0 inset-x-0 z-50 border-t border-line bg-[rgba(251,253,251,0.95)] backdrop-blur-md lg:hidden"
+        className="fixed bottom-0 inset-x-0 z-50 border-t border-line bg-[rgba(251,253,251,0.96)] backdrop-blur-md lg:hidden safe-bottom"
         aria-label="Mobile"
       >
-        <div className="flex h-14 items-stretch justify-between overflow-x-auto px-1">
+        <div className="mx-auto grid h-14 max-w-lg grid-cols-6 gap-0 px-1">
           {navItems.map((item) => {
             const isActive = activeSection === item.id;
             return (
               <a
                 key={item.id}
                 href={`#${item.id}`}
-                className={`flex min-w-[3.25rem] flex-1 flex-col items-center justify-center px-1 text-[10px] font-semibold uppercase tracking-wide ${
+                className={`flex min-h-[44px] flex-col items-center justify-center px-0.5 text-center text-[11px] font-semibold leading-tight ${
                   isActive ? 'text-accent' : 'text-muted'
                 }`}
               >
-                <span className="truncate">{item.label}</span>
+                <span className="max-w-full truncate">{item.short}</span>
+                {isActive && <span className="mt-0.5 h-0.5 w-4 rounded-full bg-accent" />}
               </a>
             );
           })}

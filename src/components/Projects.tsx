@@ -74,8 +74,8 @@ const ProjectBlock: React.FC<{ project: Project; index: number }> = ({ project, 
             </a>
           </div>
 
-          <div className="mt-5 flex flex-wrap items-center gap-3">
-            <span className="text-sm font-semibold uppercase tracking-wide text-muted">Stack</span>
+          <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2">
+            <span className="w-full text-sm font-semibold uppercase tracking-wide text-muted sm:w-auto">Stack</span>
             {project.technologies.map((tech) => (
               <span
                 key={tech.name}
@@ -85,7 +85,7 @@ const ProjectBlock: React.FC<{ project: Project; index: number }> = ({ project, 
                 <img
                   src={`/assets/${tech.icon}`}
                   alt=""
-                  className="h-8 w-8 object-contain"
+                  className="h-7 w-7 object-contain sm:h-8 sm:w-8"
                 />
                 <span className="font-medium text-ink">{tech.name}</span>
               </span>
