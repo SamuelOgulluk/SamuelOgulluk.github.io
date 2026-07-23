@@ -14,7 +14,7 @@ const ProjectBlock: React.FC<{ project: Project; index: number }> = ({ project, 
           href={primaryUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="group relative block w-full overflow-hidden border border-line bg-[rgba(244,239,230,0.04)] md:w-56 md:shrink-0"
+          className="group relative block w-full overflow-hidden border border-line bg-white md:w-56 md:shrink-0"
         >
           <div className="h-44 overflow-hidden md:h-40 md:transition-all md:duration-500 md:group-hover:h-56">
             {project.videoUrl ? (
