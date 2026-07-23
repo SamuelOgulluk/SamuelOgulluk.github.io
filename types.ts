@@ -1,6 +1,6 @@
 export type Language = 'en' | 'fr';
 
-export type SectionId = 'home' | 'about' | 'skills' | 'education' | 'experience' | 'projects' | 'contact';
+export type SectionId = 'home' | 'skills' | 'education' | 'experience' | 'projects' | 'contact';
 
 export interface TranslationContent {
   headerTitle: string;
@@ -17,7 +17,6 @@ export interface TranslationContent {
   home: {
     greeting: string;
     intro: string;
-    paragraph1: string;
   };
   about: {
     title: string;
@@ -92,5 +91,6 @@ export interface Project {
   imageUrl?: string;
   videoUrl?: string;
   githubUrl: string;
+  siteUrl?: string;
   technologies: SkillDetails[];
 }

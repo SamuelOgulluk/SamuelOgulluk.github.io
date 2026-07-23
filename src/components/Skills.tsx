@@ -3,95 +3,85 @@ import { useLanguage } from '@/App';
 import { LANGUAGES_DATA, SOFTWARE_DATA } from '@/constants';
 
 const Skills: React.FC = () => {
-    const { t } = useLanguage();
+  const { t } = useLanguage();
 
-    return (
-        <div className="pt-8 pb-8">
-            <h2 className="text-3xl font-bold text-white mb-12">
-                {t.skills.title}
-                <span className="text-red-500">.</span>
-            </h2>
+  return (
+    <>
+      <p className="section-kicker">03</p>
+      <h2 className="section-title">{t.skills.title}</h2>
 
-            {/* Languages & Technologies */}
-            <div className="mb-16">
-                <h3 className="text-xl font-semibold text-slate-200 mb-6">{t.skills.languages}</h3>
-                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 sm:gap-8">
-                    {LANGUAGES_DATA.map((skill, index) => (
-                        <div 
-                            key={skill.name} 
-                            className="relative group flex flex-col items-center stagger-item hover:z-50"
-                            style={{ animationDelay: `${index * 50 + 200}ms` }}
+      <div className="space-y-10">
+        <div>
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.08em] text-muted">
+            {t.skills.languages}
+          </h3>
+          <ul className="stagger grid grid-cols-2 gap-x-4 gap-y-3 sm:grid-cols-3 md:grid-cols-4">
+            {LANGUAGES_DATA.map((skill) => (
+              <li key={skill.name} className="group relative">
+                <a
+                  href={skill.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 py-1 text-ink transition-colors hover:text-accent"
+                >
+                  <img
+                    src={`/assets/${skill.icon}`}
+                    alt=""
+                    className="h-7 w-7 object-contain opacity-90"
+                  />
+                  <span className="text-sm font-medium md:text-[0.95rem]">{skill.name}</span>
+                </a>
+                {skill.libraries && (
+                  <div className="pointer-events-none absolute left-0 top-full z-20 mt-1 hidden min-w-[10rem] border border-line bg-paper p-3 shadow-lg shadow-black/30 group-hover:pointer-events-auto group-hover:block">
+                    <div className={`grid gap-2 ${skill.libraries.length === 1 ? 'grid-cols-1' : 'grid-cols-2'}`}>
+                      {skill.libraries.map((lib) => (
+                        <a
+                          key={lib.name}
+                          href={lib.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex flex-col items-center gap-1 text-muted transition-colors hover:text-accent"
                         >
-                            <a 
-                                href={skill.link} 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
-                                aria-label={skill.name}
-                                className="w-16 h-16 md:w-20 md:h-20 p-3 bg-zinc-800/50 rounded-lg flex items-center justify-center text-slate-400 hover:text-red-500 hover:bg-zinc-700/70 transition-all duration-300 transform hover:scale-110"
-                            >
-                                <img src={`/assets/${skill.icon}`} alt={skill.name} className="w-full h-full object-contain" />
-                            </a>
-                            <span className="text-sm mt-2 text-slate-300">{skill.name}</span>
-
-                            {/* Libraries Popover */}
-                            {skill.libraries && (
-                                <div className={`absolute -top-4 -right-4 translate-x-full z-10 ${skill.libraries.length === 1 ? 'w-28' : 'w-40'} p-3 bg-zinc-900 border border-zinc-700 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300`}>
-                                   <div className={`grid ${skill.libraries.length === 1 ? 'grid-cols-1' : 'grid-cols-2'} gap-3`}>
-                                        {skill.libraries.map(lib => (
-                                             <a 
-                                                key={lib.name}
-                                                href={lib.link}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                aria-label={lib.name}
-                                                className="flex flex-col items-center text-slate-400 hover:text-red-500 transition-colors duration-200"
-                                            >
-                                                <div className="w-10 h-10 p-1">
-                                                     <img src={`/assets/${lib.icon}`} alt={lib.name} className="w-full h-full object-contain" />
-                                                </div>
-                                                <span className="text-xs mt-1">{lib.name}</span>
-                                            </a>
-                                        ))}
-                                   </div>
-                                   <div className="absolute top-1/2 -left-1 -translate-y-1/2 w-2 h-2 bg-zinc-700 transform rotate-45"></div>
-                                </div>
-                            )}
-                        </div>
-                    ))}
-                </div>
-            </div>
-
-            {/* Software */}
-            <div>
-                <h3 className="text-xl font-semibold text-slate-200 mb-6">{t.skills.software}</h3>
-                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 sm:gap-8">
-                    {SOFTWARE_DATA.map((software, index) => (
-                        <div 
-                            key={software.name} 
-                            className="flex flex-col items-center stagger-item"
-                            style={{ animationDelay: `${(index + LANGUAGES_DATA.length) * 50 + 200}ms` }}
-                        >
-                            <a 
-                                href={software.link} 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
-                                aria-label={software.name}
-                                className="w-16 h-16 md:w-20 md:h-20 p-3 bg-zinc-800/50 rounded-lg flex items-center justify-center text-slate-400 hover:text-red-500 hover:bg-zinc-700/70 transition-all duration-300 transform hover:scale-110"
-                            >
-                                <img 
-                                    src={`/assets/${software.icon}`} 
-                                    alt={software.name} 
-                                    className="w-full h-full object-contain transition-transform duration-300"
-                                    style={{ transform: `scale(${software.scale || 1})` }}
-                                />
-                            </a>
-                            <span className="text-sm mt-2 text-slate-300">{software.name}</span>
-                        </div>
-                    ))}
-                </div>
-            </div>
+                          <img src={`/assets/${lib.icon}`} alt="" className="h-7 w-7 object-contain" />
+                          <span className="text-[11px]">{lib.name}</span>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
         </div>
-    );
+
+        <div>
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.08em] text-muted">
+            {t.skills.software}
+          </h3>
+          <ul className="grid grid-cols-2 gap-x-4 gap-y-3 sm:grid-cols-3 md:grid-cols-4">
+            {SOFTWARE_DATA.map((software) => (
+              <li key={software.name}>
+                <a
+                  href={software.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 py-1 text-ink transition-colors hover:text-accent"
+                >
+                  <img
+                    src={`/assets/${software.icon}`}
+                    alt=""
+                    className="h-7 w-7 object-contain opacity-90"
+                    style={{ transform: `scale(${software.scale || 1})` }}
+                  />
+                  <span className="text-sm font-medium md:text-[0.95rem]">{software.name}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default Skills;

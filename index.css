@@ -1,0 +1,273 @@
+:root {
+  --bg: #fbfdfb;
+  --bg-deep: #eef6f0;
+  --ink: #14241c;
+  --ink-soft: #3a4f44;
+  --muted: #6a7d72;
+  --line: #d5e4da;
+  --accent: #2f8f5b;
+  --accent-hover: #247448;
+  --accent-2: #3fa96e;
+  --surface: rgba(255, 255, 255, 0.72);
+  --surface-strong: #ffffff;
+  --logo-bg: #ffffff;
+  --font-display: "Outfit", "IBM Plex Sans", sans-serif;
+  --font-body: "IBM Plex Sans", sans-serif;
+  --radius: 2px;
+  --max: 52rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-body);
+  color: var(--ink-soft);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 26%, white);
+  color: var(--ink);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-deep);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a8c4b2;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8fb39b;
+}
+
+a {
+  color: inherit;
+}
+
+.site-shell {
+  position: relative;
+  min-height: 100vh;
+  isolation: isolate;
+}
+
+.site-atmosphere {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 48% 55% at 0% 20%, rgba(126, 190, 140, 0.16), transparent 72%),
+    radial-gradient(ellipse 48% 55% at 100% 18%, rgba(126, 190, 140, 0.15), transparent 72%),
+    radial-gradient(ellipse 42% 45% at 0% 85%, rgba(47, 143, 91, 0.08), transparent 75%),
+    radial-gradient(ellipse 42% 45% at 100% 88%, rgba(47, 143, 91, 0.08), transparent 75%),
+    linear-gradient(180deg, #ffffff 0%, var(--bg) 50%, var(--bg-deep) 100%);
+}
+
+.site-atmosphere::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.18;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cpath d='M0 80c28-22 52-22 80 0s52 22 80 0' fill='none' stroke='%232f8f5b' stroke-opacity='0.1' stroke-width='1'/%3E%3Cpath d='M0 120c28-22 52-22 80 0s52 22 80 0' fill='none' stroke='%232f8f5b' stroke-opacity='0.06' stroke-width='1'/%3E%3Cpath d='M0 40c28-22 52-22 80 0s52 22 80 0' fill='none' stroke='%232f8f5b' stroke-opacity='0.06' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  mask-image: linear-gradient(
+    90deg,
+    black 0%,
+    transparent 22%,
+    transparent 78%,
+    black 100%
+  );
+}
+
+.site-nature {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(190, 220, 195, 0.22) 0%, transparent 18%, transparent 82%, rgba(190, 220, 195, 0.22) 100%),
+    radial-gradient(ellipse 34% 50% at 0% 35%, rgba(126, 190, 140, 0.18), transparent 70%),
+    radial-gradient(ellipse 34% 50% at 100% 32%, rgba(126, 190, 140, 0.17), transparent 70%),
+    radial-gradient(ellipse 30% 40% at 100% 80%, rgba(47, 143, 91, 0.09), transparent 72%),
+    radial-gradient(ellipse 30% 40% at 0% 78%, rgba(47, 143, 91, 0.09), transparent 72%);
+}
+
+.site-nature::after {
+  content: none;
+}
+
+@media (max-width: 767px) {
+  .site-nature {
+    background:
+      linear-gradient(90deg, rgba(190, 220, 195, 0.16) 0%, transparent 30%, transparent 70%, rgba(190, 220, 195, 0.16) 100%),
+      radial-gradient(ellipse 60% 45% at 0% 12%, rgba(126, 190, 140, 0.14), transparent 70%),
+      radial-gradient(ellipse 60% 45% at 100% 10%, rgba(126, 190, 140, 0.13), transparent 70%);
+  }
+
+  .site-atmosphere::before {
+    opacity: 0.12;
+    mask-image: linear-gradient(180deg, black 0%, transparent 42%);
+  }
+}
+
+.site-main {
+  width: min(100% - 2rem, var(--max));
+  margin: 0 auto;
+  padding: 5.5rem 0 7.5rem;
+}
+
+@media (min-width: 768px) {
+  .site-main {
+    padding: 6.5rem 0 5rem;
+  }
+}
+
+.section {
+  padding: 3.5rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.section:first-of-type {
+  border-top: none;
+}
+
+.section-title {
+  margin: 0 0 1.5rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3vw, 2.15rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  line-height: 1.15;
+}
+
+.section-kicker {
+  margin: 0 0 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.25rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.btn-ghost:hover {
+  border-color: var(--accent);
+  background: var(--surface);
+}
+
+.logo-tile {
+  background: var(--logo-bg);
+  border-color: var(--line);
+}
+
+@keyframes rise-in {
+  from {
+    transform: translateY(14px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes underline-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.animate-rise {
+  animation: rise-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.reveal {
+  transform: none;
+}
+
+.reveal.is-pending {
+  transform: translateY(12px);
+}
+
+.reveal.is-visible {
+  transform: translateY(0);
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-rise,
+  .reveal,
+  .reveal.is-pending,
+  .reveal.is-visible {
+    animation: none !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+.stagger > *:nth-child(1) { transition-delay: 40ms; }
+.stagger > *:nth-child(2) { transition-delay: 80ms; }
+.stagger > *:nth-child(3) { transition-delay: 120ms; }
+.stagger > *:nth-child(4) { transition-delay: 160ms; }
+.stagger > *:nth-child(5) { transition-delay: 200ms; }
+.stagger > *:nth-child(6) { transition-delay: 240ms; }
+.stagger > *:nth-child(7) { transition-delay: 280ms; }
+.stagger > *:nth-child(8) { transition-delay: 320ms; }
+.stagger > *:nth-child(9) { transition-delay: 360ms; }
+.stagger > *:nth-child(10) { transition-delay: 400ms; }

@@ -1,7 +1,6 @@
 import React from 'react';
 import type { SectionId } from '@/types';
 import { useLanguage } from '@/App';
-import Icon from './Icon';
 
 interface NavbarProps {
   activeSection: SectionId;
@@ -11,64 +10,74 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
   const { language, setLanguage, t } = useLanguage();
 
   const toggleLanguage = () => {
-    setLanguage(prev => (prev === 'en' ? 'fr' : 'en'));
+    setLanguage((prev) => (prev === 'en' ? 'fr' : 'en'));
   };
 
   const navItems = [
-    { id: 'home' as SectionId, label: t.nav.home, iconName: 'home' },
-    { id: 'about' as SectionId, label: t.nav.about, iconName: 'about' },
-    { id: 'skills' as SectionId, label: t.nav.skills, iconName: 'skills' },
-    { id: 'experience' as SectionId, label: t.nav.experience, iconName: 'experience' },
-    { id: 'education' as SectionId, label: t.nav.education, iconName: 'education' },
-    { id: 'projects' as SectionId, label: t.nav.projects, iconName: 'projects' },
-    { id: 'contact' as SectionId, label: t.nav.contact, iconName: 'contact' },
+    { id: 'home' as SectionId, label: t.nav.home },
+    { id: 'experience' as SectionId, label: t.nav.experience },
+    { id: 'education' as SectionId, label: t.nav.education },
+    { id: 'skills' as SectionId, label: t.nav.skills },
+    { id: 'projects' as SectionId, label: t.nav.projects },
+    { id: 'contact' as SectionId, label: t.nav.contact },
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 w-full h-16 bg-zinc-900/90 backdrop-blur-md border-t border-zinc-800 z-50 md:top-0 md:bottom-auto md:h-full md:w-24 md:bg-zinc-900/80 md:border-r md:border-t-0 md:flex md:flex-col md:items-center md:justify-between md:py-10">
-      <div className="flex flex-row items-center justify-around w-full h-full md:flex-col md:justify-start md:gap-6 md:h-auto">
-        {navItems.map((item) => (
-          <a
-            key={item.id}
-            href={`#${item.id}`}
-            aria-label={item.label}
-            className={`flex flex-col items-center justify-center transition-colors duration-200 group ${
-              activeSection === item.id
-                ? 'text-red-500'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <Icon name={item.iconName} className="w-6 h-6 md:w-8 md:h-8 mb-1" />
-            <span className="text-[10px] md:text-xs font-medium tracking-wider uppercase hidden md:block">{item.label}</span>
-          </a>
-        ))}
-        
-        {/* Mobile Language Switcher - Integrated into the nav items row if needed, or separate */}
-        <button
-            onClick={toggleLanguage}
-            className="md:hidden flex flex-col items-center justify-center text-slate-400 hover:text-white"
-            aria-label={language === 'en' ? 'Switch to French' : 'Switch to English'}
-        >
-             <div className="w-6 h-6 rounded-full overflow-hidden border border-zinc-600">
-                <img src={`/assets/${language === 'en' ? 'uk-flag' : 'france-flag'}.svg`} alt={language === 'en' ? 'UK Flag' : 'French Flag'} className="w-full h-full object-cover" />
-             </div>
-             <span className="text-[10px] font-medium tracking-wider uppercase mt-1">{language === 'en' ? 'EN' : 'FR'}</span>
-        </button>
-      </div>
+    <>
+      <header className="fixed top-0 inset-x-0 z-50 border-b border-line bg-[rgba(251,253,251,0.9)] backdrop-blur-md">
+        <div className="mx-auto flex h-14 w-full max-w-5xl items-center justify-end gap-4 px-4 md:h-16 md:px-6 lg:justify-between">
+          <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
+            {navItems.map((item) => {
+              const isActive = activeSection === item.id;
+              return (
+                <a
+                  key={item.id}
+                  href={`#${item.id}`}
+                  className={`relative px-2.5 py-1.5 text-sm font-medium transition-colors ${
+                    isActive ? 'text-ink' : 'text-muted hover:text-ink'
+                  }`}
+                >
+                  {item.label}
+                  {isActive && (
+                    <span className="absolute inset-x-2.5 -bottom-0.5 h-px origin-left bg-accent animate-[underline-grow_280ms_ease-out]" />
+                  )}
+                </a>
+              );
+            })}
+          </nav>
 
-       <button
-        onClick={toggleLanguage}
-        className="hidden md:block group relative"
-        aria-label={language === 'en' ? 'Switch to French' : 'Switch to English'}
-      >
-        <div className="w-10 h-10 p-1 rounded-full bg-zinc-800 group-hover:bg-zinc-700 transition-all duration-300 group-hover:scale-110 flex items-center justify-center">
-          <img src={`/assets/${language === 'en' ? 'uk-flag' : 'france-flag'}.svg`} alt={language === 'en' ? 'UK Flag' : 'French Flag'} className="rounded-full" />
+          <button
+            onClick={toggleLanguage}
+            className="rounded-[2px] border border-line bg-white/70 px-2.5 py-1 text-xs font-semibold tracking-wide text-ink transition-colors hover:border-accent hover:text-accent"
+            aria-label={language === 'en' ? 'Switch to French' : 'Switch to English'}
+          >
+            {language === 'en' ? 'FR' : 'EN'}
+          </button>
         </div>
-        <span className="absolute left-full ml-4 px-2 py-1 bg-zinc-700 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
-          {language === 'en' ? 'Français' : 'English'}
-        </span>
-      </button>
-    </nav>
+      </header>
+
+      <nav
+        className="fixed bottom-0 inset-x-0 z-50 border-t border-line bg-[rgba(251,253,251,0.95)] backdrop-blur-md lg:hidden"
+        aria-label="Mobile"
+      >
+        <div className="flex h-14 items-stretch justify-between overflow-x-auto px-1">
+          {navItems.map((item) => {
+            const isActive = activeSection === item.id;
+            return (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                className={`flex min-w-[3.25rem] flex-1 flex-col items-center justify-center px-1 text-[10px] font-semibold uppercase tracking-wide ${
+                  isActive ? 'text-accent' : 'text-muted'
+                }`}
+              >
+                <span className="truncate">{item.label}</span>
+              </a>
+            );
+          })}
+        </div>
+      </nav>
+    </>
   );
 };
 

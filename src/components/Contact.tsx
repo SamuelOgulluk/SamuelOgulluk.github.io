@@ -4,53 +4,44 @@ import { CONTACT_DATA } from '@/constants';
 import Icon from './Icon';
 
 const Contact: React.FC = () => {
-    const { t } = useLanguage();
+  const { t } = useLanguage();
 
-    return (
-        <section id="contact" className="pt-8 pb-20 text-center animate-fade-in">
-            <h2 className="text-3xl font-bold text-white mb-4">
-                {t.contact.title}
-                <span className="text-red-500">.</span>
-            </h2>
-            <p className="text-slate-300 max-w-xl mx-auto mb-8">
-                {t.contact.subtitle}
-            </p>
+  return (
+    <>
+      <p className="section-kicker">05</p>
+      <h2 className="section-title">{t.contact.title}</h2>
+      <p className="max-w-xl text-base leading-relaxed text-soft md:text-lg">{t.contact.subtitle}</p>
 
-            <a
-                href={`mailto:${CONTACT_DATA.email}`}
-                className="inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg transition-transform duration-300 hover:scale-105 mb-12"
-            >
-                {t.contact.emailText}
-            </a>
+      <a href={`mailto:${CONTACT_DATA.email}`} className="btn btn-primary mt-8">
+        {t.contact.emailText}
+      </a>
 
-            <div className="flex justify-center items-center gap-4">
-                <a href={CONTACT_DATA.linkedin} target="_blank" rel="noopener noreferrer" className="group flex items-center" aria-label="LinkedIn">
-                    <div className="h-8 w-8 text-slate-400 group-hover:text-red-500 transition-all duration-300 transform group-hover:scale-110 z-10">
-                        <Icon name="linkedin" className="w-full h-full" />
-                    </div>
-                    <div className="overflow-hidden transition-all duration-300 max-w-0 group-hover:max-w-xs">
-                         <span className="ml-2 pl-3 pr-4 py-2 rounded-full bg-zinc-700/80 backdrop-blur-sm text-lg text-white font-semibold whitespace-nowrap">
-                            {CONTACT_DATA.linkedinHandle}
-                        </span>
-                    </div>
-                </a>
+      <div className="mt-10 flex flex-wrap items-center gap-6">
+        <a
+          href={CONTACT_DATA.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 text-soft transition-colors hover:text-accent"
+          aria-label="LinkedIn"
+        >
+          <Icon name="linkedin" className="h-5 w-5" />
+          <span className="text-sm font-medium">{CONTACT_DATA.linkedinHandle}</span>
+        </a>
+        <a
+          href={CONTACT_DATA.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 text-soft transition-colors hover:text-accent"
+          aria-label="GitHub"
+        >
+          <Icon name="github" className="h-5 w-5" />
+          <span className="text-sm font-medium">{CONTACT_DATA.githubHandle}</span>
+        </a>
+      </div>
 
-                <a href={CONTACT_DATA.github} target="_blank" rel="noopener noreferrer" className="group flex items-center" aria-label="GitHub">
-                    <div className="h-8 w-8 text-slate-400 group-hover:text-red-500 transition-all duration-300 transform group-hover:scale-110 z-10">
-                        <Icon name="github" className="w-full h-full" />
-                    </div>
-                    <div className="overflow-hidden transition-all duration-300 max-w-0 group-hover:max-w-xs">
-                        <span className="ml-2 pl-3 pr-4 py-2 rounded-full bg-zinc-700/80 backdrop-blur-sm text-lg text-white font-semibold whitespace-nowrap">
-                            {CONTACT_DATA.githubHandle}
-                        </span>
-                    </div>
-                </a>
-            </div>
-             <p className="text-zinc-500 text-sm mt-20">
-                Designed & Built by Samuel Ogulluk
-            </p>
-        </section>
-    );
+      <p className="mt-16 text-sm text-muted">Samuel Ogulluk</p>
+    </>
+  );
 };
 
 export default Contact;

@@ -32,6 +32,7 @@ const LANGUAGES_DATA: SkillDetails[] = [
     ]
   },
   { name: 'ARM assembler', link: 'https://en.wikipedia.org/wiki/ARM_architecture', icon: 'ARM_powered_Badge.svg' },
+  { name: 'VHDL/Verilog', link: 'https://en.wikipedia.org/wiki/VHDL', icon: 'vhdl-verilog.svg' },
 
   { name: 'HTML', link: 'https://en.wikipedia.org/wiki/HTML', icon: 'html5.svg' },
   { name: 'CSS', link: 'https://en.wikipedia.org/wiki/CSS', icon: 'CSS3.svg' },
@@ -43,9 +44,22 @@ const LANGUAGES_DATA: SkillDetails[] = [
 
 const PROJECTS_EN: Project[] = [
   {
+    title: "Otty",
+    description: "I built Otty, a local DAW with Tauri 2, React and Web Audio: arrangement, piano roll, instruments, effects and mixer.",
+    imageUrl: "/assets/otty.svg",
+    siteUrl: "https://samuelogulluk.github.io/otty/",
+    githubUrl: "https://github.com/SamuelOgulluk/otty",
+    technologies: [
+      LANGUAGES_DATA.find(l => l.name === 'TypeScript'),
+      LANGUAGES_DATA.find(l => l.name === 'HTML'),
+      LANGUAGES_DATA.find(l => l.name === 'CSS'),
+      LANGUAGES_DATA.find(l => l.name === 'Git'),
+    ].filter(Boolean) as SkillDetails[],
+  },
+  {
     title: "Portfolio Website",
-    description: "My personal portfolio website built with React and TypeScript, featuring smooth animations, responsive design, and interactive elements. The site showcases my projects, skills, and experience.",
-    videoUrl: "/assets/video_site.mp4",
+    description: "I developed this personal portfolio in React and TypeScript — bilingual and responsive — to present my background and projects.",
+    videoUrl: "/assets/Video_site.mp4",
     githubUrl: "https://github.com/SamuelOgulluk/SamuelOgulluk.github.io",
     technologies: [
     LANGUAGES_DATA.find(l => l.name === 'TypeScript'),
@@ -56,7 +70,7 @@ const PROJECTS_EN: Project[] = [
   },
   {
     title: "Otternet",
-    description: "A C framework specialized in efficient and easy Machine learning and data science",
+    description: "I wrote Otternet, a C library for machine learning and data science, designed to stay simple and efficient.",
     imageUrl: "/assets/otternet-logo.png",
     githubUrl: "https://github.com/SamuelOgulluk/Otternet",
     technologies: [
@@ -67,7 +81,7 @@ const PROJECTS_EN: Project[] = [
   },
   {
     title: "7 colors game",
-    description: "The classic 7 colors game implemented in C using SDL2 library with different AI opponents including Minimax and Monte Carlo Tree Search algorithms.",
+    description: "I implemented the 7 colors game in C with SDL2, including AI opponents based on Minimax and Monte Carlo Tree Search.",
     imageUrl: "/assets/7color.png",
     githubUrl: "https://github.com/SamuelOgulluk/7Colors",
      technologies: [
@@ -79,9 +93,22 @@ const PROJECTS_EN: Project[] = [
 
 const PROJECTS_FR: Project[] = [
     {
+      title: "Otty",
+      description: "J'ai conçu Otty, une DAW locale (Tauri 2, React, Web Audio) avec arrangement, piano roll, instruments, effets et mixer.",
+      imageUrl: "/assets/otty.svg",
+      siteUrl: "https://samuelogulluk.github.io/otty/",
+      githubUrl: "https://github.com/SamuelOgulluk/otty",
+      technologies: [
+        LANGUAGES_DATA.find(l => l.name === 'TypeScript'),
+        LANGUAGES_DATA.find(l => l.name === 'HTML'),
+        LANGUAGES_DATA.find(l => l.name === 'CSS'),
+        LANGUAGES_DATA.find(l => l.name === 'Git'),
+      ].filter(Boolean) as SkillDetails[],
+    },
+    {
       title: "Site Web Portfolio",
-      description: "Mon site web personnel construit avec React et TypeScript, présentant des animations fluides, un design responsive et des éléments interactifs. Le site met en valeur mes projets, compétences et expériences.",
-      videoUrl: "/assets/video_site.mp4",
+      description: "J'ai développé ce site personnel en React et TypeScript, bilingue et responsive, pour présenter mon parcours et mes projets.",
+      videoUrl: "/assets/Video_site.mp4",
       githubUrl: "https://github.com/SamuelOgulluk/SamuelOgulluk.github.io",
       technologies: [
         LANGUAGES_DATA.find(l => l.name === 'TypeScript'),
@@ -92,7 +119,7 @@ const PROJECTS_FR: Project[] = [
     },
     {
       title: "Otternet",
-      description: "Une librairie en C spécialisée dans l'apprentissage automatique et la science des données, conçue pour être efficace et facile à utiliser.",
+      description: "J'ai écrit Otternet, une bibliothèque en C pour le machine learning et la data science, pensée pour rester simple et efficace.",
       imageUrl: "/assets/otternet-logo.svg",
       githubUrl: "https://github.com/OgullukSamuel/Otternet",
       technologies: [
@@ -103,7 +130,7 @@ const PROJECTS_FR: Project[] = [
     },
     {
       title: "Jeu des 7 couleurs",
-      description: "Le classique jeu des 7 couleurs implémenté en C utilisant la bibliothèque SDL2 avec différents adversaires IA incluant les algorithmes Minimax et Monte Carlo Tree Search.",
+      description: "J'ai implémenté le jeu des 7 couleurs en C avec SDL2, et des adversaires IA basés sur Minimax et Monte Carlo Tree Search.",
       imageUrl: "/assets/7color.png",
       githubUrl: "https://github.com/OgullukSamuel/7Colors",
        technologies: [
@@ -117,7 +144,7 @@ const PROJECTS_FR: Project[] = [
 export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = {
   en: {
     headerTitle: "Samuel Ogulluk",
-    headerSubtitle: "Electronic & IT Engineering Student",
+    headerSubtitle: "Aspiring researcher in electrical engineering, computer science and applied mathematics",
     nav: {
       home: "Home",
       about: "About",
@@ -129,12 +156,11 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
     home: {
       greeting: "Welcome.",
-      intro: "I'm a graduate student in Electronic engineering, Computer Science, and Applied mathematics, with a strong interest in Robotics.",
-      paragraph1: "Passionate about solving complex problems at the intersection of algorithms and physical systems. Explore my portfolio to see my work and get in touch!",
+      intro: "I am a student training for a research career, working at the intersection of electrical engineering, computer science and applied mathematics.",
     },
     about: {
-      title: "About Me",
-      bio: "As a graduate student in Electronic engineering, Computer Science, and Applied mathematics, I am driven to build innovative solutions at the intersection of algorithms and robotics. I am open to opportunities, don't hesitate to contact me.",
+      title: "About",
+      bio: "As a student at École Normale Supérieure Paris-Saclay, I aim to become a researcher at the intersection of electrical engineering, computer science and applied mathematics. I am particularly interested in machine learning, both from theoretical and practical perspectives. Feel free to reach out for any collaboration.",
       downloadCV: "Download CV",
     },
     skills: {
@@ -149,25 +175,16 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
           degree: "MSc in Electronic and Digital Engineering",
           institution: "Ecole Normale Supérieure Paris-Saclay, Paris",
           duration: "2025 - Present",
-          description: "Department of Electronic and Digital Engineering - Student civil servant. The key courses included: Microprocessors architecture, Computer science, Signal & Image Processing, Physics, AI.",
+          description: "I am a student civil servant in the Department of Electronic and Digital Engineering. I study topics such as microprocessor architecture, computer science, signal and image processing, physics and AI.",
           institutionLink: "https://ens-paris-saclay.fr/",
           icon: 'ens_ps.svg',
-          isIconMultiColor: true,
-        },
-        {
-          degree: "BSc in Theoretical Physics",
-          institution: "Sorbonne Université, Paris",
-          duration: "2025 - Present",
-          description: "The key courses included: Quantum Physics, Complex Analysis, Mechanics of Materials.",
-          institutionLink: "https://www.sorbonne-universite.fr/",
-          icon: 'sorbonne_universite_logo.svg',
           isIconMultiColor: true,
         },
         {
           degree: "BSc in Mechanical Engineering with the highest honours & BSc in Electrical Engineering with high honours",
           institution: "École Normale Supérieure de Rennes, Rennes",
           duration: "2024 - 2025",
-          description: "Department of Mechatronics - Student civil servant. The key courses included : Continuum Mechanics, Rigid-Body Mechanics, Engineering Drawing, 3D CAD, Analog Electronics.",
+          description: "I was a student civil servant in mechatronics. I took courses in continuum mechanics, rigid-body mechanics, engineering drawing, 3D CAD and analog electronics.",
           institutionLink: "https://www.ens-rennes.fr/",
           icon: 'ens-rennes.svg',
           isIconMultiColor: true,
@@ -176,7 +193,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
           degree: "Preparatory class for France's leading engineering Universities",
           institution: "Lycée Hoche, Versailles",
           duration: "2022 - 2024",
-          description: "Intensive generalist curriculum in Mathematics and Chemistry with a Major in Physics and Engineering.",
+          description: "I completed PCSI then PSI* — an intensive preparatory track in mathematics, physics and engineering sciences.",
           institutionLink: "https://en.wikipedia.org/wiki/Lyc%C3%A9e_Hoche",
           icon: 'hoche.svg',
           isIconMultiColor: true,
@@ -187,10 +204,19 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
       title: "Work Experience",
       items: [
         {
-          role: "Internship",
+          role: "Research internship",
+          company: "ETH Zurich, Zurich, Switzerland",
+          duration: "2026",
+          description: "I worked on recurrent neural networks and their interpretability by testing exact learning algorithms. I showed that this learning problem is PP-complete when the number of iterations is polynomial in the input size.",
+          icon: 'ethz.svg',
+          isIconMultiColor: true,
+          institutionLink: "https://ethz.ch/",
+        },
+        {
+          role: "Research internship",
           company: "CERN, Meyrin, Switzerland",
           duration: "June-July 2025",
-          description: "Worked on the FCC (Future Circular Collider) project in the BEAMS department. Developed and benchmarked state-of-the-art robotic pose estimation algorithms, assembled a dedicated testbed, and ensured robustness under critical operating conditions. Attended Summer Student lectures on Particle Physics, Experimental Physics and Computer Sciences.",
+          description: "In the BEAMS department, I contributed to research on the FCC (Future Circular Collider) project. I developed and compared robotic pose estimation algorithms, built a dedicated testbed, and tested robustness under demanding conditions. I also attended Summer Student lectures on particle physics, experimental physics and computer science.",
           icon: 'cern.svg',
           isIconMultiColor: true,
           institutionLink: "https://home.cern/",
@@ -202,14 +228,14 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
       items: PROJECTS_EN,
     },
     contact: {
-      title: "Get In Touch",
-      subtitle: "I'm always open to discussing new projects, creative ideas or opportunities to be part of your visions. Feel free to reach out!",
-      emailText: "Say Hello"
+      title: "Contact",
+      subtitle: "Feel free to reach out — I am always glad to discuss research ideas.",
+      emailText: "Email me"
     }
   },
   fr: {
     headerTitle: "Samuel Ogulluk",
-    headerSubtitle: "Étudiant en Électronique et Informatique",
+    headerSubtitle: "Étudiant-chercheur en ingénierie électronique, informatique et en mathématiques appliquées",
     nav: {
       home: "Accueil",
       about: "À Propos",
@@ -221,12 +247,11 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
     home: {
       greeting: "Bienvenue.",
-      intro: "Je suis étudiant en Ingénierie Electronique, Informatique et Mathématiques Appliquées, avec un fort intérêt pour la Robotique.",
-      paragraph1: "Passionné par la résolution de problèmes complexes à l'intersection des algorithmes et des systèmes physiques. Explorez mon portfolio pour découvrir mes travaux et n'hésitez pas à me contacter !",
+      intro: "Je suis étudiant, en formation pour devenir chercheur, à l'intersection du génie électrique, de l'informatique et des mathématiques appliquées.",
     },
     about: {
-      title: "À Propos de Moi",
-      bio: "En tant qu'étudiant en Ingénierie Electronique, Informatique et Mathématiques Appliquées, je suis motivé à créer des solutions innovantes à l'intersection des algorithmes et de la robotique. Je suis ouvert aux opportunités, n'hésitez pas à me contacter.",
+      title: "À propos",
+      bio: "Élève à l'École Normale Supérieure de Paris-Saclay, je souhaite devenir chercheur à l'intersection de l'ingénierie électronique, informatique et des mathématiques appliquées. Je m'intéresse tout particulièrement à l'apprentissage automatique, tant de manière théorique que pratique. N'hésitez pas à me contacter pour toute collaboration.",
       downloadCV: "Télécharger le CV",
     },
      skills: {
@@ -241,25 +266,16 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
           degree: "Master en sciences pour l'ingénieur électronique et numérique",
           institution: "École Normale Supérieure Paris-Saclay, Paris",
           duration: "2025 - Présent",
-          description: "Département d'Ingénierie Électronique et Numérique - Élève fonctionnaire-stagiaire. Cours clés : Architecture des microprocesseurs, Informatique, Traitement du signal et de l'image, Physique, IA.",
+          description: "Je suis élève fonctionnaire-stagiaire au département d'ingénierie électronique et numérique. J'y suis formé notamment en architecture des microprocesseurs, informatique, traitement du signal et de l'image, physique et IA.",
           institutionLink: "https://ens-paris-saclay.fr/",
           icon: 'ens_ps.svg',
-          isIconMultiColor: true,
-        },
-        {
-          degree: "Licence de physique fondamentale",
-          institution: "Sorbonne Université, Paris",
-          duration: "2025 - Présent",
-          description: "Cours clés : Physique quantique, Analyse complexe, Mécanique des matériaux.",
-          institutionLink: "https://www.sorbonne-universite.fr/",
-          icon: 'sorbonne_universite_logo.svg',
           isIconMultiColor: true,
         },
         {
           degree: "Licence en ingénierie mécanique (Mention très bien) & Licence en ingénierie électronique (Mention bien)",
           institution: "École Normale Supérieure de Rennes, Rennes",
           duration: "2024 - 2025",
-          description: "Département de Mécatronique - Élève fonctionnaire-stagiaire. Cours clés : Mécanique des milieux continus, Mécanique du solide, Dessin technique, CAO 3D, Électronique analogique.",
+          description: "J'étais élève fonctionnaire-stagiaire en mécatronique. J'y ai suivi notamment de la mécanique des milieux continus et du solide, du dessin technique, de la CAO 3D et de l'électronique analogique.",
           institutionLink: "https://www.ens-rennes.fr/",
           icon: 'ens-rennes.svg',
           isIconMultiColor: true,
@@ -268,7 +284,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
           degree: "Classe préparatoire aux grandes écoles d'ingénieurs",
           institution: "Lycée Hoche, Versailles",
           duration: "2022 - 2024",
-          description: "Cursus généraliste intensif en Mathématiques et Chimie avec une Majeure en Physique et Sciences de l'Ingénieur.",
+          description: "J'ai fait PCSI puis PSI* — une formation intensive en mathématiques, physique et sciences de l'ingénieur.",
           institutionLink: "https://fr.wikipedia.org/wiki/Lyc%C3%A9e_Hoche",
           icon: 'hoche.svg',
           isIconMultiColor: true,
@@ -278,11 +294,20 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     experience: {
       title: "Expérience Professionnelle",
       items: [
-         {
-          role: "Stage",
+        {
+          role: "Stage de recherche",
+          company: "ETH Zurich, Zurich, Suisse",
+          duration: "2026",
+          description: "J'ai travaillé sur les réseaux de neurones récurrents et leur interprétabilité, en testant des algorithmes d'apprentissage exacts. J'ai montré que cet apprentissage est PP-complet lorsque le nombre d'itérations est polynomial en la taille de l'entrée.",
+          icon: 'ethz.svg',
+          isIconMultiColor: true,
+          institutionLink: "https://ethz.ch/",
+        },
+        {
+          role: "Stage de recherche",
           company: "CERN, Meyrin, Suisse",
           duration: "Juin-Juillet 2025",
-          description: "Travail sur le projet FCC (Future Circular Collider) dans le département BEAMS. Développement et évaluation d'algorithmes de pointe pour l'estimation de la pose de robots, assemblage d'un banc d'essai dédié et garantie de la robustesse dans des conditions de fonctionnement critiques. Participation aux cours d'été pour étudiants sur la physique des particules, la physique expérimentale et l'informatique.",
+          description: "Au département BEAMS, j'ai contribué à la recherche sur le projet FCC (Future Circular Collider). J'ai développé et comparé des algorithmes d'estimation de pose pour la robotique, monté un banc d'essai dédié, et testé leur robustesse en conditions exigeantes. J'ai aussi suivi les cours d'été sur la physique des particules, la physique expérimentale et l'informatique.",
           icon: 'cern.svg',
           isIconMultiColor: true,
           institutionLink: "https://home.cern/",
@@ -294,9 +319,9 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
       items: PROJECTS_FR,
     },
      contact: {
-      title: "Contactez-moi",
-      subtitle: "Je suis toujours ouvert à discuter de nouveaux projets, d'idées créatives ou d'opportunités pour faire partie de vos visions. N'hésitez pas à me contacter !",
-      emailText: "Dites Bonjour"
+      title: "Contact",
+      subtitle: "N'hésitez pas à m'écrire — j'aime échanger autour de la recherche.",
+      emailText: "M'écrire"
     }
   },
 };
