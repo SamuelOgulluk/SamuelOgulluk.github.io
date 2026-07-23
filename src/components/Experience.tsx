@@ -13,9 +13,9 @@ const ExperienceRow: React.FC<{ item: ExperienceItem }> = ({ item }) => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`${item.company} website`}
-            className="logo-tile flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden border md:h-32 md:w-32"
+            className="logo-tile flex h-20 w-44 shrink-0 items-center justify-center overflow-hidden border md:h-24 md:w-56"
           >
-            <img src={`/assets/${item.icon}`} alt="" className="h-full w-full object-contain p-2 md:p-3" />
+            <img src={`/assets/${item.icon}`} alt="" className="h-full w-full object-contain p-3 md:p-4" />
           </a>
           <div>
             <h3 className="font-display text-xl font-bold tracking-tight text-ink">{item.role}</h3>
