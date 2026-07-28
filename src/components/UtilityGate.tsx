@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLanguage } from '@/App';
-import YoutubeDownloader from './YoutubeDownloader';
+import UtilityHub from './UtilityHub';
 
 // SHA-256("1234") — le mot de passe n'est jamais stocké en clair
 const PASSWORD_HASH = '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4';
@@ -56,7 +56,7 @@ const UtilityGate = () => {
     }
   };
 
-  if (unlocked) return <YoutubeDownloader />;
+  if (unlocked) return <UtilityHub />;
 
   return (
     <section className="utility-panel">
