@@ -73,6 +73,30 @@ export interface TranslationContent {
     lockLabel: string;
     lockSubmit: string;
     lockWrong: string;
+    toolYoutube: string;
+    toolPdf: string;
+    pdf: {
+      title: string;
+      subtitle: string;
+      pdf24Title: string;
+      pdf24Subtitle: string;
+      openPdf24: string;
+      popupBlocked: string;
+      localTitle: string;
+      localSubtitle: string;
+      addFiles: string;
+      clearFiles: string;
+      merge: string;
+      split: string;
+      rotate: string;
+      rangeLabel: string;
+      rangePlaceholder: string;
+      needMultiple: string;
+      needSingle: string;
+      processError: string;
+      working: string;
+      disclaimer: string;
+    };
   };
 }
 
