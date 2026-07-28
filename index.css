@@ -233,6 +233,81 @@ a {
   background: var(--surface);
 }
 
+.app-tabs {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.2rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.app-tab {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0.55rem 0.75rem;
+  border-radius: 1px;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+.app-tab.is-active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.app-tab:hover:not(.is-active) {
+  color: var(--ink);
+}
+
+.utility-panel {
+  padding: 1rem 0 2rem;
+  min-height: calc(100svh - 8rem);
+}
+
+.utility-input {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  padding: 0.85rem 0.95rem;
+  outline: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.utility-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.utility-progress {
+  height: 4px;
+  width: 100%;
+  max-width: 18rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--line);
+}
+
+.utility-progress-bar {
+  height: 100%;
+  background: var(--accent);
+  transition: width 120ms linear;
+}
+
+.site-shell.is-utility .site-main {
+  padding-bottom: 3rem;
+}
+
 .logo-tile {
   background: var(--logo-bg);
   border-color: var(--line);
