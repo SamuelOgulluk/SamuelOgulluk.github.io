@@ -9,7 +9,7 @@ import Projects from './src/components/Projects';
 import Contact from './src/components/Contact';
 import Education from './src/components/Education';
 import AnimatedSection from './src/components/AnimatedSection';
-import YoutubeDownloader from './src/components/YoutubeDownloader';
+import UtilityGate from './src/components/UtilityGate';
 
 interface LanguageContextType {
   language: Language;
@@ -85,7 +85,7 @@ const App: React.FC = () => {
               <AnimatedSection id="contact"><Contact /></AnimatedSection>
             </>
           ) : (
-            <YoutubeDownloader />
+            <UtilityGate />
           )}
         </main>
       </div>

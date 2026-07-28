@@ -253,6 +253,11 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
       noStreams: "No downloadable format was found for this video.",
       downloadFallback: "Direct save failed — the stream was opened in a new tab.",
       disclaimer: "For personal use only. Respect copyright and YouTube’s terms of service. Powered by yt-dlp.",
+      lockTitle: "Protected area",
+      lockSubtitle: "Enter the password to open the utility tab.",
+      lockLabel: "Password",
+      lockSubmit: "Unlock",
+      lockWrong: "Wrong password.",
     }
   },
   fr: {
@@ -366,6 +371,11 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
       noStreams: "Aucun format téléchargeable n'a été trouvé pour cette vidéo.",
       downloadFallback: "L'enregistrement direct a échoué — le flux a été ouvert dans un nouvel onglet.",
       disclaimer: "Usage personnel uniquement. Respecte le droit d'auteur et les conditions d'utilisation de YouTube. Propulsé par yt-dlp.",
+      lockTitle: "Zone protégée",
+      lockSubtitle: "Entre le mot de passe pour ouvrir l'onglet utilitaire.",
+      lockLabel: "Mot de passe",
+      lockSubmit: "Déverrouiller",
+      lockWrong: "Mot de passe incorrect.",
     }
   },
 };
