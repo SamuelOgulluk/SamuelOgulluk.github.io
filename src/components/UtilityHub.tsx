@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { Suspense, lazy, useState } from 'react';
 import { useLanguage } from '@/App';
 import YoutubeDownloader from './YoutubeDownloader';
-import PdfTools from './PdfTools';
+
+const PdfTools = lazy(() => import('./PdfTools'));
 
 const UtilityHub = () => {
   const { t } = useLanguage();
@@ -26,7 +27,13 @@ const UtilityHub = () => {
           {u.toolPdf}
         </button>
       </div>
-      {tool === 'youtube' ? <YoutubeDownloader /> : <PdfTools />}
+      {tool === 'youtube' ? (
+        <YoutubeDownloader />
+      ) : (
+        <Suspense fallback={<p className="text-sm text-muted">{u.pdf.working}</p>}>
+          <PdfTools />
+        </Suspense>
+      )}
     </div>
   );
 };
