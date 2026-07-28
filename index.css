@@ -248,12 +248,15 @@ a {
   background: transparent;
   color: var(--muted);
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
   font-family: var(--font-body);
   font-size: 0.8rem;
   font-weight: 600;
   line-height: 1;
   padding: 0.55rem 0.75rem;
   border-radius: 1px;
+  text-decoration: none;
   transition: background-color 160ms ease, color 160ms ease;
 }
 
