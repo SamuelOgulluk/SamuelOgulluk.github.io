@@ -44,11 +44,11 @@ const LANGUAGES_DATA: SkillDetails[] = [
 
 const PROJECTS_EN: Project[] = [
   {
-    title: "Otty",
-    description: "I built Otty, a local DAW with Tauri 2, React and Web Audio: arrangement, piano roll, instruments, effects and mixer.",
-    imageUrl: "/assets/otty.svg",
-    siteUrl: "https://samuelogulluk.github.io/otty/",
-    githubUrl: "https://github.com/SamuelOgulluk/otty",
+    title: "Lutra",
+    description: "I built Lutra, a local DAW with Tauri 2, React and Web Audio: arrangement, piano roll, instruments, effects and mixer.",
+    imageUrl: "/assets/lutra.svg",
+    siteUrl: "https://samuelogulluk.github.io/lutra/",
+    githubUrl: "https://github.com/SamuelOgulluk/lutra",
     technologies: [
       LANGUAGES_DATA.find(l => l.name === 'TypeScript'),
       LANGUAGES_DATA.find(l => l.name === 'HTML'),
@@ -93,11 +93,11 @@ const PROJECTS_EN: Project[] = [
 
 const PROJECTS_FR: Project[] = [
     {
-      title: "Otty",
-      description: "J'ai conçu Otty, une DAW locale (Tauri 2, React, Web Audio) avec arrangement, piano roll, instruments, effets et mixer.",
-      imageUrl: "/assets/otty.svg",
-      siteUrl: "https://samuelogulluk.github.io/otty/",
-      githubUrl: "https://github.com/SamuelOgulluk/otty",
+      title: "Lutra",
+      description: "J'ai conçu Lutra, une DAW locale (Tauri 2, React, Web Audio) avec arrangement, piano roll, instruments, effets et mixer.",
+      imageUrl: "/assets/lutra.svg",
+      siteUrl: "https://samuelogulluk.github.io/lutra/",
+      githubUrl: "https://github.com/SamuelOgulluk/lutra",
       technologies: [
         LANGUAGES_DATA.find(l => l.name === 'TypeScript'),
         LANGUAGES_DATA.find(l => l.name === 'HTML'),
