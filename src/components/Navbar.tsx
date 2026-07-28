@@ -48,6 +48,14 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, view, onViewChange }) =>
               >
                 {t.tabs.utility}
               </button>
+              <a
+                href="https://samuelogulluk.github.io/lutra/"
+                className="app-tab"
+                role="tab"
+                aria-selected={false}
+              >
+                {t.tabs.music}
+              </a>
             </div>
 
             {view === 'portfolio' && (

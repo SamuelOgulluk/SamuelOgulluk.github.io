@@ -10,6 +10,7 @@ export interface TranslationContent {
   tabs: {
     portfolio: string;
     utility: string;
+    music: string;
   };
   nav: {
     home: string;
