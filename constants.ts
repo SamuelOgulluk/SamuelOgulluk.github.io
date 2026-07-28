@@ -148,6 +148,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     tabs: {
       portfolio: "Portfolio",
       utility: "Utility",
+      music: "Music",
     },
     nav: {
       home: "Home",
@@ -290,6 +291,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     tabs: {
       portfolio: "Portfolio",
       utility: "Utilitaire",
+      music: "Musique",
     },
     nav: {
       home: "Accueil",
