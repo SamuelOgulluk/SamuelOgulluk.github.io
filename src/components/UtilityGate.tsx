@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useLanguage } from '@/App';
 import YoutubeDownloader from './YoutubeDownloader';
 
-const UTILITY_PASSWORD = '1234';
-const UNLOCK_KEY = 'utility-unlocked';
+// SHA-256("1234") — le mot de passe n'est jamais stocké en clair
+const PASSWORD_HASH = '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4';
+const UNLOCK_KEY = 'utility-unlocked-v2';
 
 function isUnlocked() {
   try {
@@ -13,27 +14,46 @@ function isUnlocked() {
   }
 }
 
+async function sha256Hex(text) {
+  const data = new TextEncoder().encode(text);
+  const digest = await crypto.subtle.digest('SHA-256', data);
+  return Array.from(new Uint8Array(digest))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
+}
+
 const UtilityGate = () => {
   const { t } = useLanguage();
   const u = t.utility;
   const [unlocked, setUnlocked] = useState(isUnlocked);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [checking, setChecking] = useState(false);
 
-  const submit = (event) => {
+  const submit = async (event) => {
     event.preventDefault();
-    if (password === UTILITY_PASSWORD) {
-      try {
-        sessionStorage.setItem(UNLOCK_KEY, '1');
-      } catch {
-        // ignore storage errors
+    setError('');
+    setChecking(true);
+    try {
+      const hash = await sha256Hex(password);
+      if (hash === PASSWORD_HASH) {
+        try {
+          sessionStorage.setItem(UNLOCK_KEY, '1');
+        } catch {
+          // ignore storage errors
+        }
+        setUnlocked(true);
+        setPassword('');
+        return;
       }
-      setUnlocked(true);
-      setError('');
-      return;
+      setError(u.lockWrong);
+      setPassword('');
+    } catch {
+      setError(u.lockWrong);
+      setPassword('');
+    } finally {
+      setChecking(false);
     }
-    setError(u.lockWrong);
-    setPassword('');
   };
 
   if (unlocked) return <YoutubeDownloader />;
@@ -54,6 +74,7 @@ const UtilityGate = () => {
             className="utility-input"
             autoComplete="current-password"
             autoFocus
+            disabled={checking}
           />
         </label>
 
@@ -63,7 +84,7 @@ const UtilityGate = () => {
           </p>
         )}
 
-        <button type="submit" className="btn btn-primary" disabled={!password}>
+        <button type="submit" className="btn btn-primary" disabled={!password || checking}>
           {u.lockSubmit}
         </button>
       </form>
