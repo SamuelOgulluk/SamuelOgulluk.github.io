@@ -238,7 +238,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
     utility: {
       title: "YouTube downloader",
-      subtitle: "Paste a YouTube link, choose video or audio, then download the file.",
+      subtitle: "Paste a YouTube link, choose video or audio, then download via yt-dlp.",
       linkLabel: "YouTube link",
       placeholder: "https://www.youtube.com/watch?v=…",
       modeVideo: "Video",
@@ -252,7 +252,12 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
       fetchError: "Could not fetch this video. Try again in a moment.",
       noStreams: "No downloadable format was found for this video.",
       downloadFallback: "Direct save failed — the stream was opened in a new tab.",
-      disclaimer: "For personal use only. Respect copyright and YouTube’s terms of service.",
+      disclaimer: "For personal use only. Respect copyright and YouTube’s terms of service. Powered by yt-dlp.",
+      lockTitle: "Protected area",
+      lockSubtitle: "Enter the password to open the utility tab.",
+      lockLabel: "Password",
+      lockSubmit: "Unlock",
+      lockWrong: "Wrong password.",
     }
   },
   fr: {
@@ -351,7 +356,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
     },
     utility: {
       title: "Téléchargeur YouTube",
-      subtitle: "Colle un lien YouTube, choisis vidéo ou audio, puis télécharge le fichier.",
+      subtitle: "Colle un lien YouTube, choisis vidéo ou audio, puis télécharge via yt-dlp.",
       linkLabel: "Lien YouTube",
       placeholder: "https://www.youtube.com/watch?v=…",
       modeVideo: "Vidéo",
@@ -365,7 +370,12 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
       fetchError: "Impossible de récupérer cette vidéo. Réessaie dans un instant.",
       noStreams: "Aucun format téléchargeable n'a été trouvé pour cette vidéo.",
       downloadFallback: "L'enregistrement direct a échoué — le flux a été ouvert dans un nouvel onglet.",
-      disclaimer: "Usage personnel uniquement. Respecte le droit d'auteur et les conditions d'utilisation de YouTube.",
+      disclaimer: "Usage personnel uniquement. Respecte le droit d'auteur et les conditions d'utilisation de YouTube. Propulsé par yt-dlp.",
+      lockTitle: "Zone protégée",
+      lockSubtitle: "Entre le mot de passe pour ouvrir l'onglet utilitaire.",
+      lockLabel: "Mot de passe",
+      lockSubmit: "Déverrouiller",
+      lockWrong: "Mot de passe incorrect.",
     }
   },
 };

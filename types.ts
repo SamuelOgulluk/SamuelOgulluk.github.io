@@ -68,6 +68,11 @@ export interface TranslationContent {
     noStreams: string;
     downloadFallback: string;
     disclaimer: string;
+    lockTitle: string;
+    lockSubtitle: string;
+    lockLabel: string;
+    lockSubmit: string;
+    lockWrong: string;
   };
 }
 

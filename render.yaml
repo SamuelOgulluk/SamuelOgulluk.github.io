@@ -1,0 +1,14 @@
+# Exemple Render (https://render.com) — connecte ce repo et crée un Web Service.
+services:
+  - type: web
+    name: ytdlp-api
+    runtime: docker
+    dockerfilePath: ./server/Dockerfile
+    dockerContext: ./server
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: CORS_ORIGINS
+        value: https://samuelogulluk.github.io,http://localhost:5173,http://localhost:3000
+      - key: YTDLP_JS_RUNTIME
+        value: /usr/bin/node

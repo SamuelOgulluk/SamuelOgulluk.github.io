@@ -1,6 +1,13 @@
 /// <reference types="vite/client" />
 
-// On le redéclare manuellement au cas où
+interface ImportMetaEnv {
+  readonly VITE_YTDLP_API?: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
+
 declare module '*.svg?react' {
   import * as React from 'react';
   const ReactComponent: React.FunctionComponent<
