@@ -1,56 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { useLanguage } from '@/App';
 
-const PIPED_API_HOSTS = [
-  'https://api.piped.private.coffee',
-];
-
-const YT_ID_RE =
-  /(?:youtube\.com\/(?:watch\?(?:[^#]*&)?v=|embed\/|shorts\/|live\/)|youtu\.be\/|youtube\.com\/v\/)([A-Za-z0-9_-]{11})/;
-
-function extractVideoId(raw) {
-  const input = raw.trim();
-  if (!input) return null;
-  if (/^[A-Za-z0-9_-]{11}$/.test(input)) return input;
-  try {
-    const url = new URL(input.startsWith('http') ? input : `https://${input}`);
-    if (url.hostname.includes('youtu')) {
-      const fromPath = url.pathname.match(/\/(shorts|embed|live|v)\/([A-Za-z0-9_-]{11})/);
-      if (fromPath) return fromPath[2];
-      const v = url.searchParams.get('v');
-      if (v && /^[A-Za-z0-9_-]{11}$/.test(v)) return v;
-    }
-  } catch {
-    // fall through
-  }
-  const match = input.match(YT_ID_RE);
-  return match ? match[1] : null;
-}
-
-function pickStreams(data, mode) {
-  const videos = Array.isArray(data.videoStreams) ? data.videoStreams : [];
-  const audios = Array.isArray(data.audioStreams) ? data.audioStreams : [];
-
-  if (mode === 'audio') {
-    const audio = audios
-      .filter((s) => s.url && (s.mimeType || '').includes('audio'))
-      .sort((a, b) => (b.bitrate || 0) - (a.bitrate || 0));
-    if (audio.length) return audio.map((s) => ({ ...s, kind: 'audio' }));
-    // fallback: muxed low quality video if no dedicated audio
-    return videos
-      .filter((s) => s.url && !s.videoOnly && (s.mimeType || '').includes('mp4'))
-      .map((s) => ({ ...s, kind: 'video' }));
-  }
-
-  return videos
-    .filter((s) => s.url && !s.videoOnly && ((s.mimeType || '').includes('mp4') || (s.mimeType || '').includes('webm')))
-    .sort((a, b) => {
-      const qa = parseInt(String(a.quality), 10) || 0;
-      const qb = parseInt(String(b.quality), 10) || 0;
-      return qb - qa;
-    })
-    .map((s) => ({ ...s, kind: 'video' }));
-}
+const API_BASE = (import.meta.env.VITE_YTDLP_API || 'http://127.0.0.1:7860').replace(/\/$/, '');
 
 function safeFilename(name, ext) {
   const base = (name || 'youtube-video')
@@ -72,93 +23,108 @@ const YoutubeDownloader = () => {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState('');
   const [info, setInfo] = useState(null);
-  const [rawData, setRawData] = useState(null);
-  const [streams, setStreams] = useState([]);
+  const [formats, setFormats] = useState([]);
   const [selected, setSelected] = useState('');
 
-  const selectedStream = useMemo(
-    () => streams.find((s) => s.url === selected) || streams[0] || null,
-    [streams, selected]
+  const selectedFormat = useMemo(
+    () => formats.find((f) => f.id === selected) || formats[0] || null,
+    [formats, selected]
   );
-
-  const applyMode = (data, nextMode) => {
-    const options = pickStreams(data, nextMode);
-    setStreams(options);
-    setSelected(options[0]?.url || '');
-    if (!options.length) setError(u.noStreams);
-  };
-
-  const changeMode = (nextMode) => {
-    setMode(nextMode);
-    setError('');
-    if (rawData) applyMode(rawData, nextMode);
-  };
 
   const analyze = async (event) => {
     event.preventDefault();
     setError('');
     setInfo(null);
-    setRawData(null);
-    setStreams([]);
+    setFormats([]);
     setSelected('');
     setProgress(0);
 
-    const id = extractVideoId(url);
-    if (!id) {
+    if (!url.trim()) {
       setError(u.invalidUrl);
       return;
     }
 
     setLoading(true);
     try {
-      let lastError = null;
-      let data = null;
-      for (const host of PIPED_API_HOSTS) {
-        try {
-          const res = await fetch(`${host}/streams/${id}`);
-          if (!res.ok) {
-            lastError = new Error(`HTTP ${res.status}`);
-            continue;
-          }
-          data = await res.json();
-          if (data?.error) {
-            lastError = new Error(data.message || data.error);
-            data = null;
-            continue;
-          }
-          break;
-        } catch (err) {
-          lastError = err;
-        }
+      const res = await fetch(`${API_BASE}/info`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ url: url.trim(), mode }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        const detail = typeof data.detail === 'string' ? data.detail : u.fetchError;
+        throw new Error(detail);
       }
-
-      if (!data) throw lastError || new Error('unavailable');
-
-      setRawData(data);
+      if (!Array.isArray(data.formats) || !data.formats.length) {
+        setError(u.noStreams);
+        return;
+      }
       setInfo({
         title: data.title,
         uploader: data.uploader,
-        thumbnail: data.thumbnailUrl,
+        thumbnail: data.thumbnail,
         duration: data.duration,
-        id,
+        id: data.id,
+        webpage_url: data.webpage_url || url.trim(),
       });
-      applyMode(data, mode);
-    } catch {
-      setError(u.fetchError);
+      setFormats(data.formats);
+      setSelected(data.formats[0].id);
+    } catch (err) {
+      setError(err?.message || u.fetchError);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const changeMode = async (nextMode) => {
+    setMode(nextMode);
+    setError('');
+    if (!info?.webpage_url && !url.trim()) return;
+    setLoading(true);
+    setFormats([]);
+    setSelected('');
+    try {
+      const res = await fetch(`${API_BASE}/info`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ url: info?.webpage_url || url.trim(), mode: nextMode }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        const detail = typeof data.detail === 'string' ? data.detail : u.fetchError;
+        throw new Error(detail);
+      }
+      setFormats(data.formats || []);
+      setSelected(data.formats?.[0]?.id || '');
+      if (!data.formats?.length) setError(u.noStreams);
+    } catch (err) {
+      setError(err?.message || u.fetchError);
     } finally {
       setLoading(false);
     }
   };
 
   const download = async () => {
-    if (!selectedStream?.url || !info) return;
+    if (!selectedFormat || !info) return;
     setError('');
     setDownloading(true);
     setProgress(0);
 
+    const params = new URLSearchParams({
+      url: info.webpage_url,
+      format_id: selectedFormat.id,
+      mode,
+      title: info.title || 'youtube-video',
+    });
+
     try {
-      const res = await fetch(selectedStream.url);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const res = await fetch(`${API_BASE}/download?${params.toString()}`);
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        const detail = typeof data.detail === 'string' ? data.detail : u.fetchError;
+        throw new Error(detail);
+      }
 
       const total = Number(res.headers.get('content-length') || 0);
       const reader = res.body?.getReader?.();
@@ -173,16 +139,14 @@ const YoutubeDownloader = () => {
           chunks.push(value);
           received += value.byteLength;
           if (total > 0) setProgress(Math.min(99, Math.round((received / total) * 100)));
+          else setProgress((p) => (p < 90 ? p + 1 : p));
         }
-        blob = new Blob(chunks, { type: selectedStream.mimeType || 'application/octet-stream' });
+        blob = new Blob(chunks, { type: 'application/octet-stream' });
       } else {
         blob = await res.blob();
       }
 
-      const ext = mode === 'audio'
-        ? ((selectedStream.mimeType || '').includes('webm') ? 'webm' : 'm4a')
-        : ((selectedStream.mimeType || '').includes('webm') ? 'webm' : 'mp4');
-
+      const ext = selectedFormat.ext || (mode === 'audio' ? 'm4a' : 'mp4');
       const objectUrl = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = objectUrl;
@@ -192,10 +156,8 @@ const YoutubeDownloader = () => {
       a.remove();
       URL.revokeObjectURL(objectUrl);
       setProgress(100);
-    } catch {
-      // fallback: open stream in new tab if blob download fails
-      window.open(selectedStream.url, '_blank', 'noopener,noreferrer');
-      setError(u.downloadFallback);
+    } catch (err) {
+      setError(err?.message || u.fetchError);
     } finally {
       setDownloading(false);
     }
@@ -272,20 +234,18 @@ const YoutubeDownloader = () => {
               {[info.uploader, formatDuration(info.duration)].filter(Boolean).join(' · ')}
             </p>
 
-            {streams.length > 0 && (
+            {formats.length > 0 && (
               <div className="mt-4 space-y-3">
                 <label className="block">
                   <span className="mb-1.5 block text-sm font-semibold text-ink">{u.qualityLabel}</span>
                   <select
                     className="utility-input"
-                    value={selectedStream?.url || ''}
+                    value={selectedFormat?.id || ''}
                     onChange={(e) => setSelected(e.target.value)}
                   >
-                    {streams.map((s) => (
-                      <option key={s.url} value={s.url}>
-                        {s.kind === 'audio'
-                          ? `${s.quality || 'audio'} · ${s.mimeType || 'audio'}`
-                          : `${s.quality || 'video'} · ${s.mimeType || 'video'}`}
+                    {formats.map((f) => (
+                      <option key={f.id} value={f.id}>
+                        {f.label}
                       </option>
                     ))}
                   </select>
@@ -295,7 +255,7 @@ const YoutubeDownloader = () => {
                   type="button"
                   className="btn btn-primary"
                   onClick={download}
-                  disabled={downloading || !selectedStream}
+                  disabled={downloading || !selectedFormat}
                 >
                   {downloading ? u.downloading : u.download}
                 </button>

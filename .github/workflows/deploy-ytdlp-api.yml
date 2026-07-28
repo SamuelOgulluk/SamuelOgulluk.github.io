@@ -1,0 +1,45 @@
+name: Deploy yt-dlp API (Hugging Face Space)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'server/**'
+      - '.github/workflows/deploy-ytdlp-api.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ secrets.HF_TOKEN != '' && secrets.HF_USERNAME != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Hugging Face Hub
+        run: pip install -U huggingface_hub
+      - name: Push server/ to HF Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_USERNAME: ${{ secrets.HF_USERNAME }}
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          from huggingface_hub import HfApi, create_repo
+
+          token = os.environ["HF_TOKEN"]
+          user = os.environ["HF_USERNAME"]
+          repo_id = f"{user}/yt-dlp-api"
+          api = HfApi(token=token)
+          create_repo(repo_id, repo_type="space", space_sdk="docker", exist_ok=True, token=token)
+          api.upload_folder(
+              folder_path="server",
+              repo_id=repo_id,
+              repo_type="space",
+              delete_patterns=["*"],
+          )
+          print(f"Deployed https://huggingface.co/spaces/{repo_id}")
+          print(f"API URL: https://{user.lower().replace('_', '-')}-yt-dlp-api.hf.space")
+          PY
