@@ -1,10 +1,16 @@
 export type Language = 'en' | 'fr';
 
+export type AppView = 'portfolio' | 'utility';
+
 export type SectionId = 'home' | 'skills' | 'education' | 'experience' | 'projects' | 'contact';
 
 export interface TranslationContent {
   headerTitle: string;
   headerSubtitle: string;
+  tabs: {
+    portfolio: string;
+    utility: string;
+  };
   nav: {
     home: string;
     about: string;
@@ -41,9 +47,27 @@ export interface TranslationContent {
     items: Project[];
   };
   contact: {
-    title:string;
+    title: string;
     subtitle: string;
     emailText: string;
+  };
+  utility: {
+    title: string;
+    subtitle: string;
+    linkLabel: string;
+    placeholder: string;
+    modeVideo: string;
+    modeAudio: string;
+    analyze: string;
+    loading: string;
+    qualityLabel: string;
+    download: string;
+    downloading: string;
+    invalidUrl: string;
+    fetchError: string;
+    noStreams: string;
+    downloadFallback: string;
+    disclaimer: string;
   };
 }
 

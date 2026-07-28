@@ -145,6 +145,10 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
   en: {
     headerTitle: "Samuel Ogulluk",
     headerSubtitle: "Aspiring researcher in electrical engineering, computer science and applied mathematics",
+    tabs: {
+      portfolio: "Portfolio",
+      utility: "Utility",
+    },
     nav: {
       home: "Home",
       about: "About",
@@ -231,11 +235,33 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
       title: "Contact",
       subtitle: "Feel free to reach out — I am always glad to discuss research ideas.",
       emailText: "Email me"
+    },
+    utility: {
+      title: "YouTube downloader",
+      subtitle: "Paste a YouTube link, choose video or audio, then download the file.",
+      linkLabel: "YouTube link",
+      placeholder: "https://www.youtube.com/watch?v=…",
+      modeVideo: "Video",
+      modeAudio: "Audio",
+      analyze: "Fetch formats",
+      loading: "Fetching…",
+      qualityLabel: "Format",
+      download: "Download",
+      downloading: "Downloading…",
+      invalidUrl: "This does not look like a valid YouTube link.",
+      fetchError: "Could not fetch this video. Try again in a moment.",
+      noStreams: "No downloadable format was found for this video.",
+      downloadFallback: "Direct save failed — the stream was opened in a new tab.",
+      disclaimer: "For personal use only. Respect copyright and YouTube’s terms of service.",
     }
   },
   fr: {
     headerTitle: "Samuel Ogulluk",
     headerSubtitle: "Étudiant-chercheur en ingénierie électronique, informatique et en mathématiques appliquées",
+    tabs: {
+      portfolio: "Portfolio",
+      utility: "Utilitaire",
+    },
     nav: {
       home: "Accueil",
       about: "À Propos",
@@ -322,6 +348,24 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
       title: "Contact",
       subtitle: "N'hésitez pas à m'écrire — j'aime échanger autour de la recherche.",
       emailText: "M'écrire"
+    },
+    utility: {
+      title: "Téléchargeur YouTube",
+      subtitle: "Colle un lien YouTube, choisis vidéo ou audio, puis télécharge le fichier.",
+      linkLabel: "Lien YouTube",
+      placeholder: "https://www.youtube.com/watch?v=…",
+      modeVideo: "Vidéo",
+      modeAudio: "Audio",
+      analyze: "Récupérer les formats",
+      loading: "Chargement…",
+      qualityLabel: "Format",
+      download: "Télécharger",
+      downloading: "Téléchargement…",
+      invalidUrl: "Ce lien YouTube ne semble pas valide.",
+      fetchError: "Impossible de récupérer cette vidéo. Réessaie dans un instant.",
+      noStreams: "Aucun format téléchargeable n'a été trouvé pour cette vidéo.",
+      downloadFallback: "L'enregistrement direct a échoué — le flux a été ouvert dans un nouvel onglet.",
+      disclaimer: "Usage personnel uniquement. Respecte le droit d'auteur et les conditions d'utilisation de YouTube.",
     }
   },
 };

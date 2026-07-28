@@ -1,5 +1,5 @@
 import React, { useState, createContext, useContext, useMemo, useEffect } from 'react';
-import type { Language, SectionId, TranslationContent } from './types';
+import type { AppView, Language, SectionId, TranslationContent } from './types';
 import { TRANSLATIONS } from './constants';
 import Navbar from './src/components/Navbar';
 import Home from './src/components/Home';
@@ -9,6 +9,7 @@ import Projects from './src/components/Projects';
 import Contact from './src/components/Contact';
 import Education from './src/components/Education';
 import AnimatedSection from './src/components/AnimatedSection';
+import YoutubeDownloader from './src/components/YoutubeDownloader';
 
 interface LanguageContextType {
   language: Language;
@@ -29,6 +30,7 @@ const SECTIONS: SectionId[] = ['home', 'experience', 'education', 'skills', 'pro
 const App: React.FC = () => {
   const [language, setLanguage] = useState<Language>('en');
   const [activeSection, setActiveSection] = useState<SectionId>('home');
+  const [view, setView] = useState<AppView>('portfolio');
 
   const t = useMemo(() => TRANSLATIONS[language], [language]);
   const languageContextValue = useMemo(() => ({ language, setLanguage, t }), [language, t]);
@@ -38,6 +40,8 @@ const App: React.FC = () => {
   }, [language]);
 
   useEffect(() => {
+    if (view !== 'portfolio') return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -53,21 +57,36 @@ const App: React.FC = () => {
     }
 
     return () => observer.disconnect();
-  }, []);
+  }, [view]);
+
+  const handleViewChange = (next: AppView) => {
+    setView(next);
+    if (next === 'portfolio') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' } as ScrollToOptions);
+    }
+  };
 
   return (
     <LanguageContext.Provider value={languageContextValue}>
-      <div className="site-shell font-body text-soft">
+      <div className={`site-shell font-body text-soft ${view === 'utility' ? 'is-utility' : ''}`}>
         <div className="site-atmosphere" aria-hidden="true" />
         <div className="site-nature" aria-hidden="true" />
-        <Navbar activeSection={activeSection} />
+        <Navbar activeSection={activeSection} view={view} onViewChange={handleViewChange} />
         <main className="site-main">
-          <Home />
-          <AnimatedSection id="experience"><Experience /></AnimatedSection>
-          <AnimatedSection id="education"><Education /></AnimatedSection>
-          <AnimatedSection id="skills"><Skills /></AnimatedSection>
-          <AnimatedSection id="projects"><Projects /></AnimatedSection>
-          <AnimatedSection id="contact"><Contact /></AnimatedSection>
+          {view === 'portfolio' ? (
+            <>
+              <Home />
+              <AnimatedSection id="experience"><Experience /></AnimatedSection>
+              <AnimatedSection id="education"><Education /></AnimatedSection>
+              <AnimatedSection id="skills"><Skills /></AnimatedSection>
+              <AnimatedSection id="projects"><Projects /></AnimatedSection>
+              <AnimatedSection id="contact"><Contact /></AnimatedSection>
+            </>
+          ) : (
+            <YoutubeDownloader />
+          )}
         </main>
       </div>
     </LanguageContext.Provider>
