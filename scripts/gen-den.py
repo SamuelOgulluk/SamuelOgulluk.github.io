@@ -1,295 +1,215 @@
-# Bureau zoomé de nuit, lampadaire à la fenêtre, lumière soignée.
+# Photos reelles + pixelisation en grille nette (nearest-neighbor).
+import os
+import urllib.request
 import numpy as np
-import zlib
-import struct
+from PIL import Image, ImageEnhance, ImageFilter, ImageDraw
 
+CACHE = "/workspace/scripts/cache"
+OUT = "/workspace/public/assets"
 W, H = 1920, 1080
-rng = np.random.default_rng(11)
-alb = np.zeros((H, W, 3), np.float32)
-yy, xx = np.ogrid[0:H, 0:W]
-Y = yy.astype(np.float32)
-X = xx.astype(np.float32)
+PX = 4
+UA = "SamuelDen/1.0 (github.com/SamuelOgulluk)"
 
-
-def rgb(h):
-    h = h.lstrip("#")
-    return np.array([int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)], np.float32)
-
-
-def fill(x, y, w, h, c):
-    x0, y0 = max(int(x), 0), max(int(y), 0)
-    x1, y1 = min(int(x + w), W), min(int(y + h), H)
-    if x1 > x0 and y1 > y0:
-        alb[y0:y1, x0:x1] = c
-
-
-def disc_aa(cx, cy, r, c):
-    d = np.sqrt((X - cx) ** 2 + (Y - cy) ** 2)
-    k = np.clip((r + 1.4) - d, 0, 1)
-    alb[:] = alb * (1.0 - k[..., None]) + c * k[..., None]
-
-
-def glow(cx, cy, r, c, a=1.0):
-    d = np.sqrt((X - cx) ** 2 + (Y - cy) ** 2)
-    k = np.clip(1.0 - d / r, 0, 1) ** 1.7 * a
-    alb[:] = alb + (c - alb) * k[..., None]
-
-
-def lerp(a, b, t):
-    return a * (1 - t) + b * t
-
-
-WALL = rgb("#262033")
-CEIL = rgb("#16121f")
-WOOD = rgb("#8a5638")
-WOOD2 = rgb("#623c28")
-WOOD3 = rgb("#b07850")
-FLOOR = rgb("#2c1e16")
-FLOOR2 = rgb("#22180f")
-SKY = rgb("#12101f")
-SKY2 = rgb("#1a1636")
-MOON = rgb("#f4ead0")
-PINE = rgb("#102822")
-FRAME = rgb("#cbb08a")
-AMBER = rgb("#ffb24d")
-LAMP = rgb("#ffe1a8")
-CRT = rgb("#171b19")
-SCREEN = rgb("#16382c")
-GREEN = rgb("#86d4a8")
-PAPER = rgb("#f2ead8")
-MAIL = rgb("#dcc8a4")
-SYNTH = rgb("#23212c")
-KEY = rgb("#f2ead8")
-KEY2 = rgb("#3a3248")
-METAL = rgb("#9696a0")
-TOOL = rgb("#3c3c44")
-PCB = rgb("#1f5a3a")
-COPPER = rgb("#cc804c")
-MUG = rgb("#b44838")
-PLANT = rgb("#2c6e58")
-POT = rgb("#7a4030")
-CHAIR = rgb("#3c2c24")
-INK = rgb("#1c1612")
-CREAM = rgb("#f2ead8")
-BOOKS = [rgb("#c45c4a"), rgb("#4a6aa8"), rgb("#d4a04a"), rgb("#3a7a5a"), rgb("#7a4a8a"), rgb("#8a3a3a"), rgb("#2f5f8a")]
-
-# mur
-for y in range(0, 820):
-    t = y / 820
-    alb[y, :] = lerp(CEIL, WALL, t * 0.9)
-
-# parquet
-fill(0, 800, W, 280, FLOOR)
-for y in range(800, H, 8):
-    fill(0, y, W, 1, FLOOR2)
-for x in range(0, W, 48):
-    fill(x, 800, 2, 280, FLOOR2)
-fill(380, 880, 1100, 160, rgb("#3a2422"))
-fill(400, 896, 1060, 128, rgb("#4e2e2c"))
-
-# ---- fenetre + nuit + lampadaire ----
-fill(0, 0, 430, 560, FRAME)
-for y in range(18, 542):
-    t = (y - 18) / 524
-    alb[y, 18:412] = lerp(SKY, SKY2, t)
-disc_aa(118, 110, 52, MOON)
-disc_aa(138, 96, 11, rgb("#e6d6ae"))
-disc_aa(104, 128, 8, rgb("#ead9b6"))
-for x, y in [(40, 70), (70, 180), (160, 48), (200, 150), (48, 250), (250, 70), (360, 90), (330, 190), (90, 320), (220, 230), (380, 140)]:
-    disc_aa(x, y, 1.4, CREAM)
-fill(18, 430, 394, 112, rgb("#16141c"))
-fill(18, 470, 394, 72, rgb("#121018"))
-
-def pine(bx, by, hh):
-    for n in range(hh):
-        ww = 4 + n // 8
-        fill(bx - ww, by - hh + n, ww * 2, 1, PINE)
-    fill(bx - 5, by, 10, 22, rgb("#1a1410"))
-
-pine(70, 448, 130)
-pine(140, 452, 100)
-pine(370, 446, 140)
-pine(310, 450, 80)
-
-# lampadaire
-fill(248, 160, 9, 300, rgb("#2c2620"))
-fill(232, 154, 78, 9, rgb("#2c2620"))
-fill(300, 154, 9, 36, rgb("#2c2620"))
-glow(304, 210, 120, AMBER, 0.7)
-disc_aa(304, 210, 26, AMBER)
-disc_aa(304, 210, 12, LAMP)
-glow(304, 470, 150, AMBER, 0.42)
-
-# croisillons
-fill(18, 18, 394, 10, FRAME)
-fill(18, 268, 394, 8, FRAME)
-fill(18, 532, 394, 10, FRAME)
-fill(18, 18, 10, 524, FRAME)
-fill(206, 18, 10, 524, FRAME)
-fill(402, 18, 10, 524, FRAME)
-fill(0, 548, 430, 32, WOOD3)
-fill(0, 580, 430, 16, WOOD2)
-
-# plante
-fill(48, 512, 44, 48, POT)
-fill(60, 430, 12, 84, PLANT)
-fill(42, 468, 52, 16, rgb("#3d8f6a"))
-fill(72, 414, 16, 36, PLANT)
-
-# bibliotheque
-fill(448, 90, 200, 470, WOOD2)
-fill(458, 100, 180, 450, WOOD)
-for i, sy in enumerate(range(180, 540, 68)):
-    fill(458, sy, 180, 8, WOOD2)
-    x = 468
-    for k in range(14):
-        bw = 7 + (k * 5 + i) % 8
-        bh = 40 + (k * 7) % 20
-        if x + bw < 628:
-            fill(x, sy - bh, bw, bh, BOOKS[(i * 3 + k) % len(BOOKS)])
-            x += bw + 2
-
-# ---- bureau (gros plan) ----
-fill(80, 560, 1760, 42, WOOD3)
-fill(100, 602, 1720, 230, WOOD)
-fill(100, 602, 34, 230, WOOD2)
-fill(1786, 602, 34, 230, WOOD2)
-fill(80, 560, 1760, 7, rgb("#c4885c"))
-fill(120, 824, 1680, 22, rgb("#140e0a"))
-
-# ecran
-fill(620, 130, 620, 430, CRT)
-fill(638, 148, 584, 390, SCREEN)
-fill(658, 176, 120, 48, GREEN)
-fill(658, 244, 360, 18, rgb("#4aa078"))
-fill(658, 280, 250, 14, GREEN)
-fill(658, 312, 400, 14, rgb("#3d8f6a"))
-fill(658, 344, 190, 14, GREEN)
-fill(658, 376, 320, 14, rgb("#4aa078"))
-fill(658, 430, 280, 50, rgb("#12261e"))
-fill(860, 556, 140, 12, CRT)
-fill(820, 568, 220, 18, METAL)
-
-# lampe
-fill(1288, 300, 12, 260, METAL)
-disc_aa(1294, 278, 40, LAMP)
-disc_aa(1294, 278, 16, rgb("#fff6d4"))
-fill(1236, 548, 130, 18, rgb("#e8a872"))
-
-# courrier
-fill(140, 528, 110, 36, PAPER)
-fill(160, 518, 96, 36, MAIL)
-fill(210, 532, 10, 10, rgb("#c45c4a"))
-
-# mug
-fill(1220, 524, 42, 38, MUG)
-fill(1262, 532, 12, 22, MUG)
-fill(1232, 516, 10, 10, PAPER)
-
-# synthé
-fill(1390, 500, 340, 84, SYNTH)
-fill(1404, 518, 312, 50, rgb("#141218"))
-for i in range(34):
-    fill(1412 + i * 9, 530, 7, 28, KEY if i % 4 else KEY2)
-fill(1414, 508, 26, 14, GREEN)
-fill(1448, 508, 16, 14, AMBER)
-
-# chaise
-fill(760, 650, 200, 32, rgb("#5a3e30"))
-fill(810, 580, 110, 80, CHAIR)
-fill(780, 678, 32, 130, rgb("#5a3e30"))
-fill(900, 678, 32, 130, rgb("#5a3e30"))
-fill(768, 800, 56, 16, CHAIR)
-fill(888, 800, 56, 16, CHAIR)
-
-# posters
-fill(1688, 40, 220, 250, WOOD2)
-fill(1698, 50, 200, 230, rgb("#d8c8b0"))
-fill(1710, 66, 80, 72, rgb("#1a3a5a"))
-fill(1800, 66, 72, 72, rgb("#5a1a1a"))
-fill(1710, 152, 96, 100, PAPER)
-fill(1814, 152, 70, 100, rgb("#1a3a5a"))
-for px, py in [(1714, 62), (1868, 62), (1714, 148), (1878, 148)]:
-    fill(px, py, 6, 6, rgb("#c45c4a"))
-
-# etabli
-fill(1608, 560, 312, 220, WOOD2)
-fill(1620, 572, 288, 26, METAL)
-fill(1632, 612, 150, 88, PCB)
-for i in range(11):
-    fill(1644 + i * 12, 628, 6, 6, COPPER)
-    fill(1650 + i * 12, 652, 6, 6, GREEN)
-fill(1800, 612, 72, 24, TOOL)
-fill(1824, 588, 14, 44, METAL)
-fill(1868, 636, 36, 36, TOOL)
-
-# caisse
-fill(1640, 720, 100, 58, TOOL)
-fill(1654, 708, 72, 18, METAL)
-fill(1674, 736, 12, 12, AMBER)
-fill(1696, 744, 12, 12, COPPER)
-
-# cartouche
-fill(90, 740, 52, 36, rgb("#4a6aa8"))
-fill(98, 748, 36, 20, rgb("#c45c4a"))
-fill(104, 754, 8, 8, rgb("#d4a04a"))
-fill(118, 754, 8, 8, GREEN)
-
-# SAMUEL
-fill(780, 48, 300, 64, WOOD2)
-fill(788, 56, 284, 48, PAPER)
-FONT = {
-    "S": ["###", "#  ", "###", "  #", "###"],
-    "A": [" # ", "# #", "###", "# #", "# #"],
-    "M": ["# #", "###", "# #", "# #", "# #"],
-    "U": ["# #", "# #", "# #", "# #", "###"],
-    "E": ["###", "#  ", "## ", "#  ", "###"],
-    "L": ["#  ", "#  ", "#  ", "#  ", "###"],
+LOCAL = {
+    "laptop.jpg": "/tmp/den-src/laptop1.jpg",
+    "paris.jpg": "/tmp/den-src/Toits_de_Paris_soleil_d'hiver,_novembre_.jpg",
+    "window.jpg": "/tmp/den-src/window2.jpg",
+    "piano.jpg": "/tmp/den-src/piano.jpg",
+    "guitar.jpg": "/tmp/den-src/guitar.jpg",
+    "diploma.jpg": "/tmp/den-src/diploma.jpg",
+    "otter.jpg": "/tmp/den-src/otter.jpg",
 }
-ox = 832
-for ch in "SAMUEL":
-    for j, row in enumerate(FONT[ch]):
-        for i, bit in enumerate(row):
-            if bit == "#":
-                fill(ox + i * 5, 66 + j * 5, 5, 5, INK)
-    ox += 22
 
-# cadre
-fill(500, 36, 90, 78, FRAME)
-fill(510, 46, 70, 58, WALL)
-disc_aa(545, 74, 14, LAMP)
+URLS = {
+    "laptop.jpg": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=2000&q=80",
+    "paris.jpg": "https://commons.wikimedia.org/wiki/Special:FilePath/Toits%20de%20Paris%20soleil%20d%27hiver%2C%20novembre%202014.jpg",
+    "window.jpg": "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1800&q=80",
+    "piano.jpg": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Erard_Upright_piano.jpg/1280px-Erard_Upright_piano.jpg",
+    "guitar.jpg": "https://upload.wikimedia.org/wikipedia/commons/2/24/Guitar_1.jpg",
+    "diploma.jpg": "https://commons.wikimedia.org/wiki/Special:FilePath/Diploma.jpg",
+    "otter.jpg": "https://upload.wikimedia.org/wikipedia/commons/0/02/Sea_Otter_%28Enhydra_lutris%29_%2825169790524%29_crop.jpg",
+}
 
-grain = (rng.random((H, W, 1)) - 0.5) * 5
-alb[:] = np.clip(alb + grain, 0, 255)
 
-# lumieres
-illum = np.full((H, W, 3), 0.11, np.float32)
+def fetch(name):
+    os.makedirs(CACHE, exist_ok=True)
+    dest = os.path.join(CACHE, name)
+    if os.path.exists(dest) and os.path.getsize(dest) > 20000:
+        return dest
+    src = LOCAL.get(name)
+    if src and os.path.exists(src) and os.path.getsize(src) > 20000:
+        Image.open(src).convert("RGB").save(dest, quality=92)
+        return dest
+    req = urllib.request.Request(URLS[name], headers={"User-Agent": UA})
+    open(dest, "wb").write(urllib.request.urlopen(req, timeout=90).read())
+    return dest
 
-def add_light(cx, cy, color, radius, strength, fall=1.55):
-    d = np.sqrt((X - cx) ** 2 + (Y - cy) ** 2)
-    att = np.clip(1.0 - d / radius, 0, 1) ** fall * strength
-    illum[:] += (color / 255.0) * att[..., None]
 
-add_light(304, 210, rgb("#ffc56a"), 560, 1.7, 1.28)
-add_light(118, 110, rgb("#d4def0"), 460, 0.5, 1.1)
-add_light(400, 300, rgb("#ffb45a"), 420, 0.45, 1.45)
-add_light(1294, 278, rgb("#ffe6b8"), 640, 1.85, 1.38)
-add_light(1180, 580, rgb("#ffd19a"), 360, 0.7, 1.9)
-add_light(930, 340, rgb("#7dcea0"), 300, 0.5, 1.65)
-vign = 1 - 0.28 * (((X - W * 0.58) / (W * 0.92)) ** 2 + ((Y - H * 0.46) / (H * 0.95)) ** 2)
-out = np.clip(alb * illum * np.clip(vign, 0.5, 1)[..., None], 0, 255).astype(np.uint8)
+def load(name):
+    return Image.open(fetch(name)).convert("RGBA")
 
-raw = np.zeros((H, 1 + W * 3), np.uint8)
-raw[:, 1:] = out.reshape(H, -1)
 
-def chunk(tag, data):
-    return struct.pack(">I", len(data)) + tag + data + struct.pack(">I", zlib.crc32(tag + data) & 0xFFFFFFFF)
+def cover(im, w, h):
+    s = max(w / im.size[0], h / im.size[1])
+    im = im.resize((int(im.size[0] * s) + 2, int(im.size[1] * s) + 2), Image.LANCZOS)
+    l = (im.size[0] - w) // 2
+    t = (im.size[1] - h) // 2
+    return im.crop((l, t, l + w, t + h))
 
-png = (
-    b"\x89PNG\r\n\x1a\n"
-    + chunk(b"IHDR", struct.pack(">IIBBBBB", W, H, 8, 2, 0, 0, 0))
-    + chunk(b"IDAT", zlib.compress(raw.tobytes(), 6))
-    + chunk(b"IEND", b"")
-)
-open("/workspace/public/assets/den.png", "wb").write(png)
-print("png", len(png))
+
+def fit_h(im, h):
+    s = h / im.size[1]
+    return im.resize((max(1, int(im.size[0] * s)), h), Image.LANCZOS)
+
+
+def fit_w(im, w):
+    s = w / im.size[0]
+    return im.resize((w, max(1, int(im.size[1] * s))), Image.LANCZOS)
+
+
+def trim(im):
+    a = np.array(im)
+    m = a[:, :, 3] > 12
+    ys, xs = np.where(m)
+    if len(xs) == 0:
+        return im
+    return im.crop((int(xs.min()), int(ys.min()), int(xs.max()) + 1, int(ys.max()) + 1))
+
+
+def key_white(im, t=226):
+    a = np.array(im.convert("RGBA"))
+    rgb = a[:, :, :3].astype(np.int16)
+    white = (rgb.min(axis=2) > t) | ((rgb.max(axis=2) - rgb.min(axis=2) < 16) & (rgb.min(axis=2) > t - 14))
+    a[:, :, 3] = np.where(white, 0, a[:, :, 3])
+    return Image.fromarray(a)
+
+
+def pixelate(im, n):
+    rgb = im.convert("RGB")
+    w, h = rgb.size
+    small = rgb.resize((w // n, h // n), Image.BOX)
+    small = ImageEnhance.Color(small).enhance(1.12)
+    small = ImageEnhance.Contrast(small).enhance(1.06)
+    small = ImageEnhance.Brightness(small).enhance(1.1)
+    return small.resize((w, h), Image.NEAREST)
+
+
+def dusk(im):
+    a = np.array(im.convert("RGBA")).astype(np.float32)
+    a[:, :, 0] = np.clip(a[:, :, 0] * 1.08 + 6, 0, 255)
+    a[:, :, 1] = np.clip(a[:, :, 1] * 0.98, 0, 255)
+    a[:, :, 2] = np.clip(a[:, :, 2] * 0.88, 0, 255)
+    return Image.fromarray(a.astype(np.uint8))
+
+
+# fond plein cadre : toits de Paris
+paris_im = load("paris.jpg")
+pw, ph = paris_im.size
+paris_im = paris_im.crop((0, int(ph * 0.22), pw, ph))
+paris = dusk(cover(paris_im, W, H))
+canvas = paris.convert("RGBA")
+
+# petit mur a gauche pour le diplome (extrait de la photo du bureau)
+wall = load("laptop.jpg").crop((20, 20, 220, 400)).resize((220, 420), Image.LANCZOS)
+canvas.alpha_composite(wall, (0, 0))
+
+# bande de bureau (photo du bois)
+wood = load("laptop.jpg").crop((200, 860, 1400, 1060))
+wood = wood.resize((W, 250), Image.LANCZOS)
+canvas.alpha_composite(wood, (0, H - 250))
+
+# bureau + laptop (photo unique), sculptures dorees coupees
+desk = load("laptop.jpg").crop((390, 160, 1320, 1067))
+da = np.array(desk)
+ref = da[6, 6, :3].astype(np.int16)
+diff = np.abs(da[:, :, :3].astype(np.int16) - ref).sum(axis=2)
+yy = np.arange(da.shape[0])[:, None]
+lum = da[:, :, :3].astype(np.float32).mean(axis=2)
+wall = (diff < 48) & (yy < da.shape[0] * 0.42) & (lum > 125)
+da[:, :, 3] = np.where(wall, 0, 255)
+desk = Image.fromarray(da)
+desk = fit_w(desk, 760)
+dx0 = (W - desk.size[0]) // 2
+dy0 = H - desk.size[1] + 22
+canvas.alpha_composite(desk, (dx0, dy0))
+
+# diplome
+dip = fit_w(load("diploma.jpg"), 110)
+wood = load("piano.jpg").crop((90, 50, 260, 220)).resize((dip.size[0] + 18, dip.size[1] + 18), Image.LANCZOS)
+fr = Image.new("RGBA", wood.size)
+fr.paste(wood, (0, 0))
+fr.alpha_composite(dip, (9, 9))
+dx, dy = 22, 48
+canvas.alpha_composite(fr, (dx, dy))
+
+# piano recadre (sans le sol rouge)
+piano = load("piano.jpg").crop((220, 30, 1080, 780))
+piano = trim(key_white(piano, 210))
+pn = np.array(piano)
+lum = pn[:, :, :3].astype(np.float32).mean(axis=2)
+pn[:, :, 3] = np.where(lum > 168, 0, pn[:, :, 3])
+piano = trim(Image.fromarray(pn))
+piano = fit_h(piano, 310)
+px, py = 1520, 730
+canvas.alpha_composite(piano, (px, py))
+
+guitar = trim(key_white(load("guitar.jpg"), 222))
+guitar = fit_h(guitar, 360)
+gx, gy = 1768, 640
+canvas.alpha_composite(guitar, (gx, gy))
+
+# ecran sombre : crop laptop (390,160)-(1320,1067)
+scale = desk.size[0] / 930
+sx = dx0 + int((440 - 390) * scale)
+sy = dy0 + int((210 - 160) * scale)
+sw = int(720 * scale)
+sh = int(470 * scale)
+ca = np.array(canvas)
+y0, y1 = max(sy + 16, 0), min(sy + sh - 24, H)
+x0, x1 = max(sx + 16, 0), min(sx + sw - 16, W)
+ca[y0:y1, x0:x1, :3] = (ca[y0:y1, x0:x1, :3].astype(np.float32) * 0.13).astype(np.uint8)
+canvas = Image.fromarray(ca)
+
+pix = pixelate(canvas, PX)
+
+mask = Image.new("L", (W, H), 0)
+ImageDraw.Draw(mask).rectangle((dx0 + 30, dy0 + 10, dx0 + desk.size[0] - 30, H - 8), fill=255)
+
+corn = Image.new("RGBA", (W // PX, H // PX), (0, 0, 0, 0))
+r = 15
+cw, ch = corn.size
+for ox, oy, sxi, syi in ((0, 0, 1, 1), (cw - 1, 0, -1, 1), (0, ch - 1, 1, -1), (cw - 1, ch - 1, -1, -1)):
+    for i in range(r):
+        for j in range(r):
+            if (r - i) ** 2 + (r - j) ** 2 >= (r - 1) ** 2:
+                corn.putpixel((ox + sxi * i, oy + syi * j), (12, 10, 16, 255))
+corn = corn.resize((W, H), Image.NEAREST)
+
+os.makedirs(OUT, exist_ok=True)
+pix.save(os.path.join(OUT, "den.png"))
+ov = pix.convert("RGBA")
+oa = np.array(ov)
+oa[:, :, 3] = np.array(mask)
+Image.fromarray(oa).save(os.path.join(OUT, "den-laptop.png"))
+corn.save(os.path.join(OUT, "den-corners.png"))
+
+ot = cover(load("otter.jpg"), 340, 260)
+on = np.array(ot)
+lum = on[:, :, :3].astype(np.float32).mean(axis=2)
+on[:, :, 3] = np.where(lum < 82, 0, 255)
+ot = pixelate(Image.fromarray(on), 3).convert("RGBA")
+on = np.array(ot)
+on[:, :, 3] = np.where(on[:, :, :3].mean(axis=2) < 34, 0, on[:, :, 3])
+Image.fromarray(on).save(os.path.join(OUT, "otter.png"))
+
+
+def pct(v, tot):
+    return round(100.0 * v / tot, 2)
+
+print("WIN", 0, 0, 100, 62)
+print("LAP", pct(dx0, W), pct(dy0, H), pct(desk.size[0], W), pct(desk.size[1], H))
+print("SCR", pct(x0, W), pct(y0, H), pct(x1 - x0, W), pct(y1 - y0, H))
+print("DEG", pct(dx, W), pct(dy, H), pct(fr.size[0], W), pct(fr.size[1], H))
+print("PIANO", pct(px, W), pct(py, H), pct(piano.size[0], W), pct(piano.size[1], H))
+print("GUITAR", pct(gx, W), pct(gy, H), pct(guitar.size[0], W), pct(guitar.size[1], H))
+print("ok")

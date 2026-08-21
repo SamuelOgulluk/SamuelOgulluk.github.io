@@ -39,6 +39,11 @@ export interface TranslationContent {
     kit: string;
     close: string;
     back: string;
+    window: string;
+    degree: string;
+    diploma: string;
+    piano: string;
+    guitar: string;
     otterLines: string[];
   };
   about: {
