@@ -94,16 +94,31 @@ def fetch_paris():
 
 def wood():
     h, w = 512, 512
-    yy, xx = np.mgrid[0:h, 0:w]
-    grain = np.sin(xx / 13.5 + 2.2 * np.sin(yy / 42.0) + 0.4 * np.sin(yy / 9.0))
-    n = np.random.default_rng(3).normal(0, 0.07, (h, w))
-    v = 0.58 + 0.14 * grain + n
-    plank = ((yy // 64) % 2) * 0.04
-    v = np.clip(v - plank, 0.25, 0.9)
-    r = (118 + 90 * v).astype(np.uint8)
-    g = (78 + 70 * v).astype(np.uint8)
-    b = (42 + 40 * v).astype(np.uint8)
-    return Image.fromarray(np.dstack([r, g, b]), "RGB")
+    rng = np.random.default_rng(4)
+    base = np.zeros((h, w, 3), np.uint8)
+    plank = 46
+    for y0 in range(0, h, plank):
+        tone = rng.uniform(0.88, 1.1)
+        n = rng.normal(0, 5, (min(plank - 3, h - y0), w))
+        r = np.clip(150 * tone + n, 0, 255)
+        g = np.clip(102 * tone + n * 0.65, 0, 255)
+        b = np.clip(62 * tone + n * 0.4, 0, 255)
+        y1 = min(y0 + plank - 3, h)
+        sl = y1 - y0
+        base[y0:y1, :, 0] = r[:sl]
+        base[y0:y1, :, 1] = g[:sl]
+        base[y0:y1, :, 2] = b[:sl]
+        if y1 < h:
+            base[y1:min(y1 + 3, h)] = (78, 52, 32)
+    return Image.fromarray(base)
+
+
+def plaster():
+    h, w = 256, 256
+    rng = np.random.default_rng(2)
+    n = rng.normal(0, 5.5, (h, w, 3))
+    col = np.clip(n + np.array([232, 216, 190]), 0, 255).astype(np.uint8)
+    return Image.fromarray(col, "RGB")
 
 
 def rug():
@@ -155,6 +170,7 @@ def otter():
 
 save(fetch_paris(), "paris-window.jpg")
 save(wood(), "wood.jpg")
+save(plaster(), "plaster.jpg")
 save(rug(), "rug.jpg")
 save(otter(), "otter-cute.png")
 print("ok")

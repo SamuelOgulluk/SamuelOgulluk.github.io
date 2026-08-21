@@ -3,12 +3,12 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
 const FOCI = {
-  home: { pos: [0, 1.38, 3.48], look: [0, 1.02, -0.35], pan: 0.22 },
-  laptop: { pos: [0.03, 1.18, 1.52], look: [0.03, 1.06, 0.14], pan: 0.04 },
-  diploma: { pos: [-1.2, 1.5, 2.05], look: [-2.45, 1.55, -0.55], pan: 0.05 },
-  piano: { pos: [0.82, 1.18, 2.15], look: [1.92, 0.82, -0.22], pan: 0.05 },
-  guitar: { pos: [1.0, 1.2, 2.0], look: [2.18, 0.92, 0.4], pan: 0.05 },
-  window: { pos: [0, 1.42, 2.12], look: [0, 1.38, -2.6], pan: 0.06 },
+  home: { pos: [0.15, 1.12, 2.82], look: [0.18, 0.9, -0.32], pan: 0.16 },
+  laptop: { pos: [0.02, 1.06, 1.22], look: [0.02, 0.97, 0.22], pan: 0.03 },
+  diploma: { pos: [-0.55, 1.22, 1.55], look: [-1.4, 1.42, -1.7], pan: 0.04 },
+  piano: { pos: [0.45, 1.02, 1.72], look: [1.15, 0.72, 0.05], pan: 0.04 },
+  guitar: { pos: [0.55, 1.04, 1.68], look: [1.28, 0.78, 0.55], pan: 0.04 },
+  window: { pos: [0.05, 1.18, 1.62], look: [0, 1.28, -2.4], pan: 0.05 },
 };
 
 const CameraRig = ({ focus }) => {

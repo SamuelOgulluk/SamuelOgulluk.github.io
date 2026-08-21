@@ -4,15 +4,15 @@ import { Html, useCursor, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 
 const PATH = [
-  { p: [-0.95, 0.98, -1.72], mood: 'walk', wait: 2600 },
-  { p: [0.05, 0.98, -1.72], mood: 'sit', wait: 2800 },
-  { p: [0.9, 0.98, -1.72], mood: 'walk', wait: 2200 },
-  { p: [1.35, 0.02, 0.15], mood: 'walk', wait: 2400 },
-  { p: [1.05, 0.02, 1.2], mood: 'play', wait: 4200 },
-  { p: [0.15, 0.02, 1.4], mood: 'walk', wait: 2200 },
-  { p: [-1.25, 0.02, 1.05], mood: 'walk', wait: 2400 },
-  { p: [-0.55, 0.78, 0.42], mood: 'sleep', wait: 4600 },
-  { p: [-1.55, 0.02, -0.15], mood: 'walk', wait: 2200 },
+  { p: [-0.9, 1.08, -1.7], mood: 'walk', wait: 2600 },
+  { p: [0.08, 1.08, -1.7], mood: 'sit', wait: 2800 },
+  { p: [0.85, 1.08, -1.7], mood: 'walk', wait: 2200 },
+  { p: [1.25, 0.18, 0.25], mood: 'walk', wait: 2400 },
+  { p: [0.95, 0.18, 1.15], mood: 'play', wait: 4200 },
+  { p: [0.1, 0.18, 1.25], mood: 'walk', wait: 2200 },
+  { p: [-1.15, 0.18, 0.95], mood: 'walk', wait: 2400 },
+  { p: [-0.52, 0.92, 0.38], mood: 'sleep', wait: 4600 },
+  { p: [-1.4, 0.18, -0.1], mood: 'walk', wait: 2200 },
 ];
 
 const BALL = new THREE.Vector3(1.22, 0.05, 1.28);
@@ -69,7 +69,7 @@ const DenOtter = ({ t, setHint }) => {
     else g.rotation.z = THREE.MathUtils.lerp(g.rotation.z, 0, 0.12);
     g.lookAt(camera.position.x, g.position.y, camera.position.z);
     const bounce = mood === 'walk' ? 1 + Math.sin(clock.elapsedTime * 10) * 0.04 : 1;
-    g.scale.set(0.34 * face, 0.26 * bounce, 1);
+    g.scale.set(0.42 * face, 0.32 * bounce, 1);
     if (ball.current) {
       const playing = mood === 'play';
       ball.current.position.lerp(playing ? new THREE.Vector3(g.position.x + 0.18, 0.06 + Math.abs(Math.sin(clock.elapsedTime * 7)) * 0.12, g.position.z + 0.08) : BALL, 0.12);

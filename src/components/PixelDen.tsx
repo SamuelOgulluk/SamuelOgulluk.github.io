@@ -28,7 +28,7 @@ const PixelDen = ({ onViewChange }) => {
         className="den-canvas"
         shadows
         dpr={[1, 1.75]}
-        camera={{ fov: 38, position: [0, 1.38, 3.48], near: 0.05, far: 40 }}
+        camera={{ fov: 40, position: [0.15, 1.12, 2.82], near: 0.05, far: 40 }}
         gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.12 }}
         onPointerMissed={() => {
           setPanel(null);
