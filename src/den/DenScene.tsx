@@ -233,7 +233,7 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange }) => {
         intensity={1.55}
         color="#ffc080"
         castShadow
-        shadow-mapSize={[1024, 1024]}
+        shadow-mapSize={[2048, 2048]}
         shadow-camera-near={0.4}
         shadow-camera-far={12}
         shadow-camera-left={-4}
@@ -485,7 +485,7 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange }) => {
           window.open(LUTRA, '_blank', 'noopener,noreferrer');
         }}
       >
-        <Guitar position={[1.18, 0.58, WALL + 0.74]} rotation={[0.18, 0.62, -0.42]} scale={0.92} />
+        <Guitar position={[1.18, 0.62, WALL + 0.74]} rotation={[0.18, 0.62, -0.42]} scale={1.05} />
       </Hotspot>
 
       <Plant position={[-1.85, 0, WALL + 0.55]} />
@@ -501,7 +501,7 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange }) => {
       <DenOtter t={t} setHint={setHint} />
       <Dust />
       <EffectComposer depthBuffer multisampling={4}>
-        <PixelOutlines pixelSize={3.5} colorThresh={0.11} depthThresh={0.007} />
+        <PixelOutlines pixelSize={4} colorThresh={0.2} depthThresh={0.012} />
       </EffectComposer>
     </>
   );
