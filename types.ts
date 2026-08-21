@@ -24,6 +24,17 @@ export interface TranslationContent {
   home: {
     greeting: string;
     intro: string;
+    lookAround: string;
+  };
+  den: {
+    hint: string;
+    lab: string;
+    desk: string;
+    books: string;
+    music: string;
+    tools: string;
+    mail: string;
+    otter: string;
   };
   about: {
     title: string;

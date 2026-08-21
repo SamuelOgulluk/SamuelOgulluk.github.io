@@ -160,8 +160,19 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
       contact: "Contact",
     },
     home: {
-      greeting: "Welcome.",
+      greeting: "hey — you found the den.",
       intro: "I am a student training for a research career, working at the intersection of electrical engineering, computer science and applied mathematics.",
+      lookAround: "click around the den",
+    },
+    den: {
+      hint: "a riverside workshop. poke at things.",
+      lab: "experience — ETH, CERN, the lab notes",
+      desk: "projects — things I actually shipped",
+      books: "education — ENS and the long road there",
+      music: "Lutra — the DAW in the crate",
+      tools: "utility — the toolbox (locked)",
+      mail: "say hi — mailbox still works",
+      otter: "that's Lutra. she lives here.",
     },
     about: {
       title: "About",
@@ -303,8 +314,19 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
       contact: "Contact",
     },
     home: {
-      greeting: "Bienvenue.",
+      greeting: "hey — tu as trouvé la tanière.",
       intro: "Je suis étudiant, en formation pour devenir chercheur, à l'intersection du génie électrique, de l'informatique et des mathématiques appliquées.",
+      lookAround: "fouille un peu la tanière",
+    },
+    den: {
+      hint: "un atelier au bord de l'eau. touche les objets.",
+      lab: "expérience — ETH, CERN, les carnets",
+      desk: "projets — ce que j'ai vraiment sorti",
+      books: "formation — l'ENS et le chemin jusqu'ici",
+      music: "Lutra — la DAW dans la caisse",
+      tools: "utilitaire — la boîte à outils (verrouillée)",
+      mail: "écrire — la boîte aux lettres marche encore",
+      otter: "c'est Lutra. elle habite ici.",
     },
     about: {
       title: "À propos",

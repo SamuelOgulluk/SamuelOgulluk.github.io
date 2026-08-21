@@ -10,6 +10,7 @@ import Contact from './src/components/Contact';
 import Education from './src/components/Education';
 import AnimatedSection from './src/components/AnimatedSection';
 import UtilityGate from './src/components/UtilityGate';
+import PixelOtter from './src/components/PixelOtter';
 
 interface LanguageContextType {
   language: Language;
@@ -74,10 +75,11 @@ const App: React.FC = () => {
         <div className="site-atmosphere" aria-hidden="true" />
         <div className="site-nature" aria-hidden="true" />
         <Navbar activeSection={activeSection} view={view} onViewChange={handleViewChange} />
+        {view === 'portfolio' && <PixelOtter />}
         <main className="site-main">
           {view === 'portfolio' ? (
             <>
-              <Home />
+              <Home onViewChange={handleViewChange} />
               <AnimatedSection id="experience"><Experience /></AnimatedSection>
               <AnimatedSection id="education"><Education /></AnimatedSection>
               <AnimatedSection id="skills"><Skills /></AnimatedSection>

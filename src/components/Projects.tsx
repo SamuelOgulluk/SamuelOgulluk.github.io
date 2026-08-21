@@ -1,20 +1,19 @@
 import React from 'react';
 import { useLanguage } from '@/App';
 import Icon from './Icon';
-import type { Project } from '@/types';
 
-const ProjectBlock: React.FC<{ project: Project; index: number }> = ({ project, index }) => {
+const ProjectBlock = ({ project, index }) => {
   const primaryUrl = project.siteUrl || project.githubUrl;
   const hasSite = Boolean(project.siteUrl);
 
   return (
-    <article className="border-t border-line py-8 first:border-t-0 first:pt-0">
-      <div className={`flex flex-col gap-5 md:flex-row md:items-start md:gap-8 ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
+    <article className={`pixel-panel mb-4 overflow-hidden ${index % 2 === 1 ? '' : ''}`}>
+      <div className={`flex flex-col gap-5 p-4 sm:p-5 md:flex-row md:items-start md:gap-8 ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
         <a
           href={primaryUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="group relative block w-full overflow-hidden border border-line bg-white md:w-56 md:shrink-0"
+          className="group relative block w-full overflow-hidden border-[3px] border-ink bg-paper-deep md:w-56 md:shrink-0"
         >
           <div className="h-44 overflow-hidden md:h-40 md:transition-all md:duration-500 md:group-hover:h-56">
             {project.videoUrl ? (
@@ -41,7 +40,7 @@ const ProjectBlock: React.FC<{ project: Project; index: number }> = ({ project, 
         </a>
 
         <div className="min-w-0 flex-1">
-          <h3 className="font-display text-xl font-bold tracking-tight text-ink">
+          <h3 className="font-display text-xl font-semibold tracking-tight text-ink">
             <a
               href={primaryUrl}
               target="_blank"
@@ -59,7 +58,7 @@ const ProjectBlock: React.FC<{ project: Project; index: number }> = ({ project, 
                 href={project.siteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm font-semibold text-accent transition-colors hover:text-accent-hover"
+                className="font-pixel text-sm text-accent hover:text-accent-hover"
               >
                 Site →
               </a>
@@ -77,7 +76,7 @@ const ProjectBlock: React.FC<{ project: Project; index: number }> = ({ project, 
           </div>
 
           <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2">
-            <span className="w-full text-sm font-semibold uppercase tracking-wide text-muted sm:w-auto">Stack</span>
+            <span className="w-full font-mono text-[1.05rem] tracking-wide text-muted sm:w-auto">stack</span>
             {project.technologies.map((tech) => (
               <span
                 key={tech.name}
@@ -99,12 +98,12 @@ const ProjectBlock: React.FC<{ project: Project; index: number }> = ({ project, 
   );
 };
 
-const Projects: React.FC = () => {
+const Projects = () => {
   const { t } = useLanguage();
 
   return (
     <>
-      <p className="section-kicker">04</p>
+      <p className="section-kicker">map 04</p>
       <h2 className="section-title">{t.projects.title}</h2>
       <div>
         {t.projects.items.map((project, index) => (
