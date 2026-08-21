@@ -2,16 +2,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '@/App';
 
 const PLACES = {
-  rock: { x: 80, y: 68 },
-  dock: { x: 20, y: 68 },
-  grass: { x: 62, y: 62 },
-  water: { x: 48, y: 82 },
-  water2: { x: 70, y: 84 },
+  chair: { x: 44, y: 68 },
+  sill: { x: 11, y: 50 },
+  rug: { x: 50, y: 88 },
+  desk: { x: 58, y: 53 },
+  bench: { x: 86, y: 68 },
 };
 
 const PixelOtter = () => {
   const { t } = useLanguage();
-  const [pos, setPos] = useState(PLACES.rock);
+  const [pos, setPos] = useState(PLACES.chair);
   const [mood, setMood] = useState('sit');
   const [facing, setFacing] = useState(-1);
   const [line, setLine] = useState('');
@@ -35,11 +35,12 @@ const PixelOtter = () => {
 
   const wander = () => {
     const roll = Math.random();
-    if (roll < 0.25) return go(PLACES.rock, 'sleep');
-    if (roll < 0.48) return go(Math.random() < 0.5 ? PLACES.water : PLACES.water2, 'swim');
-    if (roll < 0.7) return go(PLACES.dock, 'walk');
-    if (roll < 0.84) return go(PLACES.grass, 'walk');
-    return go(PLACES.rock, 'sit');
+    if (roll < 0.28) return go(PLACES.chair, 'sleep');
+    if (roll < 0.46) return go(PLACES.sill, 'sit');
+    if (roll < 0.64) return go(PLACES.rug, 'walk');
+    if (roll < 0.8) return go(PLACES.desk, 'sit');
+    if (roll < 0.9) return go(PLACES.bench, 'walk');
+    return go(PLACES.chair, 'sit');
   };
 
   useEffect(() => {
@@ -69,13 +70,10 @@ const PixelOtter = () => {
     busy.current = true;
     const lines = t.den.otterLines;
     speak(lines[Math.floor(Math.random() * lines.length)]);
-    if (mood === 'sleep') setMood('peek');
-    else if (posRef.current.y > 76) setMood('splash');
-    else setMood('peek');
+    setMood(mood === 'sleep' ? 'peek' : 'peek');
     window.setTimeout(() => {
       busy.current = false;
-      if (posRef.current.y > 76) setMood('swim');
-      else setMood('sit');
+      setMood('sit');
     }, 900);
   };
 
@@ -89,7 +87,7 @@ const PixelOtter = () => {
       aria-label={t.den.otter}
     >
       {line && <span className="otter-bubble">{line}</span>}
-      <img src="/assets/otter.svg" alt="" width={24} height={16} draggable={false} />
+      <img src="/assets/otter.svg" alt="" width={32} height={20} draggable={false} />
     </button>
   );
 };

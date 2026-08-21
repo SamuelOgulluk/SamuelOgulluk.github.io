@@ -4,14 +4,14 @@ import PixelOtter from './PixelOtter';
 import InspectPanel from './InspectPanel';
 
 const HOTSPOTS = [
-  { id: 'lab', left: '8%', top: '56%', width: '10%', height: '16%', panel: 'experience' },
-  { id: 'mail', left: '16%', top: '52%', width: '9%', height: '18%', panel: 'contact' },
-  { id: 'about', left: '24%', top: '50%', width: '10%', height: '22%', panel: 'about' },
-  { id: 'desk', left: '36%', top: '48%', width: '14%', height: '20%', panel: 'projects' },
-  { id: 'books', left: '48%', top: '54%', width: '8%', height: '16%', panel: 'education' },
-  { id: 'kit', left: '54%', top: '46%', width: '8%', height: '14%', panel: 'skills' },
-  { id: 'music', left: '59%', top: '60%', width: '13%', height: '14%', href: 'https://samuelogulluk.github.io/lutra/' },
-  { id: 'tools', left: '71%', top: '60%', width: '10%', height: '16%', view: 'utility' },
+  { id: 'about', left: '41%', top: '4%', width: '16%', height: '8%', panel: 'about' },
+  { id: 'books', left: '23%', top: '9%', width: '11%', height: '42%', panel: 'education' },
+  { id: 'desk', left: '33%', top: '13%', width: '31%', height: '38%', panel: 'projects' },
+  { id: 'mail', left: '7%', top: '48%', width: '8%', height: '6%', panel: 'contact' },
+  { id: 'music', left: '72%', top: '46%', width: '18%', height: '9%', href: 'https://samuelogulluk.github.io/lutra/' },
+  { id: 'lab', left: '88%', top: '4%', width: '11%', height: '24%', panel: 'experience' },
+  { id: 'kit', left: '84%', top: '52%', width: '15%', height: '14%', panel: 'skills' },
+  { id: 'tools', left: '85%', top: '66%', width: '7%', height: '8%', view: 'utility' },
 ];
 
 const PixelDen = ({ onViewChange }) => {
@@ -38,16 +38,12 @@ const PixelDen = ({ onViewChange }) => {
 
   return (
     <div className="den-world">
-      <img className="den-art" src="/assets/den.svg" alt={t.den.hint} width={160} height={90} draggable={false} />
+      <img className="den-art" src="/assets/den.png" alt={t.den.hint} width={1920} height={1080} draggable={false} />
 
-      <div className="fx-stars" aria-hidden="true" />
-      <div className="fx-window" aria-hidden="true" />
-      <div className="fx-smoke" aria-hidden="true">
-        <span />
+      <div className="fx-steam" aria-hidden="true">
         <span />
         <span />
       </div>
-      <div className="fx-water" aria-hidden="true" />
 
       {HOTSPOTS.map((spot) => (
         <button

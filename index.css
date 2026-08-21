@@ -96,12 +96,10 @@ a {
 
 .den-world {
   position: relative;
-  width: min(100vw, calc(100svh * 160 / 90));
-  height: min(100svh, calc(100vw * 90 / 160));
+  width: min(100vw, calc(100svh * 16 / 9));
+  height: min(100svh, calc(100vw * 9 / 16));
   overflow: hidden;
-  background: #161326;
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
+  background: #0c0a12;
 }
 
 .den-art {
@@ -109,84 +107,59 @@ a {
   width: 100%;
   height: 100%;
   object-fit: fill;
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
+  image-rendering: auto;
   pointer-events: none;
-}
-
-.fx-stars {
-  position: absolute;
-  inset: 0 0 40% 0;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.45;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Crect width='1' height='1' fill='%23efe6d0'/%3E%3Crect x='7' y='4' width='1' height='1' fill='%23efe6d0' fill-opacity='0.4'/%3E%3C/svg%3E");
-  background-size: 12px 12px;
-  animation: twinkle 3.4s steps(2) infinite;
 }
 
 .fx-window {
   position: absolute;
-  left: 37.5%;
-  top: 51%;
-  width: 10%;
-  height: 13%;
+  left: 5.4%;
+  top: 17%;
+  width: 18%;
+  height: 34%;
   pointer-events: none;
   z-index: 1;
-  background: rgba(232, 168, 114, 0.28);
+  background: rgba(244, 232, 193, 0.08);
   mix-blend-mode: screen;
-  animation: window-glow 2.4s steps(2) infinite;
+  animation: window-glow 2.8s steps(2) infinite;
 }
 
-.fx-smoke {
+.fx-lamp {
   position: absolute;
   left: 51%;
-  top: 14%;
-  width: 6%;
-  height: 16%;
+  top: 42%;
+  width: 8%;
+  height: 12%;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(ellipse at center, rgba(240, 192, 112, 0.45), transparent 70%);
+  animation: window-glow 1.8s steps(2) infinite;
+}
+
+.fx-steam {
+  position: absolute;
+  left: 63.5%;
+  top: 47%;
+  width: 3%;
+  height: 7%;
   pointer-events: none;
   z-index: 1;
 }
 
-.fx-smoke span {
+.fx-steam span {
   position: absolute;
   left: 40%;
   bottom: 0;
-  width: 4px;
-  height: 4px;
-  background: #efe6d0;
-  opacity: 0.55;
-  animation: smoke-up 2.8s steps(6) infinite;
-}
-
-.fx-smoke span:nth-child(2) {
-  left: 55%;
-  animation-delay: 0.7s;
   width: 3px;
   height: 3px;
+  background: #efe6d0;
+  opacity: 0.5;
+  animation: smoke-up 2.4s steps(6) infinite;
 }
 
-.fx-smoke span:nth-child(3) {
-  left: 30%;
-  animation-delay: 1.4s;
-}
-
-.fx-water {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 18%;
-  pointer-events: none;
-  z-index: 1;
-  background: repeating-linear-gradient(
-    90deg,
-    transparent 0 10px,
-    rgba(142, 184, 200, 0.18) 10px 14px,
-    transparent 14px 22px
-  );
-  animation: water-shift 3.2s steps(8) infinite;
-  mix-blend-mode: screen;
+.fx-steam span:nth-child(2) {
+  left: 60%;
+  animation-delay: 0.8s;
 }
 
 .utility-screen {
@@ -492,7 +465,7 @@ a {
 .den-otter {
   position: absolute;
   z-index: 5;
-  width: 11%;
+  width: 5.2%;
   padding: 0;
   border: 0;
   background: transparent;
@@ -672,10 +645,9 @@ a {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .fx-stars,
   .fx-window,
-  .fx-smoke span,
-  .fx-water,
+  .fx-lamp,
+  .fx-steam span,
   .den-otter,
   .den-otter.is-swim,
   .den-otter.is-splash {
