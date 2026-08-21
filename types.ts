@@ -2,7 +2,7 @@ export type Language = 'en' | 'fr';
 
 export type AppView = 'portfolio' | 'utility';
 
-export type SectionId = 'home' | 'skills' | 'education' | 'experience' | 'projects' | 'contact';
+export type PanelId = 'about' | 'experience' | 'education' | 'skills' | 'projects' | 'contact';
 
 export interface TranslationContent {
   headerTitle: string;
@@ -35,6 +35,11 @@ export interface TranslationContent {
     tools: string;
     mail: string;
     otter: string;
+    about: string;
+    kit: string;
+    close: string;
+    back: string;
+    otterLines: string[];
   };
   about: {
     title: string;

@@ -204,26 +204,9 @@ rect(133, 84, 8, 1, "moon2")
 rect(62, 76, 12, 1, "window")
 rect(64, 79, 8, 1, "glow")
 
-# rocher + loutre
+# rocher (la loutre y vit, mais elle est animée à part)
 rect(128, 70, 16, 8, "hill")
 rect(130, 68, 12, 4, "hill2")
-# corps
-rect(131, 64, 11, 6, "otter")
-rect(133, 66, 8, 4, "otter2")
-rect(135, 67, 5, 2, "belly")
-# tête ronde + museau
-rect(140, 61, 7, 6, "otter2")
-rect(145, 63, 3, 3, "belly")
-pset(142, 63, "eye")
-pset(144, 63, "eye")
-pset(146, 65, "eye")
-pset(141, 62, "otter")
-# queue longue
-rect(126, 66, 6, 3, "otter")
-rect(124, 67, 3, 2, "otter2")
-# petite éclaboussure
-pset(138, 72, "foam")
-pset(146, 71, "foam")
 
 # boîte aux lettres
 rect(28, 56, 6, 8, "mail")
