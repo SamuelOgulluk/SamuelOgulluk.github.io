@@ -27,15 +27,19 @@ const PixelDen = ({ onViewChange }) => {
       <Canvas
         className="den-canvas"
         shadows
-        dpr={[1, 1.75]}
-        camera={{ fov: 40, position: [0.15, 1.12, 2.82], near: 0.05, far: 40 }}
-        gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.12 }}
+        dpr={[1, 1.5]}
+        camera={{ fov: 42, position: [0.12, 1.42, 3.28], near: 0.08, far: 40 }}
+        gl={{ antialias: true, toneMapping: THREE.NoToneMapping }}
+        onCreated={({ gl }) => {
+          gl.shadowMap.enabled = true;
+          gl.shadowMap.type = THREE.BasicShadowMap;
+        }}
         onPointerMissed={() => {
           setPanel(null);
           setFocus('home');
         }}
       >
-        <color attach="background" args={['#1a100c']} />
+        <color attach="background" args={['#1c1410']} />
         <Suspense fallback={null}>
           <DenScene
             focus={focus}

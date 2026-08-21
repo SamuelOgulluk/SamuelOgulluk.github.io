@@ -1,51 +1,108 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { ContactShadows, RoundedBox, useCursor, useTexture } from '@react-three/drei';
+import { RoundedBox, useCursor, useTexture } from '@react-three/drei';
+import { EffectComposer } from '@react-three/postprocessing';
 import * as THREE from 'three';
 import { useLanguage } from '@/App';
 import CameraRig from './CameraRig';
 import DenOtter from './DenOtter';
+import PixelOutlines from './PixelOutlines';
+import { Guitar, GuitarStand, Piano, Plant } from './DenInstruments';
 
 const LUTRA = 'https://samuelogulluk.github.io/lutra/';
+const WALL = -1.5;
+
+const linear = (tex, repeat) => {
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = 4;
+  if (repeat) {
+    tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(repeat[0], repeat[1]);
+  }
+};
 
 const makeDiploma = (title) => {
-  const c = document.createElement('canvas');
-  c.width = 512;
-  c.height = 640;
-  const g = c.getContext('2d');
-  g.fillStyle = '#f4e6c4';
-  g.fillRect(0, 0, 512, 640);
-  g.strokeStyle = '#b08a3e';
-  g.lineWidth = 20;
-  g.strokeRect(24, 24, 464, 592);
-  g.strokeStyle = '#d4b46a';
-  g.lineWidth = 4;
-  g.strokeRect(40, 40, 432, 560);
+  const src = document.createElement('canvas');
+  src.width = 256;
+  src.height = 330;
+  const g = src.getContext('2d');
+  g.fillStyle = '#c4a056';
+  g.fillRect(0, 0, 256, 330);
+  g.fillStyle = '#f4ead0';
+  g.fillRect(16, 16, 224, 298);
   g.fillStyle = '#6a3a1c';
-  g.font = '600 48px Georgia, serif';
+  g.font = 'bold 28px serif';
   g.textAlign = 'center';
-  g.fillText(title, 256, 150);
+  g.fillText(title.slice(0, 12), 128, 70);
   g.fillStyle = '#5b4630';
-  g.font = '22px Georgia, serif';
-  g.fillText('École Normale Supérieure', 256, 250);
-  g.fillText('Paris-Saclay', 256, 286);
-  g.font = '18px Georgia, serif';
-  g.fillText('Electrical Engineering · CS · Maths', 256, 340);
+  g.font = '22px serif';
+  g.fillText('ENS', 128, 130);
+  g.fillText('Paris-Saclay', 128, 162);
+  g.strokeStyle = '#c9a227';
+  g.lineWidth = 3;
   g.beginPath();
-  g.arc(256, 470, 52, 0, Math.PI * 2);
+  g.arc(128, 240, 28, 0, Math.PI * 2);
+  g.stroke();
   g.fillStyle = '#c9a227';
-  g.fill();
   g.beginPath();
-  g.arc(256, 470, 36, 0, Math.PI * 2);
-  g.fillStyle = '#efe0a8';
+  g.arc(128, 240, 12, 0, Math.PI * 2);
   g.fill();
-  g.fillStyle = '#7a4a18';
-  g.font = 'bold 20px Georgia, serif';
-  g.fillText('ENS', 256, 478);
-  const tex = new THREE.CanvasTexture(c);
+  const tex = new THREE.CanvasTexture(src);
   tex.colorSpace = THREE.SRGBColorSpace;
-  tex.anisotropy = 8;
-  tex.needsUpdate = true;
+  return tex;
+};
+
+const makeScreen = (titles) => {
+  const src = document.createElement('canvas');
+  src.width = 640;
+  src.height = 400;
+  const g = src.getContext('2d');
+  g.fillStyle = '#07140f';
+  g.fillRect(0, 0, 640, 400);
+  g.fillStyle = '#0e2a20';
+  g.fillRect(0, 0, 640, 48);
+  g.fillStyle = '#8fd6ff';
+  g.font = '28px monospace';
+  g.fillText('~/projects', 18, 34);
+  g.font = '32px monospace';
+  titles.forEach((name, i) => {
+    g.fillStyle = '#3ecf8e';
+    g.fillText('>', 22, 100 + i * 52);
+    g.fillStyle = '#d4f6e2';
+    g.fillText(name.slice(0, 18), 52, 100 + i * 52);
+  });
+  const tex = new THREE.CanvasTexture(src);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+};
+
+const makePoster = () => {
+  const src = document.createElement('canvas');
+  src.width = 256;
+  src.height = 320;
+  const g = src.getContext('2d');
+  g.fillStyle = '#efe4ce';
+  g.fillRect(0, 0, 256, 320);
+  g.fillStyle = '#d7c4a4';
+  g.fillRect(18, 48, 220, 250);
+  const blocks = [
+    ['#8aa07a', 36, 70, 70, 48],
+    ['#c4a070', 120, 78, 90, 40],
+    ['#7a90a8', 40, 130, 50, 70],
+    ['#b87a62', 108, 128, 96, 55],
+    ['#6e8a6a', 44, 214, 80, 50],
+    ['#d0b07a', 140, 200, 70, 70],
+  ];
+  blocks.forEach((b) => {
+    g.fillStyle = b[0];
+    g.fillRect(b[1], b[2], b[3], b[4]);
+  });
+  g.fillStyle = '#3a2a18';
+  g.font = 'bold 26px serif';
+  g.textAlign = 'center';
+  g.fillText('PARIS', 128, 34);
+  const tex = new THREE.CanvasTexture(src);
+  tex.colorSpace = THREE.SRGBColorSpace;
   return tex;
 };
 
@@ -77,118 +134,26 @@ const Hotspot = ({ hint, onOver, onOut, onClick, children }) => {
 const Dust = () => {
   const ref = React.useRef(null);
   const positions = useMemo(() => {
-    const n = 90;
+    const n = 40;
     const a = new Float32Array(n * 3);
     for (let i = 0; i < n; i += 1) {
       a[i * 3] = (Math.random() - 0.5) * 2.4;
-      a[i * 3 + 1] = 0.5 + Math.random() * 1.5;
-      a[i * 3 + 2] = -1.6 + Math.random() * 2.2;
+      a[i * 3 + 1] = 0.5 + Math.random() * 1.4;
+      a[i * 3 + 2] = -1.4 + Math.random() * 1.8;
     }
     return a;
   }, []);
-
   useFrame((state) => {
-    if (ref.current) ref.current.rotation.y = state.clock.elapsedTime * 0.015;
+    if (ref.current) ref.current.rotation.y = state.clock.elapsedTime * 0.012;
   });
-
   return (
     <points ref={ref}>
       <bufferGeometry>
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
-      <pointsMaterial color="#ffe6c4" size={0.018} transparent opacity={0.42} depthWrite={false} sizeAttenuation />
+      <pointsMaterial color="#ffe6c4" size={0.018} transparent opacity={0.35} depthWrite={false} sizeAttenuation />
     </points>
   );
-};
-
-const Piano = () => (
-  <group position={[1.32, 0, 0.02]} rotation={[0, -0.48, 0]} scale={0.74}>
-    <RoundedBox args={[1.02, 0.92, 0.4]} radius={0.02} position={[0, 0.52, 0]} castShadow receiveShadow>
-      <meshStandardMaterial color="#2b1b14" roughness={0.55} />
-    </RoundedBox>
-    <mesh position={[0, 1.02, -0.02]} castShadow>
-      <boxGeometry args={[1.02, 0.08, 0.42]} />
-      <meshStandardMaterial color="#23150f" roughness={0.5} />
-    </mesh>
-    <mesh position={[0, 0.62, 0.18]}>
-      <boxGeometry args={[0.9, 0.045, 0.15]} />
-      <meshStandardMaterial color="#f3eee6" roughness={0.4} />
-    </mesh>
-    {[-0.34, -0.22, -0.08, 0.04, 0.16, 0.3].map((x) => (
-      <mesh key={x} position={[x, 0.65, 0.16]}>
-        <boxGeometry args={[0.045, 0.028, 0.1]} />
-        <meshStandardMaterial color="#14110f" />
-      </mesh>
-    ))}
-    <mesh position={[0, 0.78, 0.02]}>
-      <boxGeometry args={[0.7, 0.22, 0.02]} />
-      <meshStandardMaterial color="#1a120e" />
-    </mesh>
-    {[-0.42, 0.42].map((x) => (
-      <mesh key={x} position={[x, 0.16, 0.12]} castShadow>
-        <boxGeometry args={[0.08, 0.32, 0.08]} />
-        <meshStandardMaterial color="#2b1b14" />
-      </mesh>
-    ))}
-  </group>
-);
-
-const Guitar = () => (
-  <group position={[1.02, 0.5, 0.62]} rotation={[0.12, 0.15, -0.38]} scale={0.95}>
-    <mesh scale={[1.05, 1.22, 0.22]} castShadow>
-      <sphereGeometry args={[0.155, 24, 16]} />
-      <meshStandardMaterial color="#c57a38" roughness={0.45} />
-    </mesh>
-    <mesh position={[0, 0.16, 0]} scale={[0.78, 0.68, 0.2]} castShadow>
-      <sphereGeometry args={[0.145, 24, 16]} />
-      <meshStandardMaterial color="#b86c30" roughness={0.45} />
-    </mesh>
-    <mesh position={[0, 0.02, 0.04]}>
-      <circleGeometry args={[0.04, 20]} />
-      <meshStandardMaterial color="#1a100c" />
-    </mesh>
-    <mesh position={[0, 0.48, 0]} castShadow>
-      <boxGeometry args={[0.034, 0.55, 0.028]} />
-      <meshStandardMaterial color="#5c3a22" roughness={0.5} />
-    </mesh>
-    <mesh position={[0, 0.78, 0]}>
-      <boxGeometry args={[0.068, 0.1, 0.028]} />
-      <meshStandardMaterial color="#4a2e1a" />
-    </mesh>
-    {[-0.01, 0.01].map((x) => (
-      <mesh key={x} position={[x, 0.32, 0.018]}>
-        <boxGeometry args={[0.004, 0.62, 0.002]} />
-        <meshStandardMaterial color="#d8d0c4" metalness={0.6} roughness={0.3} />
-      </mesh>
-    ))}
-  </group>
-);
-
-const makeScreen = (titles) => {
-  const c = document.createElement('canvas');
-  c.width = 1024;
-  c.height = 640;
-  const g = c.getContext('2d');
-  g.fillStyle = '#07140f';
-  g.fillRect(0, 0, 1024, 640);
-  g.fillStyle = '#0e2a20';
-  g.fillRect(0, 0, 1024, 72);
-  g.fillStyle = '#8fd6ff';
-  g.font = '600 36px ui-monospace, monospace';
-  g.fillText('~/projects', 36, 48);
-  g.fillStyle = '#d4f6e2';
-  g.font = '44px ui-monospace, monospace';
-  titles.forEach((name, i) => {
-    g.fillStyle = '#3ecf8e';
-    g.fillText('▸', 36, 150 + i * 88);
-    g.fillStyle = '#d4f6e2';
-    g.fillText(name, 84, 150 + i * 88);
-  });
-  const tex = new THREE.CanvasTexture(c);
-  tex.colorSpace = THREE.SRGBColorSpace;
-  tex.anisotropy = 8;
-  tex.needsUpdate = true;
-  return tex;
 };
 
 const Laptop = ({ t, onOpen, onHint, clearHint }) => {
@@ -200,8 +165,8 @@ const Laptop = ({ t, onOpen, onHint, clearHint }) => {
 
   return (
     <group
-      position={[0.02, 0.765, 0.2]}
-      rotation={[0, 0.04, 0]}
+      position={[0.02, 0.87, WALL + 0.52]}
+      rotation={[0, 0.03, 0]}
       onPointerOver={(e) => {
         e.stopPropagation();
         setHovered(true);
@@ -217,20 +182,20 @@ const Laptop = ({ t, onOpen, onHint, clearHint }) => {
         onOpen();
       }}
     >
-      <RoundedBox args={[0.7, 0.018, 0.46]} radius={0.012} castShadow>
-        <meshStandardMaterial color="#3c4046" metalness={0.55} roughness={0.32} />
+      <RoundedBox args={[0.72, 0.02, 0.46]} radius={0.01} castShadow>
+        <meshStandardMaterial color="#3c4046" roughness={0.4} metalness={0.15} />
       </RoundedBox>
-      <mesh position={[0, 0.011, 0.06]} rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[0.62, 0.28]} />
-        <meshStandardMaterial color="#2a2e34" roughness={0.6} />
+      <mesh position={[0, 0.012, 0.05]} rotation={[-Math.PI / 2, 0, 0]}>
+        <planeGeometry args={[0.64, 0.28]} />
+        <meshStandardMaterial color="#2a2e34" roughness={0.5} />
       </mesh>
-      <group position={[0, 0.01, -0.21]} rotation={[-0.1, 0, 0]}>
-        <RoundedBox args={[0.68, 0.42, 0.014]} radius={0.01} position={[0, 0.21, 0]} castShadow>
-          <meshStandardMaterial color="#2f3338" metalness={0.5} roughness={0.28} />
+      <group position={[0, 0.01, -0.21]} rotation={[-0.08, 0, 0]}>
+        <RoundedBox args={[0.7, 0.42, 0.016]} radius={0.01} position={[0, 0.21, 0]} castShadow>
+          <meshStandardMaterial color="#2f3338" roughness={0.38} metalness={0.12} />
         </RoundedBox>
-        <mesh position={[0, 0.21, 0.008]}>
-          <planeGeometry args={[0.62, 0.36]} />
-          <meshStandardMaterial map={screen} emissive="#14352a" emissiveIntensity={0.35} roughness={0.25} />
+        <mesh position={[0, 0.21, 0.01]}>
+          <planeGeometry args={[0.64, 0.36]} />
+          <meshStandardMaterial map={screen} emissive="#10241c" emissiveIntensity={0.5} roughness={0.3} />
         </mesh>
       </group>
     </group>
@@ -239,29 +204,21 @@ const Laptop = ({ t, onOpen, onHint, clearHint }) => {
 
 const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange }) => {
   const { t } = useLanguage();
-  const [paris, wood, rug, plaster] = useTexture([
-    '/assets/paris-window.jpg',
-    '/assets/wood.jpg',
-    '/assets/rug.jpg',
-    '/assets/plaster.jpg',
-  ]);
+  const paris = useTexture('/assets/paris-window.jpg');
   const diplomaTex = useMemo(() => makeDiploma(t.den.degree), [t.den.degree]);
+  const posterTex = useMemo(() => makePoster(), []);
 
   useEffect(() => {
-    wood.wrapS = wood.wrapT = THREE.RepeatWrapping;
-    wood.anisotropy = 8;
-    wood.repeat.set(4, 3);
-    plaster.wrapS = plaster.wrapT = THREE.RepeatWrapping;
-    plaster.repeat.set(2.2, 1.4);
-    plaster.anisotropy = 4;
-    wood.colorSpace = THREE.SRGBColorSpace;
-    paris.colorSpace = THREE.SRGBColorSpace;
-    rug.colorSpace = THREE.SRGBColorSpace;
-    plaster.colorSpace = THREE.SRGBColorSpace;
-    wood.needsUpdate = true;
-  }, [wood, paris, rug, plaster]);
+    linear(paris);
+  }, [paris]);
 
-  useEffect(() => () => diplomaTex.dispose(), [diplomaTex]);
+  useEffect(
+    () => () => {
+      diplomaTex.dispose();
+      posterTex.dispose();
+    },
+    [diplomaTex, posterTex]
+  );
 
   const hint = (text) => setHint(text);
   const clear = () => setHint('');
@@ -269,111 +226,116 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange }) => {
   return (
     <>
       <CameraRig focus={focus} />
-      <hemisphereLight args={['#ffd8b0', '#3a2a20', 0.55]} />
-      <ambientLight intensity={0.42} color="#ffe8d0" />
+      <hemisphereLight args={['#ffd8b0', '#4a382c', 0.85]} />
+      <ambientLight intensity={0.62} color="#ffe8d0" />
       <directionalLight
-        position={[0.15, 2.25, -2.55]}
-        intensity={2.55}
-        color="#ffb066"
+        position={[-2.1, 3.1, 1.2]}
+        intensity={1.55}
+        color="#ffc080"
         castShadow
-        shadow-mapSize={[2048, 2048]}
+        shadow-mapSize={[1024, 1024]}
         shadow-camera-near={0.4}
         shadow-camera-far={12}
         shadow-camera-left={-4}
         shadow-camera-right={4}
         shadow-camera-top={4}
         shadow-camera-bottom={-4}
+        shadow-bias={-0.001}
       />
-      <pointLight position={[0, 1.55, -1.95]} intensity={2.6} color="#ff8a3a" distance={9} />
-      <pointLight position={[0.4, 1.18, 0.28]} intensity={1.35} color="#ffd19a" distance={3.4} />
-      <pointLight position={[0, 1.7, 2.4]} intensity={0.28} color="#fff3e4" distance={7} />
+      <pointLight position={[0, 1.5, WALL]} intensity={1.35} color="#ff8a3a" distance={7} />
+      <pointLight position={[0.4, 1.2, -0.9]} intensity={0.7} color="#ffd19a" distance={3} />
 
-      <mesh position={[0, 1.45, -4.15]}>
-        <planeGeometry args={[8.2, 4.0]} />
+      <mesh position={[0, 1.4, -3.6]}>
+        <planeGeometry args={[7.4, 3.6]} />
         <meshBasicMaterial map={paris} />
       </mesh>
 
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0.15]} receiveShadow>
-        <planeGeometry args={[5.5, 4.4]} />
-        <meshStandardMaterial map={wood} roughness={0.82} />
+      {Array.from({ length: 12 }, (_, i) => (
+        <mesh key={i} rotation={[-Math.PI / 2, 0, 0]} position={[-2.4 + i * 0.44, 0, -0.15]} receiveShadow>
+          <planeGeometry args={[0.42, 4.3]} />
+          <meshStandardMaterial color={i % 2 ? '#c9a078' : '#be946c'} roughness={0.7} />
+        </mesh>
+      ))}
+      {Array.from({ length: 11 }, (_, i) => (
+        <mesh key={`g${i}`} rotation={[-Math.PI / 2, 0, 0]} position={[-2.18 + i * 0.44, 0.003, -0.15]}>
+          <planeGeometry args={[0.012, 4.3]} />
+          <meshStandardMaterial color="#8a6248" roughness={0.75} />
+        </mesh>
+      ))}
+
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0.05, 0.014, 0.35]} receiveShadow>
+        <planeGeometry args={[1.7, 1.15]} />
+        <meshStandardMaterial color="#7a3a32" roughness={0.72} />
       </mesh>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.012, 0.55]} receiveShadow>
-        <planeGeometry args={[2.15, 1.45]} />
-        <meshStandardMaterial map={rug} roughness={0.9} />
-      </mesh>
-      <mesh position={[0, 2.56, 0.1]} receiveShadow>
-        <boxGeometry args={[5.5, 0.06, 4.4]} />
-        <meshStandardMaterial map={plaster} color="#f2e6d4" roughness={0.95} />
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0.05, 0.016, 0.35]}>
+        <planeGeometry args={[1.52, 0.98]} />
+        <meshStandardMaterial color="#a04a3c" roughness={0.68} />
       </mesh>
 
-      <mesh position={[-2.72, 1.28, 0.1]} receiveShadow>
-        <boxGeometry args={[0.1, 2.56, 4.4]} />
-        <meshStandardMaterial map={plaster} roughness={0.92} />
+      <mesh position={[0, 2.5, -0.15]} receiveShadow>
+        <boxGeometry args={[5.4, 0.08, 4.3]} />
+        <meshStandardMaterial color="#efe3d0" roughness={0.85} />
       </mesh>
-      <mesh position={[2.72, 1.28, 0.1]} receiveShadow>
-        <boxGeometry args={[0.1, 2.56, 4.4]} />
-        <meshStandardMaterial map={plaster} roughness={0.92} />
+      <mesh position={[-2.68, 1.25, -0.15]} receiveShadow>
+        <boxGeometry args={[0.1, 2.5, 4.3]} />
+        <meshStandardMaterial color="#e8dcc8" roughness={0.85} />
       </mesh>
-      <mesh position={[-1.98, 1.28, -1.95]} receiveShadow>
-        <boxGeometry args={[1.48, 2.56, 0.1]} />
-        <meshStandardMaterial map={plaster} roughness={0.92} />
+      <mesh position={[2.68, 1.25, -0.15]} receiveShadow>
+        <boxGeometry args={[0.1, 2.5, 4.3]} />
+        <meshStandardMaterial color="#e8dcc8" roughness={0.85} />
       </mesh>
-      <mesh position={[1.98, 1.28, -1.95]} receiveShadow>
-        <boxGeometry args={[1.48, 2.56, 0.1]} />
-        <meshStandardMaterial map={plaster} roughness={0.92} />
+      <mesh position={[-1.95, 1.25, WALL]} receiveShadow>
+        <boxGeometry args={[1.5, 2.5, 0.1]} />
+        <meshStandardMaterial color="#eadfcd" roughness={0.85} />
       </mesh>
-      <mesh position={[0, 2.38, -1.95]} receiveShadow>
+      <mesh position={[1.95, 1.25, WALL]} receiveShadow>
+        <boxGeometry args={[1.5, 2.5, 0.1]} />
+        <meshStandardMaterial color="#eadfcd" roughness={0.85} />
+      </mesh>
+      <mesh position={[0, 2.32, WALL]} receiveShadow>
         <boxGeometry args={[2.5, 0.36, 0.1]} />
-        <meshStandardMaterial map={plaster} roughness={0.92} />
+        <meshStandardMaterial color="#eadfcd" roughness={0.85} />
       </mesh>
-      <mesh position={[0, 0.44, -1.95]} receiveShadow>
-        <boxGeometry args={[2.5, 0.88, 0.1]} />
-        <meshStandardMaterial map={plaster} roughness={0.92} />
+      <mesh position={[0, 0.42, WALL]} receiveShadow>
+        <boxGeometry args={[2.52, 0.84, 0.12]} />
+        <meshStandardMaterial color="#eadfcd" roughness={0.85} />
       </mesh>
 
-      <mesh position={[0, 0.9, -1.82]} castShadow receiveShadow>
-        <boxGeometry args={[2.62, 0.08, 0.22]} />
-        <meshStandardMaterial color="#f3ece0" roughness={0.7} />
+      <mesh position={[-1.26, 1.52, WALL + 0.04]}>
+        <boxGeometry args={[0.07, 1.38, 0.08]} />
+        <meshStandardMaterial color="#f7f1e6" roughness={0.5} />
       </mesh>
-      <mesh position={[-1.28, 1.56, -1.88]}>
-        <boxGeometry args={[0.07, 1.4, 0.08]} />
-        <meshStandardMaterial color="#f7f1e6" roughness={0.55} />
+      <mesh position={[1.26, 1.52, WALL + 0.04]}>
+        <boxGeometry args={[0.07, 1.38, 0.08]} />
+        <meshStandardMaterial color="#f7f1e6" roughness={0.5} />
       </mesh>
-      <mesh position={[1.28, 1.56, -1.88]}>
-        <boxGeometry args={[0.07, 1.4, 0.08]} />
-        <meshStandardMaterial color="#f7f1e6" roughness={0.55} />
+      <mesh position={[0, 2.2, WALL + 0.04]}>
+        <boxGeometry args={[2.58, 0.07, 0.08]} />
+        <meshStandardMaterial color="#f7f1e6" roughness={0.5} />
       </mesh>
-      <mesh position={[0, 2.24, -1.88]}>
-        <boxGeometry args={[2.62, 0.07, 0.08]} />
-        <meshStandardMaterial color="#f7f1e6" roughness={0.55} />
+      <mesh position={[0, 0.86, WALL + 0.04]}>
+        <boxGeometry args={[2.58, 0.06, 0.1]} />
+        <meshStandardMaterial color="#f7f1e6" roughness={0.5} />
       </mesh>
-      <mesh position={[0, 0.94, -1.88]}>
-        <boxGeometry args={[2.62, 0.07, 0.08]} />
-        <meshStandardMaterial color="#f7f1e6" roughness={0.55} />
+      <mesh position={[0, 1.52, WALL + 0.04]}>
+        <boxGeometry args={[0.04, 1.26, 0.04]} />
+        <meshStandardMaterial color="#f4eee4" roughness={0.5} />
       </mesh>
-      <mesh position={[0, 1.56, -1.88]}>
-        <boxGeometry args={[0.045, 1.28, 0.04]} />
-        <meshStandardMaterial color="#f4eee4" />
+      <mesh position={[0, 1.34, WALL + 0.04]}>
+        <boxGeometry args={[2.46, 0.03, 0.04]} />
+        <meshStandardMaterial color="#f4eee4" roughness={0.5} />
       </mesh>
-      <mesh position={[0, 1.38, -1.88]}>
-        <boxGeometry args={[2.5, 0.035, 0.04]} />
-        <meshStandardMaterial color="#f4eee4" />
+      <mesh position={[0, 1.74, WALL + 0.04]}>
+        <boxGeometry args={[2.46, 0.03, 0.04]} />
+        <meshStandardMaterial color="#f4eee4" roughness={0.5} />
       </mesh>
-      <mesh position={[0, 1.78, -1.88]}>
-        <boxGeometry args={[2.5, 0.035, 0.04]} />
-        <meshStandardMaterial color="#f4eee4" />
+      <mesh position={[-1.2, 1.5, WALL + 0.12]} rotation={[0, 0.06, 0.03]} castShadow>
+        <boxGeometry args={[0.18, 1.4, 0.05]} />
+        <meshStandardMaterial color="#e4c49a" roughness={0.55} />
       </mesh>
-      <mesh position={[0, 1.56, -1.9]}>
-        <planeGeometry args={[2.48, 1.28]} />
-        <meshPhysicalMaterial color="#cfe6ff" transparent opacity={0.1} roughness={0.05} metalness={0.05} />
-      </mesh>
-      <mesh position={[-1.22, 1.52, -1.8]} rotation={[0, 0.08, 0.04]} castShadow>
-        <boxGeometry args={[0.2, 1.48, 0.05]} />
-        <meshStandardMaterial color="#e4c49a" roughness={0.82} />
-      </mesh>
-      <mesh position={[1.22, 1.52, -1.8]} rotation={[0, -0.08, -0.04]} castShadow>
-        <boxGeometry args={[0.2, 1.48, 0.05]} />
-        <meshStandardMaterial color="#e4c49a" roughness={0.82} />
+      <mesh position={[1.2, 1.5, WALL + 0.12]} rotation={[0, -0.06, -0.03]} castShadow>
+        <boxGeometry args={[0.18, 1.4, 0.05]} />
+        <meshStandardMaterial color="#e4c49a" roughness={0.55} />
       </mesh>
 
       <Hotspot
@@ -382,18 +344,11 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange }) => {
         onOut={clear}
         onClick={() => setFocus(focus === 'window' ? 'home' : 'window')}
       >
-        <mesh position={[0, 1.56, -1.86]}>
-          <planeGeometry args={[2.5, 1.32]} />
+        <mesh position={[0, 1.52, WALL + 0.06]}>
+          <planeGeometry args={[2.46, 1.28]} />
           <meshBasicMaterial transparent opacity={0} />
         </mesh>
       </Hotspot>
-
-      {Array.from({ length: 11 }, (_, i) => (
-        <mesh key={i} position={[(i - 5) * 0.17, 0.3, -1.76]} castShadow>
-          <boxGeometry args={[0.13, 0.5, 0.09]} />
-          <meshStandardMaterial color="#efe6d8" metalness={0.25} roughness={0.45} />
-        </mesh>
-      ))}
 
       <Hotspot
         hint={t.den.diploma}
@@ -404,32 +359,60 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange }) => {
           setPanel('education');
         }}
       >
-        <group position={[-1.52, 1.62, -1.88]}>
+        <group position={[-1.48, 1.55, WALL + 0.06]}>
           <mesh castShadow>
-            <boxGeometry args={[0.38, 0.5, 0.03]} />
+            <boxGeometry args={[0.34, 0.46, 0.03]} />
             <meshStandardMaterial color="#7a4e22" roughness={0.55} />
           </mesh>
           <mesh position={[0, 0, 0.018]}>
-            <planeGeometry args={[0.32, 0.42]} />
-            <meshStandardMaterial map={diplomaTex} roughness={0.7} />
+            <planeGeometry args={[0.28, 0.4]} />
+            <meshStandardMaterial map={diplomaTex} roughness={0.6} />
           </mesh>
         </group>
       </Hotspot>
 
-      <RoundedBox args={[1.72, 0.06, 0.78]} radius={0.02} position={[0, 0.73, 0.18]} castShadow receiveShadow>
-        <meshStandardMaterial map={wood} color="#8d5a32" roughness={0.5} />
+      <group position={[1.52, 1.55, WALL + 0.06]}>
+        <mesh castShadow>
+          <boxGeometry args={[0.38, 0.5, 0.03]} />
+          <meshStandardMaterial color="#5a3a22" roughness={0.55} />
+        </mesh>
+        <mesh position={[0, 0, 0.018]}>
+          <planeGeometry args={[0.32, 0.44]} />
+          <meshStandardMaterial map={posterTex} roughness={0.6} />
+        </mesh>
+      </group>
+
+      <RoundedBox args={[2.52, 0.08, 0.8]} radius={0.012} position={[0, 0.82, WALL + 0.46]} castShadow receiveShadow>
+        <meshStandardMaterial color="#8d5a32" roughness={0.55} />
       </RoundedBox>
       {[
-        [-0.72, 0.36, -0.1],
-        [0.72, 0.36, -0.1],
-        [-0.72, 0.36, 0.46],
-        [0.72, 0.36, 0.46],
+        [-1.12, 0.41, WALL + 0.18],
+        [1.12, 0.41, WALL + 0.18],
+        [-1.12, 0.41, WALL + 0.72],
+        [1.12, 0.41, WALL + 0.72],
       ].map((p) => (
         <mesh key={p.join(',')} position={p} castShadow>
-          <boxGeometry args={[0.07, 0.72, 0.07]} />
-          <meshStandardMaterial color="#6e4226" roughness={0.55} />
+          <boxGeometry args={[0.07, 0.78, 0.07]} />
+          <meshStandardMaterial color="#6e4226" roughness={0.6} />
         </mesh>
       ))}
+
+      <group position={[-0.38, 0, WALL + 1.18]}>
+        <RoundedBox args={[0.4, 0.05, 0.38]} radius={0.012} position={[0, 0.42, 0]} castShadow>
+          <meshStandardMaterial color="#6b4428" roughness={0.55} />
+        </RoundedBox>
+        {[-0.15, 0.15].map((x) =>
+          [-0.14, 0.14].map((z) => (
+            <mesh key={`${x}${z}`} position={[x, 0.21, z]} castShadow>
+              <boxGeometry args={[0.04, 0.42, 0.04]} />
+              <meshStandardMaterial color="#5a3620" roughness={0.6} />
+            </mesh>
+          ))
+        )}
+        <RoundedBox args={[0.4, 0.42, 0.05]} radius={0.012} position={[0, 0.66, -0.16]} castShadow>
+          <meshStandardMaterial color="#6b4428" roughness={0.55} />
+        </RoundedBox>
+      </group>
 
       <Laptop
         t={t}
@@ -441,43 +424,43 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange }) => {
         clearHint={clear}
       />
 
-      <group position={[0.42, 0.78, 0.28]}>
-        <mesh>
-          <cylinderGeometry args={[0.045, 0.06, 0.04, 16]} />
-          <meshStandardMaterial color="#3a3a3a" metalness={0.4} roughness={0.4} />
+      <group position={[0.48, 0.88, WALL + 0.62]}>
+        <mesh castShadow>
+          <cylinderGeometry args={[0.04, 0.055, 0.04, 16]} />
+          <meshStandardMaterial color="#3a3a3a" roughness={0.45} />
         </mesh>
-        <mesh position={[0, 0.18, -0.02]} rotation={[0.4, 0, 0.2]}>
-          <cylinderGeometry args={[0.012, 0.012, 0.28, 8]} />
-          <meshStandardMaterial color="#2f2f2f" metalness={0.5} roughness={0.35} />
+        <mesh position={[0, 0.16, -0.02]} rotation={[0.35, 0, 0.15]} castShadow>
+          <cylinderGeometry args={[0.012, 0.012, 0.24, 10]} />
+          <meshStandardMaterial color="#2f2f2f" roughness={0.4} metalness={0.2} />
         </mesh>
-        <mesh position={[0.02, 0.36, -0.08]} rotation={[1.05, 0, 0]}>
+        <mesh position={[0.02, 0.32, -0.07]} rotation={[1.0, 0, 0]} castShadow>
           <coneGeometry args={[0.07, 0.1, 16]} />
           <meshStandardMaterial color="#d9a05a" roughness={0.45} />
         </mesh>
       </group>
 
       <Hotspot hint={t.den.about} onOver={hint} onOut={clear} onClick={() => setPanel('about')}>
-        <mesh position={[-0.48, 0.79, 0.32]} castShadow>
-          <cylinderGeometry args={[0.035, 0.028, 0.07, 16]} />
+        <mesh position={[-0.52, 0.89, WALL + 0.6]} castShadow>
+          <cylinderGeometry args={[0.032, 0.026, 0.06, 16]} />
           <meshStandardMaterial color="#cfe6dc" roughness={0.4} />
         </mesh>
       </Hotspot>
       <Hotspot hint={t.den.kit} onOver={hint} onOut={clear} onClick={() => setPanel('skills')}>
-        <mesh position={[-0.62, 0.775, 0.05]} rotation={[0, 0.3, 0]} castShadow>
-          <boxGeometry args={[0.16, 0.02, 0.22]} />
-          <meshStandardMaterial color="#3d6a8a" roughness={0.55} />
+        <mesh position={[-0.7, 0.87, WALL + 0.42]} rotation={[0, 0.2, 0]} castShadow>
+          <boxGeometry args={[0.15, 0.02, 0.2]} />
+          <meshStandardMaterial color="#3d6a8a" roughness={0.5} />
         </mesh>
       </Hotspot>
       <Hotspot hint={t.den.mail} onOver={hint} onOut={clear} onClick={() => setPanel('contact')}>
-        <mesh position={[0.52, 0.772, 0.08]} rotation={[0, -0.4, 0]} castShadow>
-          <boxGeometry args={[0.12, 0.01, 0.08]} />
-          <meshStandardMaterial color="#f4f0e6" roughness={0.65} />
+        <mesh position={[0.6, 0.87, WALL + 0.4]} rotation={[0, -0.3, 0]} castShadow>
+          <boxGeometry args={[0.11, 0.01, 0.08]} />
+          <meshStandardMaterial color="#f4f0e6" roughness={0.5} />
         </mesh>
       </Hotspot>
       <Hotspot hint={t.den.lab} onOver={hint} onOut={clear} onClick={() => setPanel('experience')}>
-        <mesh position={[0.58, 0.79, 0.38]} rotation={[0, 0.2, 0]} castShadow>
-          <boxGeometry args={[0.14, 0.04, 0.18]} />
-          <meshStandardMaterial color="#d7c39a" roughness={0.7} />
+        <mesh position={[0.68, 0.89, WALL + 0.65]} rotation={[0, 0.15, 0]} castShadow>
+          <boxGeometry args={[0.13, 0.035, 0.16]} />
+          <meshStandardMaterial color="#d7c39a" roughness={0.55} />
         </mesh>
       </Hotspot>
 
@@ -490,8 +473,9 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange }) => {
           window.open(LUTRA, '_blank', 'noopener,noreferrer');
         }}
       >
-        <Piano />
+        <Piano position={[1.85, 0, WALL + 0.38]} rotation={[0, -0.12, 0]} />
       </Hotspot>
+      <GuitarStand position={[1.18, 0, WALL + 0.72]} />
       <Hotspot
         hint={t.den.guitar}
         onOver={hint}
@@ -501,24 +485,24 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange }) => {
           window.open(LUTRA, '_blank', 'noopener,noreferrer');
         }}
       >
-        <Guitar />
+        <Guitar position={[1.18, 0.58, WALL + 0.74]} rotation={[0.18, 0.62, -0.42]} scale={0.92} />
       </Hotspot>
 
+      <Plant position={[-1.85, 0, WALL + 0.55]} />
+
       <Hotspot hint={t.den.tools} onOver={hint} onOut={clear} onClick={() => onViewChange('utility')}>
-        <group position={[-1.85, 0.16, 1.05]}>
-          <RoundedBox args={[0.38, 0.22, 0.26]} radius={0.02} castShadow>
-            <meshStandardMaterial color="#6b4428" roughness={0.6} />
+        <group position={[-1.55, 0.14, 0.25]}>
+          <RoundedBox args={[0.34, 0.2, 0.24]} radius={0.02} castShadow>
+            <meshStandardMaterial color="#6b4428" roughness={0.55} />
           </RoundedBox>
-          <mesh position={[0, 0.12, 0]}>
-            <boxGeometry args={[0.4, 0.04, 0.28]} />
-            <meshStandardMaterial color="#5a3820" />
-          </mesh>
         </group>
       </Hotspot>
 
       <DenOtter t={t} setHint={setHint} />
       <Dust />
-      <ContactShadows position={[0, 0.02, 0.2]} opacity={0.38} scale={8} blur={2.2} far={3.5} />
+      <EffectComposer depthBuffer multisampling={4}>
+        <PixelOutlines pixelSize={3.5} colorThresh={0.11} depthThresh={0.007} />
+      </EffectComposer>
     </>
   );
 };

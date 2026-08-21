@@ -1,39 +1,85 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Html, useCursor, useTexture } from '@react-three/drei';
+import { Html, useCursor } from '@react-three/drei';
 import * as THREE from 'three';
 
 const PATH = [
-  { p: [-0.9, 1.08, -1.7], mood: 'walk', wait: 2600 },
-  { p: [0.08, 1.08, -1.7], mood: 'sit', wait: 2800 },
-  { p: [0.85, 1.08, -1.7], mood: 'walk', wait: 2200 },
-  { p: [1.25, 0.18, 0.25], mood: 'walk', wait: 2400 },
-  { p: [0.95, 0.18, 1.15], mood: 'play', wait: 4200 },
-  { p: [0.1, 0.18, 1.25], mood: 'walk', wait: 2200 },
-  { p: [-1.15, 0.18, 0.95], mood: 'walk', wait: 2400 },
-  { p: [-0.52, 0.92, 0.38], mood: 'sleep', wait: 4600 },
-  { p: [-1.4, 0.18, -0.1], mood: 'walk', wait: 2200 },
+  { p: [-0.55, 0.94, -0.95], mood: 'walk', wait: 2400 },
+  { p: [0.1, 0.94, -0.95], mood: 'sit', wait: 2800 },
+  { p: [0.55, 0.94, -1.0], mood: 'walk', wait: 2200 },
+  { p: [1.05, 0.14, -0.15], mood: 'walk', wait: 2400 },
+  { p: [0.72, 0.14, 0.55], mood: 'play', wait: 4000 },
+  { p: [0.05, 0.14, 0.6], mood: 'walk', wait: 2200 },
+  { p: [-0.7, 0.14, 0.35], mood: 'walk', wait: 2200 },
+  { p: [-0.42, 0.5, 0.05], mood: 'sleep', wait: 4400 },
 ];
 
-const BALL = new THREE.Vector3(1.22, 0.05, 1.28);
+const BALL = new THREE.Vector3(0.78, 0.05, 0.52);
+const fur = '#8a5a38';
+const belly = '#f0d8b4';
+
+const OtterMesh = ({ mood }) => (
+  <group rotation={mood === 'sleep' ? [0.15, 0, 1.15] : [0, 0, 0]} position={mood === 'sleep' ? [0, 0.02, 0] : [0, 0, 0]}>
+    <mesh scale={[1.2, 0.72, 0.9]} castShadow>
+      <sphereGeometry args={[0.09, 18, 14]} />
+      <meshStandardMaterial color={fur} roughness={0.62} />
+    </mesh>
+    <mesh position={[0, -0.01, 0.04]} scale={[0.9, 0.55, 0.55]} castShadow>
+      <sphereGeometry args={[0.085, 16, 12]} />
+      <meshStandardMaterial color={belly} roughness={0.55} />
+    </mesh>
+    <mesh position={[0, 0.07, 0.1]} castShadow>
+      <sphereGeometry args={[0.062, 16, 14]} />
+      <meshStandardMaterial color={fur} roughness={0.62} />
+    </mesh>
+    <mesh position={[0, 0.055, 0.15]} scale={[0.72, 0.52, 0.85]}>
+      <sphereGeometry args={[0.04, 12, 10]} />
+      <meshStandardMaterial color={belly} roughness={0.55} />
+    </mesh>
+    <mesh position={[0, 0.058, 0.185]}>
+      <sphereGeometry args={[0.012, 10, 8]} />
+      <meshStandardMaterial color="#1a1010" roughness={0.4} />
+    </mesh>
+    {[-0.028, 0.028].map((x) => (
+      <mesh key={x} position={[x, 0.085, 0.145]}>
+        <sphereGeometry args={[0.009, 10, 8]} />
+        <meshStandardMaterial color="#1a1210" />
+      </mesh>
+    ))}
+    {[-0.038, 0.038].map((x) => (
+      <mesh key={x} position={[x, 0.11, 0.09]} scale={[0.7, 0.85, 0.55]}>
+        <sphereGeometry args={[0.022, 10, 8]} />
+        <meshStandardMaterial color="#7a4e32" roughness={0.6} />
+      </mesh>
+    ))}
+    <mesh position={[0, -0.02, -0.12]} rotation={[0.5, 0, 0]} scale={[0.45, 0.4, 1.1]} castShadow>
+      <sphereGeometry args={[0.07, 12, 10]} />
+      <meshStandardMaterial color={fur} roughness={0.62} />
+    </mesh>
+    {[
+      [-0.05, -0.05, 0.05],
+      [0.05, -0.05, 0.05],
+      [-0.05, -0.05, -0.04],
+      [0.05, -0.05, -0.04],
+    ].map((p, i) => (
+      <mesh key={i} position={p} scale={[0.7, 0.45, 0.85]}>
+        <sphereGeometry args={[0.032, 10, 8]} />
+        <meshStandardMaterial color="#7a4a30" roughness={0.6} />
+      </mesh>
+    ))}
+  </group>
+);
 
 const DenOtter = ({ t, setHint }) => {
   const group = useRef(null);
   const ball = useRef(null);
-  const map = useTexture('/assets/otter-cute.png');
   const target = useRef(new THREE.Vector3(...PATH[0].p));
   const iRef = useRef(0);
   const busy = useRef(false);
   const [mood, setMood] = useState('sit');
-  const [face, setFace] = useState(1);
   const [line, setLine] = useState('');
   const [hovered, setHovered] = useState(false);
   useCursor(hovered);
-
-  useEffect(() => {
-    map.colorSpace = THREE.SRGBColorSpace;
-    map.needsUpdate = true;
-  }, [map]);
 
   useEffect(() => {
     let live = true;
@@ -46,12 +92,11 @@ const DenOtter = ({ t, setHint }) => {
         }
         const next = (iRef.current + 1) % PATH.length;
         const dest = PATH[next];
-        setFace(dest.p[0] >= target.current.x ? 1 : -1);
         target.current.set(dest.p[0], dest.p[1], dest.p[2]);
         iRef.current = next;
         setMood(dest.mood);
         loop();
-      }, PATH[iRef.current].wait + 500);
+      }, PATH[iRef.current].wait + 400);
     };
     loop();
     return () => {
@@ -60,19 +105,27 @@ const DenOtter = ({ t, setHint }) => {
     };
   }, []);
 
-  useFrame(({ camera, clock }, dt) => {
+  useFrame((state, dt) => {
     const g = group.current;
     if (!g) return;
-    g.position.lerp(target.current, 1 - Math.exp(-dt * 1.7));
-    if (mood === 'play') g.position.y += Math.abs(Math.sin(clock.elapsedTime * 9)) * 0.05;
-    if (mood === 'sleep') g.rotation.z = THREE.MathUtils.lerp(g.rotation.z, -0.7, 0.08);
-    else g.rotation.z = THREE.MathUtils.lerp(g.rotation.z, 0, 0.12);
-    g.lookAt(camera.position.x, g.position.y, camera.position.z);
-    const bounce = mood === 'walk' ? 1 + Math.sin(clock.elapsedTime * 10) * 0.04 : 1;
-    g.scale.set(0.42 * face, 0.32 * bounce, 1);
+    g.position.lerp(target.current, 1 - Math.exp(-dt * 1.8));
+    const dx = target.current.x - g.position.x;
+    const dz = target.current.z - g.position.z;
+    if (Math.hypot(dx, dz) > 0.03) {
+      const want = Math.atan2(dx, dz);
+      g.rotation.y = THREE.MathUtils.damp(g.rotation.y, want, 6, dt);
+    }
+    if (mood === 'walk') {
+      g.position.y += Math.sin(state.clock.elapsedTime * 10) * 0.002;
+    }
     if (ball.current) {
       const playing = mood === 'play';
-      ball.current.position.lerp(playing ? new THREE.Vector3(g.position.x + 0.18, 0.06 + Math.abs(Math.sin(clock.elapsedTime * 7)) * 0.12, g.position.z + 0.08) : BALL, 0.12);
+      ball.current.position.lerp(
+        playing
+          ? new THREE.Vector3(g.position.x + 0.14, 0.05, g.position.z + 0.08)
+          : BALL,
+        0.14
+      );
     }
   });
 
@@ -81,11 +134,9 @@ const DenOtter = ({ t, setHint }) => {
     busy.current = true;
     const lines = t.den.otterLines;
     setLine(lines[Math.floor(Math.random() * lines.length)]);
-    setMood('peek');
     window.setTimeout(() => {
       setLine('');
       busy.current = false;
-      setMood(PATH[iRef.current].mood);
     }, 2200);
   };
 
@@ -106,12 +157,9 @@ const DenOtter = ({ t, setHint }) => {
           setHint('');
         }}
       >
-        <mesh>
-          <planeGeometry args={[1, 1]} />
-          <meshStandardMaterial map={map} alphaTest={0.12} roughness={0.8} metalness={0} />
-        </mesh>
+        <OtterMesh mood={mood} />
         {line ? (
-          <Html center sprite position={[0, 0.7, 0]} style={{ pointerEvents: 'none' }}>
+          <Html center sprite position={[0, 0.28, 0]} style={{ pointerEvents: 'none' }}>
             <div className="otter-bubble">{line}</div>
           </Html>
         ) : null}
