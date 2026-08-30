@@ -21,14 +21,14 @@
       import * as THREE from 'three';
       import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-      const W = 640;
-      const H = 1080;
+      const W = 800;
+      const H = 1360;
       const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
       renderer.setSize(W, H);
       renderer.setPixelRatio(1);
       renderer.outputColorSpace = THREE.SRGBColorSpace;
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.08;
+      renderer.toneMappingExposure = 1.1;
       document.body.appendChild(renderer.domElement);
 
       const scene = new THREE.Scene();
@@ -38,14 +38,14 @@
       camera.position.set(0.08, 0.14, 4.2);
       camera.lookAt(0, 0.04, 0);
 
-      scene.add(new THREE.HemisphereLight('#fff6ea', '#c8a888', 0.75));
-      const key = new THREE.DirectionalLight('#ffe0b8', 1.35);
+      scene.add(new THREE.HemisphereLight('#fff6ea', '#c8a888', 0.78));
+      const key = new THREE.DirectionalLight('#ffe0b8', 1.4);
       key.position.set(1.6, 2.6, 2.8);
       scene.add(key);
-      const fill = new THREE.DirectionalLight('#fff8f2', 0.6);
+      const fill = new THREE.DirectionalLight('#fff8f2', 0.62);
       fill.position.set(-2.0, 0.8, 1.8);
       scene.add(fill);
-      const rim = new THREE.DirectionalLight('#ffe8c8', 0.4);
+      const rim = new THREE.DirectionalLight('#ffe8c8', 0.42);
       rim.position.set(-0.4, 1.2, -2.0);
       scene.add(rim);
 
@@ -66,15 +66,55 @@
       stand.add(cradle);
       stand.position.set(0, -0.88, -0.02);
 
+      const texLoader = new THREE.TextureLoader();
+      const loadTex = (url) =>
+        new Promise((resolve) => {
+          texLoader.load(url, (t) => {
+            t.flipY = false;
+            t.colorSpace = THREE.SRGBColorSpace;
+            t.anisotropy = 16;
+            t.minFilter = THREE.LinearMipmapLinearFilter;
+            t.magFilter = THREE.LinearFilter;
+            t.generateMipmaps = true;
+            resolve(t);
+          });
+        });
+
+      const [bodyTex, detailTex] = await Promise.all([
+        loadTex('/public/assets/sprites/guitar-body.png'),
+        loadTex('/public/assets/sprites/guitar-details.png'),
+      ]);
+
       const loader = new GLTFLoader();
       loader.load('/public/models/guitar-round.glb', (gltf) => {
         const guitar = gltf.scene;
         guitar.traverse((o) => {
-          if (o.isMesh) {
-            o.castShadow = false;
-            o.frustumCulled = false;
+          if (!o.isMesh) return;
+          const n = (o.name || '').toLowerCase();
+          if (n.includes('cube')) {
+            o.visible = false;
+            return;
           }
+          const mat = o.material;
+          if (!mat) return;
+          const next = mat.clone();
+          const nm = `${o.name} ${mat.name || ''}`.toLowerCase();
+          next.map = /head|tuner|logo|material/.test(nm) ? detailTex : bodyTex;
+          next.roughness = 0.42;
+          next.metalness = 0.04;
+          next.needsUpdate = true;
+          o.material = next;
+          o.frustumCulled = false;
         });
+        // second pass: any remaining original maps -> body
+        guitar.traverse((o) => {
+          if (!o.isMesh || !o.visible || !o.material) return;
+          if (o.material.map === bodyTex || o.material.map === detailTex) return;
+          o.material = o.material.clone();
+          o.material.map = bodyTex;
+          o.material.needsUpdate = true;
+        });
+
         const wrap = new THREE.Group();
         wrap.add(guitar);
         guitar.updateMatrixWorld(true);
@@ -82,11 +122,7 @@
         guitar.position.sub(box0.getCenter(new THREE.Vector3()));
         const size0 = box0.getSize(new THREE.Vector3());
         wrap.scale.setScalar(1.78 / Math.max(size0.x, size0.y, size0.z));
-
         wrap.rotation.set(0, 0.18, 0);
-        wrap.updateMatrixWorld(true);
-        const shown = new THREE.Box3().setFromObject(wrap).getSize(new THREE.Vector3());
-        console.log('orient0', shown.x.toFixed(3), shown.y.toFixed(3), shown.z.toFixed(3));
 
         const root = new THREE.Group();
         root.add(wrap);

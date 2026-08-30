@@ -43,7 +43,7 @@ const browser = await puppeteer.launch({
 const page = await browser.newPage();
 page.on('console', (msg) => console.log('BROWSER:', msg.text()));
 page.on('pageerror', (err) => console.log('PAGEERR:', err.message));
-await page.setViewport({ width: 640, height: 1080, deviceScaleFactor: 1 });
+await page.setViewport({ width: 800, height: 1360, deviceScaleFactor: 1 });
 await page.goto(`http://127.0.0.1:${PORT}/public/render-guitar.html`, { waitUntil: 'networkidle0', timeout: 60000 });
 await page.waitForFunction('window.__done === true', { timeout: 60000 });
 const err = await page.evaluate(() => window.__error || null);

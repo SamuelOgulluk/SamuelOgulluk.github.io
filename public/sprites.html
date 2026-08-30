@@ -4,27 +4,163 @@
     <meta charset="utf-8" />
     <title>Sprites – aperçu</title>
     <style>
-      body { margin: 0; font-family: system-ui, sans-serif; background: #2a1a12; color: #f4e8d8; }
-      h1 { padding: 24px 28px 8px; font-size: 1.2rem; font-weight: 600; }
-      p { padding: 0 28px 20px; color: #c9b29a; max-width: 72ch; line-height: 1.5; }
+      :root { --ink: #f4e8d8; --muted: #c9b29a; --bg: #2a1a12; --card: #ece0cc; }
+      body { margin: 0; font-family: system-ui, sans-serif; background: var(--bg); color: var(--ink); }
+      h1 { padding: 24px 28px 6px; font-size: 1.2rem; font-weight: 600; }
+      p { padding: 0 28px 12px; color: var(--muted); max-width: 74ch; line-height: 1.5; }
+      .panel {
+        margin: 0 28px 20px; padding: 14px 16px; background: #1a120e; border-radius: 10px;
+        display: flex; gap: 16px; align-items: center; flex-wrap: wrap; max-width: 720px;
+      }
+      .panel label { font-size: 0.95rem; min-width: 11ch; }
+      .panel input[type="range"] { flex: 1; min-width: 180px; accent-color: #e8c48a; }
+      .val { font-variant-numeric: tabular-nums; color: #e8c48a; min-width: 7ch; }
       .row { display: flex; gap: 24px; padding: 0 28px 40px; flex-wrap: wrap; align-items: flex-start; }
-      .card { background: #ece0cc; border-radius: 10px; overflow: hidden; box-shadow: 0 8px 24px #0006; max-width: 340px; }
-      .card img { width: 100%; display: block; }
-      .label { padding: 10px 12px; background: #1a120e; color: #f4e8d8; font-size: 0.95rem; }
+      .card { background: var(--card); border-radius: 10px; overflow: hidden; box-shadow: 0 8px 24px #0006; width: min(360px, 92vw); }
+      .card canvas, .card img { width: 100%; display: block; background: var(--card); }
+      .label { padding: 10px 12px; background: #1a120e; color: var(--ink); font-size: 0.95rem; }
     </style>
   </head>
   <body>
-    <h1>1 · Guitare — Les Paul arrondie, stand, contours doux</h1>
-    <p>Modèle 3D Les Paul (forme ronde, pas Ibanez pointue). Vue de face / léger profil, petit stand, liseré 2px.</p>
+    <h1>1 · Guitare — Les Paul, contours réglables</h1>
+    <p>Les fills restent lisses. Seul le liseré est pixelisé. Bouge le slider et dis-moi le niveau (ex. 3).</p>
+    <div class="panel">
+      <label for="cell">Pixelisation</label>
+      <input id="cell" type="range" min="1" max="12" value="3" />
+      <span class="val" id="cellVal">3 px</span>
+    </div>
     <div class="row">
       <div class="card">
-        <img src="/assets/sprites/01-guitar-raw.png?v=lespaul3" alt="Rendu 3D brut" />
-        <div class="label">Rendu 3D brut</div>
+        <img id="raw" src="/assets/sprites/01-guitar-raw.png?v=smooth5" alt="Rendu 3D brut" />
+        <div class="label">Rendu 3D (texture lissée)</div>
       </div>
       <div class="card">
-        <img src="/assets/sprites/01-guitar.png?v=lespaul3" alt="Sprite cuit" />
-        <div class="label">Sprite cuit (liseré 2px)</div>
+        <canvas id="baked" width="640" height="1080"></canvas>
+        <div class="label">Aperçu contours — niveau <span id="lvl">3</span></div>
       </div>
     </div>
+    <script>
+      const INK = [32, 20, 16];
+      const BG = [236, 224, 204];
+      const rawImg = document.getElementById('raw');
+      const canvas = document.getElementById('baked');
+      const slider = document.getElementById('cell');
+      const cellVal = document.getElementById('cellVal');
+      const lvl = document.getElementById('lvl');
+
+      const dilate = (m, w, h, n) => {
+        let cur = m;
+        for (let k = 0; k < n; k += 1) {
+          const next = new Uint8Array(cur.length);
+          for (let y = 0; y < h; y += 1) {
+            for (let x = 0; x < w; x += 1) {
+              let v = cur[y * w + x];
+              if (!v) {
+                if (x && cur[y * w + x - 1]) v = 1;
+                else if (x + 1 < w && cur[y * w + x + 1]) v = 1;
+                else if (y && cur[(y - 1) * w + x]) v = 1;
+                else if (y + 1 < h && cur[(y + 1) * w + x]) v = 1;
+              }
+              next[y * w + x] = v;
+            }
+          }
+          cur = next;
+        }
+        return cur;
+      };
+
+      const erode = (m, w, h, n) => {
+        let cur = m;
+        for (let k = 0; k < n; k += 1) {
+          const next = new Uint8Array(cur.length);
+          for (let y = 0; y < h; y += 1) {
+            for (let x = 0; x < w; x += 1) {
+              let v = cur[y * w + x];
+              if (v) {
+                if (!x || !cur[y * w + x - 1]) v = 0;
+                else if (x + 1 >= w || !cur[y * w + x + 1]) v = 0;
+                else if (!y || !cur[(y - 1) * w + x]) v = 0;
+                else if (y + 1 >= h || !cur[(y + 1) * w + x]) v = 0;
+              }
+              next[y * w + x] = v;
+            }
+          }
+          cur = next;
+        }
+        return cur;
+      };
+
+      const snap = (mask, w, h, cell) => {
+        const gw = Math.max(1, Math.floor(w / cell));
+        const gh = Math.max(1, Math.floor(h / cell));
+        const small = new Uint8Array(gw * gh);
+        for (let y = 0; y < h; y += 1) {
+          const sy = Math.min(gh - 1, Math.floor(y / cell));
+          for (let x = 0; x < w; x += 1) {
+            const sx = Math.min(gw - 1, Math.floor(x / cell));
+            if (mask[y * w + x]) small[sy * gw + sx] = 1;
+          }
+        }
+        const out = new Uint8Array(w * h);
+        for (let y = 0; y < h; y += 1) {
+          const sy = Math.min(gh - 1, Math.floor(y / cell));
+          for (let x = 0; x < w; x += 1) {
+            const sx = Math.min(gw - 1, Math.floor(x / cell));
+            out[y * w + x] = small[sy * gw + sx];
+          }
+        }
+        return out;
+      };
+
+      const bake = (img, cell) => {
+        const w = img.naturalWidth;
+        const h = img.naturalHeight;
+        const src = document.createElement('canvas');
+        src.width = w;
+        src.height = h;
+        const sctx = src.getContext('2d', { willReadFrequently: true });
+        sctx.drawImage(img, 0, 0);
+        const data = sctx.getImageData(0, 0, w, h);
+        const px = data.data;
+        const opaque = new Uint8Array(w * h);
+        for (let i = 0, p = 0; i < px.length; i += 4, p += 1) {
+          const cream = px[i] > 220 && px[i + 1] > 205 && px[i + 2] > 185;
+          opaque[p] = cream ? 0 : 1;
+        }
+        const rim = new Uint8Array(w * h);
+        const eroded = erode(opaque, w, h, 1);
+        const grown = dilate(opaque, w, h, 1);
+        for (let i = 0; i < rim.length; i += 1) rim[i] = (opaque[i] && !eroded[i]) || (grown[i] && !opaque[i]) ? 1 : 0;
+        const edge = snap(rim, w, h, cell);
+        for (let i = 0, p = 0; i < px.length; i += 4, p += 1) {
+          if (edge[p]) {
+            px[i] = INK[0];
+            px[i + 1] = INK[1];
+            px[i + 2] = INK[2];
+            px[i + 3] = 255;
+          } else if (!opaque[p]) {
+            px[i] = BG[0];
+            px[i + 1] = BG[1];
+            px[i + 2] = BG[2];
+            px[i + 3] = 255;
+          }
+        }
+        sctx.putImageData(data, 0, 0);
+        canvas.width = w;
+        canvas.height = h;
+        canvas.getContext('2d').drawImage(src, 0, 0);
+      };
+
+      const refresh = () => {
+        const cell = Number(slider.value);
+        cellVal.textContent = `${cell} px`;
+        lvl.textContent = String(cell);
+        if (rawImg.complete && rawImg.naturalWidth) bake(rawImg, cell);
+      };
+
+      slider.addEventListener('input', refresh);
+      rawImg.addEventListener('load', refresh);
+      if (rawImg.complete) refresh();
+    </script>
   </body>
 </html>
