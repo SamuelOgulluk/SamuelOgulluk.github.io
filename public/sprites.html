@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Sprites – aperçu</title>
+    <style>
+      body { margin: 0; font-family: system-ui, sans-serif; background: #2a1a12; color: #f4e8d8; }
+      h1 { padding: 24px 28px 8px; font-size: 1.2rem; font-weight: 600; }
+      p { padding: 0 28px 20px; color: #c9b29a; max-width: 70ch; line-height: 1.5; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding: 0 28px 40px; }
+      .card { background: #ece0cc; border-radius: 10px; overflow: hidden; box-shadow: 0 8px 24px #0006; }
+      .card img { width: 100%; display: block; background: #ece0cc; }
+      .label { padding: 10px 12px; background: #1a120e; color: #f4e8d8; font-size: 0.95rem; }
+      .hero { max-width: 420px; margin: 0 28px 24px; border-radius: 10px; overflow: hidden; box-shadow: 0 8px 24px #0006; }
+      .hero img { width: 100%; display: block; }
+    </style>
+  </head>
+  <body>
+    <h1>1 · Guitare — nouveau sprite (GLB réel)</h1>
+    <p>Modèle 3D CC0 stylisé, rendu chaud sur fond crème, contours pixelisés cuits dans l'image (comme Lucas Martinic).</p>
+    <div class="hero"><img src="/assets/sprites/01-guitar.png" alt="Guitare" /></div>
+    <div class="grid">
+      <div class="card">
+        <img src="/assets/sprites/01-guitar.png" alt="Sprite cuit" />
+        <div class="label">Sprite cuit (contours en marches)</div>
+      </div>
+      <div class="card">
+        <img src="/assets/sprites/01-guitar-raw.png" alt="Rendu 3D brut" />
+        <div class="label">Rendu 3D brut (avant cuisson)</div>
+      </div>
+    </div>
+  </body>
+</html>

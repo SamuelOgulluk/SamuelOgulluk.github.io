@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Guitar render</title>
+    <style>
+      html, body { margin: 0; background: #ece0cc; overflow: hidden; }
+      canvas { display: block; }
+    </style>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "/node_modules/three/build/three.module.js",
+          "three/addons/": "/node_modules/three/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <script type="module">
+      import * as THREE from 'three';
+      import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+      const W = 960;
+      const H = 1200;
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+      renderer.setSize(W, H);
+      renderer.setPixelRatio(1);
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.02;
+      document.body.appendChild(renderer.domElement);
+
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color('#ece0cc');
+
+      const camera = new THREE.PerspectiveCamera(30, W / H, 0.05, 40);
+      camera.position.set(0, 0.05, 3.1);
+      camera.lookAt(0, 0.02, 0);
+
+      scene.add(new THREE.HemisphereLight('#fff4e8', '#d8b898', 0.62));
+      const key = new THREE.DirectionalLight('#ffd0a0', 1.25);
+      key.position.set(1.4, 2.2, 2.4);
+      scene.add(key);
+      const fill = new THREE.DirectionalLight('#fff8f0', 0.48);
+      fill.position.set(-2.2, 0.4, 1.6);
+      scene.add(fill);
+      const rim = new THREE.DirectionalLight('#ffe8c8', 0.35);
+      rim.position.set(0.2, 1.0, -2.2);
+      scene.add(rim);
+
+      const palette = [
+        new THREE.MeshStandardMaterial({ color: '#9fd4b8', roughness: 0.52, metalness: 0.04 }),
+        new THREE.MeshStandardMaterial({ color: '#2a221c', roughness: 0.62, metalness: 0.02 }),
+        new THREE.MeshStandardMaterial({ color: '#c9a06a', roughness: 0.45, metalness: 0.08 }),
+      ];
+
+      const loader = new GLTFLoader();
+      loader.load('/public/models/guitar-stylized.glb', (gltf) => {
+        const guitar = gltf.scene;
+        let idx = 0;
+        guitar.traverse((o) => {
+          if (!o.isMesh) return;
+          o.material = palette[Math.min(idx, palette.length - 1)].clone();
+          idx += 1;
+        });
+
+        const box = new THREE.Box3().setFromObject(guitar);
+        const size = box.getSize(new THREE.Vector3());
+        const center = box.getCenter(new THREE.Vector3());
+        const scale = 1.48 / Math.max(size.x, size.y, size.z);
+        guitar.scale.setScalar(scale);
+        guitar.position.sub(center.multiplyScalar(scale));
+        guitar.rotation.set(0.08, Math.PI + 0.35, -0.05);
+        scene.add(guitar);
+
+        renderer.render(scene, camera);
+        window.__done = true;
+      }, undefined, (err) => {
+        console.error(err);
+        window.__error = String(err);
+        window.__done = true;
+      });
+    </script>
+  </body>
+</html>
