@@ -507,6 +507,26 @@ a {
   position: relative;
 }
 
+.den-world canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.den-hotspots {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.den-hotspots.is-on {
+  opacity: 1;
+}
+
 .den-hotspot {
   position: absolute;
   border: 0;
@@ -514,6 +534,13 @@ a {
   background: transparent;
   cursor: pointer;
   z-index: 2;
+  pointer-events: auto;
+}
+
+body.is-bake .hud,
+body.is-bake .den-hint,
+body.is-bake .inspect {
+  display: none !important;
 }
 
 .den-hotspot::after {

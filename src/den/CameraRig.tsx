@@ -11,12 +11,19 @@ const FOCI = {
   window: { pos: [0.08, 1.35, 1.05], look: [0, 1.4, -2.2], pan: 0.05 },
 };
 
-const CameraRig = ({ focus }) => {
+export const BAKE_CAM = { pos: [0.16, 1.3, 3.08], look: [0.16, 0.9, -0.55] };
+
+const CameraRig = ({ focus, frozen }) => {
   const look = useRef(new THREE.Vector3(0.1, 0.95, -0.55));
   const goal = useRef(new THREE.Vector3());
   const lookGoal = useRef(new THREE.Vector3());
 
   useFrame((state, dt) => {
+    if (frozen) {
+      state.camera.position.set(...BAKE_CAM.pos);
+      state.camera.lookAt(...BAKE_CAM.look);
+      return;
+    }
     const spec = FOCI[focus] || FOCI.home;
     const k = 1 - Math.exp(-dt * 3.2);
     const pan = spec.pan;

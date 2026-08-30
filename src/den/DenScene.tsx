@@ -4,8 +4,9 @@ import { RoundedBox, useCursor, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 import { useLanguage } from '@/App';
 import CameraRig from './CameraRig';
+import BakeCapture from './BakeCapture';
 import DenOtter from './DenOtter';
-import { Guitar, Piano, Plant } from './DenInstruments';
+import { Guitar, GuitarStand, Piano, Plant } from './DenInstruments';
 
 const LUTRA = 'https://samuelogulluk.github.io/lutra/';
 const WALL = -1.5;
@@ -200,7 +201,7 @@ const Laptop = ({ t, onOpen, onHint, clearHint }) => {
   );
 };
 
-const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange }) => {
+const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange, bake }) => {
   const { t } = useLanguage();
   const paris = useTexture('/assets/paris-window.jpg');
   const diplomaTex = useMemo(() => makeDiploma(t.den.degree), [t.den.degree]);
@@ -223,7 +224,8 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange }) => {
 
   return (
     <>
-      <CameraRig focus={focus} />
+      <CameraRig focus={focus} frozen={bake} />
+      <BakeCapture enabled={bake} />
       <hemisphereLight args={['#ffd8b0', '#4a382c', 0.85]} />
       <ambientLight intensity={0.62} color="#ffe8d0" />
       <directionalLight
@@ -342,9 +344,9 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange }) => {
         onOut={clear}
         onClick={() => setFocus(focus === 'window' ? 'home' : 'window')}
       >
-        <mesh position={[0, 1.52, WALL + 0.06]}>
+        <mesh position={[0, 1.52, WALL + 0.06]} userData={{ bakeHide: true }}>
           <planeGeometry args={[2.46, 1.28]} />
-          <meshBasicMaterial transparent opacity={0} />
+          <meshBasicMaterial transparent opacity={0} depthWrite={false} />
         </mesh>
       </Hotspot>
 
@@ -482,7 +484,10 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange }) => {
           window.open(LUTRA, '_blank', 'noopener,noreferrer');
         }}
       >
-        <Guitar position={[1.28, 0.67, WALL + 0.82]} rotation={[0, 0.22, 0]} />
+        <group position={[1.22, 0, WALL + 0.78]} rotation={[0, 0.34, 0]}>
+          <GuitarStand />
+          <Guitar position={[0, 0.58, 0.05]} rotation={[-0.26, 0.04, 0]} />
+        </group>
       </Hotspot>
 
       <Plant position={[-1.85, 0, WALL + 0.55]} />
@@ -496,7 +501,7 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange }) => {
       </Hotspot>
 
       <DenOtter t={t} setHint={setHint} />
-      <Dust />
+      {!bake && <Dust />}
     </>
   );
 };
