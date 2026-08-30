@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { useCursor } from '@react-three/drei';
+import { useCursor, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 import { useLanguage } from '@/App';
 import CameraRig from './CameraRig';
@@ -27,6 +27,40 @@ const lampMat = (mat) => {
     mat.emissiveIntensity = 3.6;
     mat.toneMapped = false;
   }
+};
+
+const chairMat = (mat) => {
+  mat.roughness = `${mat.name || ''}`.toLowerCase().includes('metal') ? 0.28 : 0.72;
+  mat.metalness = `${mat.name || ''}`.toLowerCase().includes('metal') ? 0.55 : 0.02;
+};
+
+const WallMaps = ({ onHint, clearHint, onClick, hint }) => {
+  const [paris, france] = useTexture(['/assets/maps/paris.png', '/assets/maps/france.png']);
+  useEffect(() => {
+    [paris, france].forEach((tex) => {
+      tex.colorSpace = THREE.SRGBColorSpace;
+      tex.anisotropy = 8;
+      tex.flipY = true;
+    });
+  }, [paris, france]);
+  return (
+    <Hotspot hint={hint} onOver={onHint} onOut={clearHint} onClick={onClick}>
+      <group position={[-0.48, 1.62, WALL + 0.03]}>
+        <FramedMap url={PH.frameA} mapUrl="/assets/maps/france.png" height={0.64} />
+        <mesh position={[0, 0, 0.02]}>
+          <planeGeometry args={[0.36, 0.5]} />
+          <meshStandardMaterial map={france} roughness={0.88} metalness={0} />
+        </mesh>
+      </group>
+      <group position={[0.44, 1.58, WALL + 0.03]}>
+        <FramedMap url={PH.frameB} mapUrl="/assets/maps/paris.png" height={0.5} />
+        <mesh position={[0, 0, 0.02]}>
+          <planeGeometry args={[0.52, 0.36]} />
+          <meshStandardMaterial map={paris} roughness={0.88} metalness={0} />
+        </mesh>
+      </group>
+    </Hotspot>
+  );
 };
 
 const makeScreen = (titles) => {
@@ -164,18 +198,21 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange, bake }) =>
 
       <RoomShell />
 
-      <Hotspot
+      <WallMaps
         hint={t.den.maps}
-        onOver={hint}
-        onOut={clear}
+        onHint={hint}
+        clearHint={clear}
         onClick={() => setFocus(focus === 'maps' ? 'home' : 'maps')}
-      >
-        <FramedMap url={PH.frameA} mapUrl="/assets/maps/paris.png" height={0.58} position={[-0.52, 1.62, WALL + 0.03]} />
-        <FramedMap url={PH.frameB} mapUrl="/assets/maps/france.png" height={0.58} position={[0.4, 1.62, WALL + 0.03]} />
-      </Hotspot>
+      />
 
       <FitGLB url={PH.desk} height={0.76} width={1.92} position={[0.02, 0, WALL + 0.5]} />
-      <FitGLB url="/models/office-chair.glb" height={0.96} position={[-0.12, 0, WALL + 1.28]} rotation={[0, Math.PI, 0]} />
+      <FitGLB
+        url="/models/office-chair.glb"
+        height={0.96}
+        position={[-0.12, 0, WALL + 1.28]}
+        rotation={[0, Math.PI, 0]}
+        onMat={chairMat}
+      />
 
       <Laptop
         t={t}
@@ -194,11 +231,11 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange, bake }) =>
       </Hotspot>
 
       <Hotspot hint={t.den.diploma} onOver={hint} onOut={clear} onClick={() => setPanel('education')}>
-        <FitGLB url={PH.shelf} height={1.28} position={[-2.2, 0, WALL + 0.88]} rotation={[0, 0.42, 0]} />
+        <FitGLB url={PH.shelf} height={1.22} position={[-1.88, 0, WALL + 1.02]} rotation={[0, 0.55, 0]} />
       </Hotspot>
 
       <Hotspot hint={t.den.about} onOver={hint} onOut={clear} onClick={() => setPanel('about')}>
-        <FitGLB url={PH.plant} height={0.78} position={[-1.82, 0, WALL + 0.42]} />
+        <FitGLB url={PH.plant} height={0.72} position={[-1.55, 0, WALL + 0.38]} />
       </Hotspot>
 
       <Hotspot hint={t.den.mail} onOver={hint} onOut={clear} onClick={() => setPanel('contact')}>
@@ -232,7 +269,7 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange, bake }) =>
       </Hotspot>
 
       <Hotspot hint={t.den.lab} onOver={hint} onOut={clear} onClick={() => setPanel('experience')}>
-        <FitGLB url={PH.books} height={0.14} sit={false} position={[-2.05, 0.72, WALL + 0.95]} rotation={[0, 0.5, 0]} />
+        <FitGLB url={PH.books} height={0.14} sit={false} position={[-1.78, 0.7, WALL + 1.08]} rotation={[0, 0.55, 0]} />
       </Hotspot>
 
       <Hotspot hint={t.den.tools} onOver={hint} onOut={clear} onClick={() => onViewChange('utility')}>

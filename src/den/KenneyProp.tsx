@@ -68,10 +68,19 @@ export const FramedMap = ({ url, mapUrl, height = 0.62, ...props }) => {
     mapTex.anisotropy = 8;
     const src = scene.clone(true);
     shadowize(src, (mat) => {
-      if (`${mat.name || ''}`.toLowerCase().includes('artwork')) {
+      const n = `${mat.name || ''}`.toLowerCase();
+      if (n.includes('glass')) {
+        mat.visible = false;
+        mat.opacity = 0;
+        mat.transparent = true;
+        mat.depthWrite = false;
+      }
+      if (n.includes('artwork')) {
         mat.map = mapTex;
-        mat.roughness = 0.88;
+        mat.color = new THREE.Color('#ffffff');
+        mat.roughness = 0.9;
         mat.metalness = 0;
+        mat.transparent = false;
         mat.needsUpdate = true;
       }
     });
@@ -113,7 +122,14 @@ export const RoomShell = () => {
     <>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, -0.05]} receiveShadow>
         <planeGeometry args={[6.2, 4.6]} />
-        <meshStandardMaterial map={floorD} normalMap={floorN} roughnessMap={floorA} roughness={0.78} metalness={0.04} />
+        <meshStandardMaterial
+          map={floorD}
+          normalMap={floorN}
+          normalScale={new THREE.Vector2(1.2, 1.2)}
+          roughnessMap={floorA}
+          roughness={0.72}
+          metalness={0.03}
+        />
       </mesh>
       <mesh position={[0, 1.28, -1.56]} receiveShadow>
         <planeGeometry args={[6.2, 2.56]} />
