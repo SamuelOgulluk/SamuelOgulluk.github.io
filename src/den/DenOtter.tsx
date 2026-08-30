@@ -19,58 +19,58 @@ const fur = '#8a5a38';
 const belly = '#f0d8b4';
 
 const OtterMesh = ({ mood }) => (
-  <group rotation={mood === 'sleep' ? [0.15, 0, 1.15] : [0, 0, 0]} position={mood === 'sleep' ? [0, 0.02, 0] : [0, 0, 0]}>
-    <mesh scale={[1.2, 0.72, 0.9]} castShadow>
-      <sphereGeometry args={[0.09, 18, 14]} />
-      <meshStandardMaterial color={fur} roughness={0.62} />
+  <group rotation={mood === 'sleep' ? [0.2, 0, 1.2] : [0, 0, 0]} position={mood === 'sleep' ? [0, 0.02, 0] : [0, 0, 0]}>
+    <mesh scale={[1.15, 0.78, 0.95]} castShadow>
+      <sphereGeometry args={[0.095, 12, 10]} />
+      <meshStandardMaterial color={fur} roughness={0.78} />
     </mesh>
-    <mesh position={[0, -0.01, 0.04]} scale={[0.9, 0.55, 0.55]} castShadow>
-      <sphereGeometry args={[0.085, 16, 12]} />
-      <meshStandardMaterial color={belly} roughness={0.55} />
+    <mesh position={[0, -0.01, 0.05]} scale={[0.88, 0.58, 0.58]} castShadow>
+      <sphereGeometry args={[0.09, 10, 8]} />
+      <meshStandardMaterial color={belly} roughness={0.72} />
     </mesh>
-    <mesh position={[0, 0.07, 0.1]} castShadow>
-      <sphereGeometry args={[0.062, 16, 14]} />
-      <meshStandardMaterial color={fur} roughness={0.62} />
+    <mesh position={[0, 0.1, 0.1]} castShadow>
+      <sphereGeometry args={[0.072, 12, 10]} />
+      <meshStandardMaterial color={fur} roughness={0.78} />
     </mesh>
-    <mesh position={[0, 0.055, 0.15]} scale={[0.72, 0.52, 0.85]}>
-      <sphereGeometry args={[0.04, 12, 10]} />
-      <meshStandardMaterial color={belly} roughness={0.55} />
+    <mesh position={[0, 0.078, 0.155]} scale={[0.85, 0.62, 0.8]}>
+      <sphereGeometry args={[0.042, 10, 8]} />
+      <meshStandardMaterial color={belly} roughness={0.7} />
     </mesh>
-    <mesh position={[0, 0.058, 0.185]}>
-      <sphereGeometry args={[0.012, 10, 8]} />
-      <meshStandardMaterial color="#1a1010" roughness={0.4} />
+    <mesh position={[0, 0.08, 0.195]}>
+      <sphereGeometry args={[0.016, 8, 6]} />
+      <meshStandardMaterial color="#2a1814" roughness={0.5} />
     </mesh>
-    {[-0.028, 0.028].map((x) => (
-      <mesh key={x} position={[x, 0.085, 0.145]}>
-        <sphereGeometry args={[0.009, 10, 8]} />
-        <meshStandardMaterial color="#1a1210" />
+    {[-0.026, 0.026].map((x) => (
+      <mesh key={x} position={[x, 0.118, 0.148]}>
+        <sphereGeometry args={[0.012, 8, 6]} />
+        <meshStandardMaterial color="#1a1010" />
       </mesh>
     ))}
-    {[-0.038, 0.038].map((x) => (
-      <mesh key={x} position={[x, 0.11, 0.09]} scale={[0.7, 0.85, 0.55]}>
-        <sphereGeometry args={[0.022, 10, 8]} />
-        <meshStandardMaterial color="#7a4e32" roughness={0.6} />
+    {[-0.042, 0.042].map((x) => (
+      <mesh key={x} position={[x, 0.132, 0.088]} scale={[0.65, 0.9, 0.5]}>
+        <sphereGeometry args={[0.026, 8, 6]} />
+        <meshStandardMaterial color="#9a6238" roughness={0.75} />
       </mesh>
     ))}
-    <mesh position={[0, -0.02, -0.12]} rotation={[0.5, 0, 0]} scale={[0.45, 0.4, 1.1]} castShadow>
-      <sphereGeometry args={[0.07, 12, 10]} />
-      <meshStandardMaterial color={fur} roughness={0.62} />
+    <mesh position={[0, 0.0, -0.14]} rotation={[0.55, 0, 0]} scale={[0.55, 0.28, 1.15]} castShadow>
+      <sphereGeometry args={[0.075, 10, 8]} />
+      <meshStandardMaterial color={fur} roughness={0.78} />
     </mesh>
     {[
-      [-0.05, -0.05, 0.05],
-      [0.05, -0.05, 0.05],
-      [-0.05, -0.05, -0.04],
-      [0.05, -0.05, -0.04],
+      [-0.055, -0.05, 0.05],
+      [0.055, -0.05, 0.05],
+      [-0.05, -0.048, -0.04],
+      [0.05, -0.048, -0.04],
     ].map((p, i) => (
-      <mesh key={i} position={p} scale={[0.7, 0.45, 0.85]}>
-        <sphereGeometry args={[0.032, 10, 8]} />
-        <meshStandardMaterial color="#7a4a30" roughness={0.6} />
+      <mesh key={i} position={p} scale={[0.75, 0.42, 0.8]}>
+        <sphereGeometry args={[0.03, 8, 6]} />
+        <meshStandardMaterial color="#8a5230" roughness={0.75} />
       </mesh>
     ))}
   </group>
 );
 
-const DenOtter = ({ t, setHint }) => {
+const DenOtter = ({ t, setHint, bake }) => {
   const group = useRef(null);
   const ball = useRef(null);
   const target = useRef(new THREE.Vector3(...PATH[0].p));
@@ -82,6 +82,7 @@ const DenOtter = ({ t, setHint }) => {
   useCursor(hovered);
 
   useEffect(() => {
+    if (bake) return;
     let live = true;
     let timer = 0;
     const loop = () => {
@@ -103,11 +104,11 @@ const DenOtter = ({ t, setHint }) => {
       live = false;
       window.clearTimeout(timer);
     };
-  }, []);
+  }, [bake]);
 
   useFrame((state, dt) => {
     const g = group.current;
-    if (!g) return;
+    if (!g || bake) return;
     g.position.lerp(target.current, 1 - Math.exp(-dt * 1.8));
     const dx = target.current.x - g.position.x;
     const dz = target.current.z - g.position.z;

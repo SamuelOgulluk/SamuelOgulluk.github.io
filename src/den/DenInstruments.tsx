@@ -65,47 +65,43 @@ export const GuitarStand = (props) => (
 );
 
 export const Piano = (props) => {
-  const whites = Array.from({ length: 14 }, (_, i) => i);
-  const blacks = [0, 1, 3, 4, 5, 7, 8, 10, 11];
+  const whites = Array.from({ length: 11 }, (_, i) => i);
+  const blacks = [0, 1, 3, 4, 6, 7, 8];
+  const wood = { color: '#5a3a28', roughness: 0.72, metalness: 0 };
+  const dark = { color: '#3a261c', roughness: 0.7, metalness: 0 };
   return (
     <group {...props}>
-      <RoundedBox args={[0.92, 0.78, 0.34]} radius={0.02} position={[0, 0.5, 0]} castShadow receiveShadow>
-        <meshStandardMaterial color="#3a2a22" roughness={0.48} />
+      <RoundedBox args={[0.98, 0.86, 0.38]} radius={0.04} position={[0, 0.52, 0]} castShadow receiveShadow>
+        <meshStandardMaterial {...wood} />
       </RoundedBox>
-      <mesh position={[0, 0.9, 0.02]} castShadow>
-        <boxGeometry args={[0.88, 0.04, 0.32]} />
-        <meshStandardMaterial color="#2e221c" roughness={0.5} />
-      </mesh>
-      <mesh position={[0, 0.72, 0.18]}>
-        <boxGeometry args={[0.78, 0.08, 0.04]} />
-        <meshStandardMaterial color="#4a3428" roughness={0.5} />
-      </mesh>
-      <mesh position={[0, 0.618, 0.2]}>
-        <boxGeometry args={[0.72, 0.02, 0.14]} />
-        <meshStandardMaterial color="#1a1410" />
+      <RoundedBox args={[0.94, 0.08, 0.36]} radius={0.03} position={[0, 0.96, 0.01]} castShadow>
+        <meshStandardMaterial {...dark} />
+      </RoundedBox>
+      <RoundedBox args={[0.82, 0.1, 0.06]} radius={0.02} position={[0, 0.74, 0.18]}>
+        <meshStandardMaterial color="#6a4430" roughness={0.68} />
+      </RoundedBox>
+      <mesh position={[0, 0.64, 0.2]}>
+        <boxGeometry args={[0.76, 0.03, 0.15]} />
+        <meshStandardMaterial color="#1c1410" roughness={0.55} />
       </mesh>
       {whites.map((i) => (
-        <mesh key={i} position={[-0.31 + i * 0.048, 0.632, 0.2]} castShadow>
-          <boxGeometry args={[0.042, 0.016, 0.13]} />
-          <meshStandardMaterial color="#f3eee6" roughness={0.4} />
-        </mesh>
+        <RoundedBox key={i} args={[0.058, 0.022, 0.14]} radius={0.006} position={[-0.3 + i * 0.06, 0.658, 0.2]} castShadow>
+          <meshStandardMaterial color="#f6efe4" roughness={0.45} />
+        </RoundedBox>
       ))}
       {blacks.map((i) => (
-        <mesh key={i} position={[-0.286 + i * 0.048, 0.642, 0.175]}>
-          <boxGeometry args={[0.026, 0.02, 0.08]} />
-          <meshStandardMaterial color="#161210" roughness={0.35} />
-        </mesh>
+        <RoundedBox key={i} args={[0.034, 0.028, 0.09]} radius={0.004} position={[-0.27 + i * 0.06, 0.672, 0.175]}>
+          <meshStandardMaterial color="#1a1210" roughness={0.4} />
+        </RoundedBox>
       ))}
-      {[-0.34, 0.34].map((x) => (
-        <mesh key={x} position={[x, 0.18, 0.08]} castShadow>
-          <boxGeometry args={[0.06, 0.36, 0.06]} />
-          <meshStandardMaterial color="#2c201a" />
-        </mesh>
+      {[-0.36, 0.36].map((x) => (
+        <RoundedBox key={x} args={[0.08, 0.4, 0.08]} radius={0.02} position={[x, 0.2, 0.06]} castShadow>
+          <meshStandardMaterial {...dark} />
+        </RoundedBox>
       ))}
-      <mesh position={[0, 1.08, -0.02]}>
-        <boxGeometry args={[0.42, 0.28, 0.02]} />
-        <meshStandardMaterial color="#4a3428" roughness={0.55} />
-      </mesh>
+      <RoundedBox args={[0.46, 0.32, 0.04]} radius={0.02} position={[0, 1.14, -0.02]}>
+        <meshStandardMaterial color="#6e4632" roughness={0.7} />
+      </RoundedBox>
     </group>
   );
 };

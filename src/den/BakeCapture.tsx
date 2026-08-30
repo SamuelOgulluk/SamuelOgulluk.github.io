@@ -51,7 +51,7 @@ const BakeCapture = ({ enabled }) => {
     });
 
     const run = async () => {
-      await new Promise((r) => setTimeout(r, 4500));
+      await new Promise((r) => setTimeout(r, 5500));
       if (dead) return;
       const hidden = [];
       scene.traverse((o) => {

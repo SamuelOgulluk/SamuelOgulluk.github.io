@@ -1,12 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { RoundedBox, useCursor, useTexture } from '@react-three/drei';
+import { useCursor, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 import { useLanguage } from '@/App';
 import CameraRig from './CameraRig';
 import BakeCapture from './BakeCapture';
 import DenOtter from './DenOtter';
-import { Guitar, GuitarStand, Piano, Plant } from './DenInstruments';
+import { Guitar, GuitarStand, Piano } from './DenInstruments';
+import { FitGLB } from './KenneyProp';
 
 const LUTRA = 'https://samuelogulluk.github.io/lutra/';
 const WALL = -1.5;
@@ -164,7 +165,7 @@ const Laptop = ({ t, onOpen, onHint, clearHint }) => {
 
   return (
     <group
-      position={[0.02, 0.87, WALL + 0.52]}
+      position={[0.02, 0.8, WALL + 0.52]}
       rotation={[0, 0.03, 0]}
       onPointerOver={(e) => {
         e.stopPropagation();
@@ -181,22 +182,11 @@ const Laptop = ({ t, onOpen, onHint, clearHint }) => {
         onOpen();
       }}
     >
-      <RoundedBox args={[0.72, 0.02, 0.46]} radius={0.01} castShadow>
-        <meshStandardMaterial color="#3c4046" roughness={0.4} metalness={0.15} />
-      </RoundedBox>
-      <mesh position={[0, 0.012, 0.05]} rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[0.64, 0.28]} />
-        <meshStandardMaterial color="#2a2e34" roughness={0.5} />
+      <FitGLB url="/models/kenney/laptop.glb" height={0.36} />
+      <mesh position={[0, 0.2, -0.03]} rotation={[-0.18, 0, 0]}>
+        <planeGeometry args={[0.3, 0.18]} />
+        <meshStandardMaterial map={screen} emissive="#10241c" emissiveIntensity={0.55} roughness={0.35} />
       </mesh>
-      <group position={[0, 0.01, -0.21]} rotation={[-0.08, 0, 0]}>
-        <RoundedBox args={[0.7, 0.42, 0.016]} radius={0.01} position={[0, 0.21, 0]} castShadow>
-          <meshStandardMaterial color="#2f3338" roughness={0.38} metalness={0.12} />
-        </RoundedBox>
-        <mesh position={[0, 0.21, 0.01]}>
-          <planeGeometry args={[0.64, 0.36]} />
-          <meshStandardMaterial map={screen} emissive="#10241c" emissiveIntensity={0.5} roughness={0.3} />
-        </mesh>
-      </group>
     </group>
   );
 };
@@ -263,14 +253,7 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange, bake }) =>
         </mesh>
       ))}
 
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0.05, 0.014, 0.35]} receiveShadow>
-        <planeGeometry args={[1.7, 1.15]} />
-        <meshStandardMaterial color="#7a3a32" roughness={0.72} />
-      </mesh>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0.05, 0.016, 0.35]}>
-        <planeGeometry args={[1.52, 0.98]} />
-        <meshStandardMaterial color="#a04a3c" roughness={0.68} />
-      </mesh>
+      <FitGLB url="/models/kenney/rugRectangle.glb" height={0.03} width={1.75} position={[0.08, 0, 0.42]} />
 
       <mesh position={[0, 2.5, -0.15]} receiveShadow>
         <boxGeometry args={[5.4, 0.08, 4.3]} />
@@ -382,37 +365,10 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange, bake }) =>
         </mesh>
       </group>
 
-      <RoundedBox args={[2.52, 0.08, 0.8]} radius={0.012} position={[0, 0.82, WALL + 0.46]} castShadow receiveShadow>
-        <meshStandardMaterial color="#8d5a32" roughness={0.55} />
-      </RoundedBox>
-      {[
-        [-1.12, 0.41, WALL + 0.18],
-        [1.12, 0.41, WALL + 0.18],
-        [-1.12, 0.41, WALL + 0.72],
-        [1.12, 0.41, WALL + 0.72],
-      ].map((p) => (
-        <mesh key={p.join(',')} position={p} castShadow>
-          <boxGeometry args={[0.07, 0.78, 0.07]} />
-          <meshStandardMaterial color="#6e4226" roughness={0.6} />
-        </mesh>
-      ))}
-
-      <group position={[-0.38, 0, WALL + 1.18]}>
-        <RoundedBox args={[0.4, 0.05, 0.38]} radius={0.012} position={[0, 0.42, 0]} castShadow>
-          <meshStandardMaterial color="#6b4428" roughness={0.55} />
-        </RoundedBox>
-        {[-0.15, 0.15].map((x) =>
-          [-0.14, 0.14].map((z) => (
-            <mesh key={`${x}${z}`} position={[x, 0.21, z]} castShadow>
-              <boxGeometry args={[0.04, 0.42, 0.04]} />
-              <meshStandardMaterial color="#5a3620" roughness={0.6} />
-            </mesh>
-          ))
-        )}
-        <RoundedBox args={[0.4, 0.42, 0.05]} radius={0.012} position={[0, 0.66, -0.16]} castShadow>
-          <meshStandardMaterial color="#6b4428" roughness={0.55} />
-        </RoundedBox>
-      </group>
+      <FitGLB url="/models/kenney/desk.glb" height={0.8} width={2.35} position={[0, 0, WALL + 0.5]} />
+      <FitGLB url="/models/kenney/chairRounded.glb" height={0.82} position={[-0.28, 0, WALL + 1.22]} rotation={[0, 0.12, 0]} />
+      <FitGLB url="/models/kenney/bookcaseOpenLow.glb" height={1.05} position={[-2.15, 0, WALL + 0.85]} rotation={[0, 0.35, 0]} />
+      <FitGLB url="/models/kenney/sideTable.glb" height={0.48} position={[1.55, 0, WALL + 0.95]} rotation={[0, -0.2, 0]} />
 
       <Laptop
         t={t}
@@ -424,44 +380,18 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange, bake }) =>
         clearHint={clear}
       />
 
-      <group position={[0.48, 0.88, WALL + 0.62]}>
-        <mesh castShadow>
-          <cylinderGeometry args={[0.04, 0.055, 0.04, 16]} />
-          <meshStandardMaterial color="#3a3a3a" roughness={0.45} />
-        </mesh>
-        <mesh position={[0, 0.16, -0.02]} rotation={[0.35, 0, 0.15]} castShadow>
-          <cylinderGeometry args={[0.012, 0.012, 0.24, 10]} />
-          <meshStandardMaterial color="#2f2f2f" roughness={0.4} metalness={0.2} />
-        </mesh>
-        <mesh position={[0.02, 0.32, -0.07]} rotation={[1.0, 0, 0]} castShadow>
-          <coneGeometry args={[0.07, 0.1, 16]} />
-          <meshStandardMaterial color="#d9a05a" roughness={0.45} />
-        </mesh>
-      </group>
-
+      <FitGLB url="/models/kenney/lampRoundTable.glb" height={0.34} position={[0.52, 0.8, WALL + 0.62]} />
       <Hotspot hint={t.den.about} onOver={hint} onOut={clear} onClick={() => setPanel('about')}>
-        <mesh position={[-0.52, 0.89, WALL + 0.6]} castShadow>
-          <cylinderGeometry args={[0.032, 0.026, 0.06, 16]} />
-          <meshStandardMaterial color="#cfe6dc" roughness={0.4} />
-        </mesh>
+        <FitGLB url="/models/kenney/pillow.glb" height={0.08} position={[-0.55, 0.8, WALL + 0.58]} rotation={[0, 0.4, 0]} />
       </Hotspot>
       <Hotspot hint={t.den.kit} onOver={hint} onOut={clear} onClick={() => setPanel('skills')}>
-        <mesh position={[-0.7, 0.87, WALL + 0.42]} rotation={[0, 0.2, 0]} castShadow>
-          <boxGeometry args={[0.15, 0.02, 0.2]} />
-          <meshStandardMaterial color="#3d6a8a" roughness={0.5} />
-        </mesh>
+        <FitGLB url="/models/kenney/books.glb" height={0.08} position={[-0.78, 0.8, WALL + 0.42]} rotation={[0, 0.25, 0]} />
       </Hotspot>
       <Hotspot hint={t.den.mail} onOver={hint} onOut={clear} onClick={() => setPanel('contact')}>
-        <mesh position={[0.6, 0.87, WALL + 0.4]} rotation={[0, -0.3, 0]} castShadow>
-          <boxGeometry args={[0.11, 0.01, 0.08]} />
-          <meshStandardMaterial color="#f4f0e6" roughness={0.5} />
-        </mesh>
+        <FitGLB url="/models/kenney/radio.glb" height={0.1} position={[0.72, 0.8, WALL + 0.38]} rotation={[0, -0.35, 0]} />
       </Hotspot>
       <Hotspot hint={t.den.lab} onOver={hint} onOut={clear} onClick={() => setPanel('experience')}>
-        <mesh position={[0.68, 0.89, WALL + 0.65]} rotation={[0, 0.15, 0]} castShadow>
-          <boxGeometry args={[0.13, 0.035, 0.16]} />
-          <meshStandardMaterial color="#d7c39a" roughness={0.55} />
-        </mesh>
+        <FitGLB url="/models/kenney/bear.glb" height={0.16} position={[0.78, 0.8, WALL + 0.68]} rotation={[0, -0.5, 0]} />
       </Hotspot>
 
       <Hotspot
@@ -473,7 +403,11 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange, bake }) =>
           window.open(LUTRA, '_blank', 'noopener,noreferrer');
         }}
       >
-        <Piano position={[1.85, 0, WALL + 0.38]} rotation={[0, -0.12, 0]} />
+        <group>
+          <Piano position={[1.88, 0, WALL + 0.36]} rotation={[0, -0.14, 0]} />
+          <FitGLB url="/models/kenney/speaker.glb" height={0.28} position={[1.48, 0, WALL + 0.22]} rotation={[0, 0.2, 0]} />
+          <FitGLB url="/models/kenney/speakerSmall.glb" height={0.16} position={[2.18, 0.8, WALL + 0.55]} />
+        </group>
       </Hotspot>
       <Hotspot
         hint={t.den.guitar}
@@ -490,17 +424,14 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange, bake }) =>
         </group>
       </Hotspot>
 
-      <Plant position={[-1.85, 0, WALL + 0.55]} />
+      <FitGLB url="/models/kenney/pottedPlant.glb" height={0.72} position={[-1.88, 0, WALL + 0.52]} />
+      <FitGLB url="/models/kenney/plantSmall2.glb" height={0.28} position={[-1.55, 0.8, WALL + 0.28]} />
 
       <Hotspot hint={t.den.tools} onOver={hint} onOut={clear} onClick={() => onViewChange('utility')}>
-        <group position={[-1.28, 0.14, 0.35]}>
-          <RoundedBox args={[0.34, 0.2, 0.24]} radius={0.02} castShadow>
-            <meshStandardMaterial color="#6b4428" roughness={0.55} />
-          </RoundedBox>
-        </group>
+        <FitGLB url="/models/kenney/cardboardBoxClosed.glb" height={0.28} position={[-1.22, 0, 0.38]} rotation={[0, 0.35, 0]} />
       </Hotspot>
 
-      <DenOtter t={t} setHint={setHint} />
+      <DenOtter t={t} setHint={setHint} bake={bake} />
       {!bake && <Dust />}
     </>
   );
