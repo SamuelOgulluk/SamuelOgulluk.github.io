@@ -1,13 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { RoundedBox, useCursor, useTexture } from '@react-three/drei';
-import { EffectComposer } from '@react-three/postprocessing';
 import * as THREE from 'three';
 import { useLanguage } from '@/App';
 import CameraRig from './CameraRig';
 import DenOtter from './DenOtter';
-import PixelOutlines from './PixelOutlines';
-import { Guitar, GuitarStand, Piano, Plant } from './DenInstruments';
+import { Guitar, Piano, Plant } from './DenInstruments';
 
 const LUTRA = 'https://samuelogulluk.github.io/lutra/';
 const WALL = -1.5;
@@ -475,7 +473,6 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange }) => {
       >
         <Piano position={[1.85, 0, WALL + 0.38]} rotation={[0, -0.12, 0]} />
       </Hotspot>
-      <GuitarStand position={[1.18, 0, WALL + 0.72]} />
       <Hotspot
         hint={t.den.guitar}
         onOver={hint}
@@ -485,7 +482,7 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange }) => {
           window.open(LUTRA, '_blank', 'noopener,noreferrer');
         }}
       >
-        <Guitar position={[1.18, 0.62, WALL + 0.74]} rotation={[0.18, 0.62, -0.42]} scale={1.05} />
+        <Guitar position={[1.28, 0.67, WALL + 0.82]} rotation={[0, 0.22, 0]} />
       </Hotspot>
 
       <Plant position={[-1.85, 0, WALL + 0.55]} />
@@ -500,9 +497,6 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange }) => {
 
       <DenOtter t={t} setHint={setHint} />
       <Dust />
-      <EffectComposer depthBuffer multisampling={4}>
-        <PixelOutlines pixelSize={4} colorThresh={0.2} depthThresh={0.012} />
-      </EffectComposer>
     </>
   );
 };

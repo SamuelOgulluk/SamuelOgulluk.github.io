@@ -3,7 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
 const FOCI = {
-  home: { pos: [0.12, 1.36, 2.72], look: [0.12, 0.92, -0.7], pan: 0.18 },
+  home: { pos: [0.12, 1.36, 2.72], look: [0.12, 0.92, -0.7], pan: 0.28 },
   laptop: { pos: [0.02, 1.08, 0.92], look: [0.02, 0.98, -1.05], pan: 0.04 },
   diploma: { pos: [-0.55, 1.32, 1.15], look: [-1.35, 1.45, -1.45], pan: 0.05 },
   piano: { pos: [0.45, 1.15, 1.35], look: [1.72, 0.7, -1.15], pan: 0.05 },

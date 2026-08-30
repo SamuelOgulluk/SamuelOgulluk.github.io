@@ -2,11 +2,11 @@ import os
 import numpy as np
 from PIL import Image
 
-RAW = "/tmp/guitar-raw.png"
+RAW = "/workspace/public/assets/sprites/01-guitar-raw.png"
 OUT_SPRITE = "/workspace/public/assets/sprites/01-guitar.png"
 OUT_PREV = "/tmp/sprites-preview/01-guitar.png"
-OUT_ART = "/opt/cursor/artifacts/sprites/01-guitar-preview.png"
-CELL = 2
+OUT_ART = "/opt/cursor/artifacts/sprites/01-guitar-cell5.png"
+CELL = 5
 INK = (32, 20, 16)
 BG = (236, 224, 204)
 COLOR_T = 78
