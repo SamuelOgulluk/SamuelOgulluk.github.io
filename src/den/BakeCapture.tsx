@@ -23,17 +23,16 @@ void main() {
 `;
 
 const ANCHORS = {
-  window: [0, 1.52, -1.44],
-  diploma: [-1.48, 1.55, -1.44],
-  laptop: [0.02, 1.08, -0.9],
-  guitar: [1.18, 0.7, -0.8],
-  piano: [1.85, 0.62, -1.12],
-  about: [-0.52, 0.89, -0.9],
-  kit: [-0.7, 0.87, -1.08],
-  mail: [0.6, 0.87, -1.1],
-  lab: [0.68, 0.89, -0.85],
-  tools: [-1.28, 0.24, 0.35],
-  otter: [0.0, 0.92, -0.92],
+  maps: [0, 1.62, -1.47],
+  diploma: [-2.15, 0.85, -0.62],
+  laptop: [0.04, 0.9, -1.0],
+  guitar: [1.16, 0.7, -0.82],
+  piano: [1.92, 0.55, -1.12],
+  about: [-1.82, 0.5, -1.08],
+  kit: [-0.62, 0.86, -1.08],
+  mail: [0.78, 0.86, -1.14],
+  lab: [-2.05, 0.78, -0.55],
+  tools: [-1.18, 0.2, 0.42],
 };
 
 const toDataUrl = (canvas) => canvas.toDataURL('image/png');
@@ -51,7 +50,7 @@ const BakeCapture = ({ enabled }) => {
     });
 
     const run = async () => {
-      await new Promise((r) => setTimeout(r, 5500));
+      await new Promise((r) => setTimeout(r, 8000));
       if (dead) return;
       const hidden = [];
       scene.traverse((o) => {

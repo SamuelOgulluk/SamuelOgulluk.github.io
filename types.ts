@@ -40,6 +40,7 @@ export interface TranslationContent {
     close: string;
     back: string;
     window: string;
+    maps: string;
     degree: string;
     diploma: string;
     piano: string;

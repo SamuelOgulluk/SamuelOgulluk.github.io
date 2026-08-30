@@ -1,0 +1,15 @@
+Poly Haven models and textures — CC0 1.0 (https://polyhaven.com)
+  metal_office_desk, desk_lamp_arm_01, classic_laptop,
+  hanging_picture_frame_01/02, potted_plant_04,
+  book_encyclopedia_set_01, wooden_bookshelf_worn,
+  herringbone_parquet, painted_plaster_wall
+
+Kenney Furniture Kit — CC0 1.0 (https://kenney.nl/assets/furniture-kit)
+  chairDesk (office chair), radio, cardboardBoxClosed
+
+Upright piano model — MIT, from pascalorg/editor
+  https://github.com/pascalorg/editor
+
+Maps — Wikimedia Commons
+  Numbered map of Paris with arrondissements.svg
+  France location map-Regions and departements-2016.svg

@@ -28,10 +28,11 @@ const BakeDen = ({ onViewChange }) => {
         shadows
         dpr={1}
         camera={{ fov: 38, position: [0.16, 1.3, 3.08], near: 0.08, far: 40 }}
-        gl={{ antialias: true, preserveDrawingBuffer: true, toneMapping: THREE.NoToneMapping }}
+        gl={{ antialias: true, preserveDrawingBuffer: true, toneMapping: THREE.ACESFilmicToneMapping }}
         onCreated={({ gl }) => {
           gl.shadowMap.enabled = true;
-          gl.shadowMap.type = THREE.PCFShadowMap;
+          gl.shadowMap.type = THREE.PCFSoftShadowMap;
+          gl.toneMappingExposure = 1.12;
         }}
       >
         <color attach="background" args={['#1c1410']} />
