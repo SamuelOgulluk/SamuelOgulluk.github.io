@@ -484,16 +484,16 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange, bake }) =>
           window.open(LUTRA, '_blank', 'noopener,noreferrer');
         }}
       >
-        <group position={[1.22, 0, WALL + 0.78]} rotation={[0, 0.34, 0]}>
+        <group position={[1.18, 0, WALL + 0.7]} rotation={[0, 0.78, 0]}>
           <GuitarStand />
-          <Guitar position={[0, 0.58, 0.05]} rotation={[-0.26, 0.04, 0]} />
+          <Guitar position={[0.02, 0.6, 0.06]} rotation={[-0.2, 0.12, 0.04]} />
         </group>
       </Hotspot>
 
       <Plant position={[-1.85, 0, WALL + 0.55]} />
 
       <Hotspot hint={t.den.tools} onOver={hint} onOut={clear} onClick={() => onViewChange('utility')}>
-        <group position={[-1.55, 0.14, 0.25]}>
+        <group position={[-1.28, 0.14, 0.35]}>
           <RoundedBox args={[0.34, 0.2, 0.24]} radius={0.02} castShadow>
             <meshStandardMaterial color="#6b4428" roughness={0.55} />
           </RoundedBox>

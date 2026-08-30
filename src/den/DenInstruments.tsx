@@ -37,7 +37,7 @@ export const Guitar = (props) => {
     const size = box.getSize(new THREE.Vector3());
     const wrap = new THREE.Group();
     wrap.add(src);
-    wrap.scale.setScalar(1.1 / Math.max(size.y, 0.01));
+    wrap.scale.setScalar(1.18 / Math.max(size.y, 0.01));
     return wrap;
   }, [scene, bodyTex, detailTex]);
   return <primitive object={root} {...props} />;

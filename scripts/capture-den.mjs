@@ -61,3 +61,4 @@ await writeFile(path.join(OUT, 'den-spots.json'), JSON.stringify({ w: bake.w, h:
 await browser.close();
 vite.kill('SIGTERM');
 console.log('saved', OUT, bake.w, 'x', bake.h, Object.keys(bake.spots));
+setTimeout(() => process.exit(0), 400);
