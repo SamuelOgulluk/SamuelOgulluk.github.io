@@ -4,11 +4,14 @@ Poly Haven models and textures — CC0 1.0 (https://polyhaven.com)
   book_encyclopedia_set_01, wooden_bookshelf_worn,
   herringbone_parquet, painted_plaster_wall
 
-Kenney Furniture Kit — CC0 1.0 (https://kenney.nl/assets/furniture-kit)
-  chairDesk (office chair), radio, cardboardBoxClosed
+Office chair — CC0, plaggy on OpenGameArt
+  https://opengameart.org/content/office-chair
 
-Upright piano model — MIT, from pascalorg/editor
-  https://github.com/pascalorg/editor
+Piano — OpenGameArt “3D Piano Model”, free for any use including commercial
+  https://opengameart.org/content/3d-piano-model
+
+Kenney Furniture Kit — CC0 1.0 (https://kenney.nl/assets/furniture-kit)
+  radio, cardboardBoxClosed
 
 Maps — Wikimedia Commons
   Numbered map of Paris with arrondissements.svg

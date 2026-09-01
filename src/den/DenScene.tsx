@@ -4,7 +4,7 @@ import * as THREE from 'three';
 import { useLanguage } from '@/App';
 import CameraRig from './CameraRig';
 import BakeCapture from './BakeCapture';
-import { Guitar, Piano } from './DenInstruments';
+import { Guitar } from './DenInstruments';
 import { FitGLB, FramedMap, RoomShell } from './KenneyProp';
 
 const LUTRA = 'https://samuelogulluk.github.io/lutra/';
@@ -27,11 +27,6 @@ const lampMat = (mat) => {
     mat.emissiveIntensity = 3.6;
     mat.toneMapped = false;
   }
-};
-
-const chairMat = (mat) => {
-  mat.roughness = `${mat.name || ''}`.toLowerCase().includes('metal') ? 0.28 : 0.72;
-  mat.metalness = `${mat.name || ''}`.toLowerCase().includes('metal') ? 0.55 : 0.02;
 };
 
 const WallMaps = ({ onHint, clearHint, onClick, hint }) => {
@@ -206,13 +201,7 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange, bake }) =>
       />
 
       <FitGLB url={PH.desk} height={0.76} width={1.92} position={[0.02, 0, WALL + 0.5]} />
-      <FitGLB
-        url="/models/office-chair.glb"
-        height={0.96}
-        position={[-0.12, 0, WALL + 1.28]}
-        rotation={[0, Math.PI, 0]}
-        onMat={chairMat}
-      />
+      <FitGLB url="/models/office-chair.glb" height={0.98} position={[-0.1, 0, WALL + 1.32]} rotation={[0, Math.PI, 0]} />
 
       <Laptop
         t={t}
@@ -251,7 +240,7 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange, bake }) =>
           window.open(LUTRA, '_blank', 'noopener,noreferrer');
         }}
       >
-        <Piano position={[1.92, 0, WALL + 0.38]} rotation={[0, -0.18, 0]} />
+        <FitGLB url="/models/piano.glb" height={1.08} position={[1.95, 0, WALL + 0.42]} rotation={[0, -0.55, 0]} />
       </Hotspot>
 
       <Hotspot
