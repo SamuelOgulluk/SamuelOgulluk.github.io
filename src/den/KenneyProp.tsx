@@ -13,8 +13,8 @@ const URLS = [
   '/models/ph/book_rows/book_rows.glb',
   '/models/ikea/wood-desk.glb',
   '/models/office-chair.glb',
-  '/models/wh/casio-xstand.glb',
-  '/models/wh/laptop-open.glb',
+  '/models/keyboard.glb',
+  '/models/kenney/laptop.glb',
   '/models/kenney/cardboardBoxClosed.glb',
   '/models/kenney/radio.glb',
 ];

@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "bake-den": "node scripts/capture-den.mjs && python3 scripts/bake-den-outlines.py"
+    "bake-den": "node scripts/capture-den.mjs && python scripts/bake-den-outlines.py",
+    "sync-main": "node scripts/sync-from-main.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.8",

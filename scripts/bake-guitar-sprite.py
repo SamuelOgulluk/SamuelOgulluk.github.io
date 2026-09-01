@@ -2,10 +2,10 @@ import os
 import numpy as np
 from PIL import Image
 
-RAW = "/workspace/public/assets/sprites/01-guitar-raw.png"
-OUT_SPRITE = "/workspace/public/assets/sprites/01-guitar.png"
-OUT_PREV = "/tmp/sprites-preview/01-guitar.png"
-OUT_ART = "/opt/cursor/artifacts/sprites/01-guitar-cell5.png"
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+RAW = os.path.join(ROOT, "public", "assets", "sprites", "01-guitar-raw.png")
+OUT_SPRITE = os.path.join(ROOT, "public", "assets", "sprites", "01-guitar.png")
+OUT_PREV = os.path.join(ROOT, "scripts", "cache", "01-guitar-preview.png")
 CELL = 5
 INK = (32, 20, 16)
 BG = (236, 224, 204)
@@ -79,12 +79,10 @@ def main():
     )
     os.makedirs(os.path.dirname(OUT_SPRITE), exist_ok=True)
     os.makedirs(os.path.dirname(OUT_PREV), exist_ok=True)
-    os.makedirs(os.path.dirname(OUT_ART), exist_ok=True)
     sprite.save(OUT_SPRITE)
     prev = Image.new("RGB", (sprite.size[0] + 64, sprite.size[1] + 64), BG)
     prev.paste(sprite, (32, 32), sprite)
     prev.save(OUT_PREV, quality=95)
-    prev.save(OUT_ART, quality=95)
     print("ok", sprite.size, "ink", float(edge.sum()) / max(1, opaque.sum()))
 
 

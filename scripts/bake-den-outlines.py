@@ -2,7 +2,7 @@ import json
 import os
 from PIL import Image
 
-ROOT = "/workspace"
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 RAW = os.path.join(ROOT, "public/assets/den/den-color-raw.png")
 DEPTH = os.path.join(ROOT, "public/assets/den/den-depth-raw.png")
 SPOTS = os.path.join(ROOT, "public/assets/den/den-spots.json")

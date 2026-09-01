@@ -2,14 +2,17 @@ import puppeteer from 'puppeteer';
 import { spawn } from 'child_process';
 import { mkdir, writeFile } from 'fs/promises';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-const ROOT = '/workspace';
+const ROOT = path.resolve(fileURLToPath(new URL('.', import.meta.url)), '..');
 const PORT = 5178;
 const OUT = path.join(ROOT, 'public/assets/den');
 
-const vite = spawn('npx', ['vite', '--host', '127.0.0.1', '--port', String(PORT), '--strictPort'], {
+const npx = process.platform === 'win32' ? 'npx.cmd' : 'npx';
+const vite = spawn(npx, ['vite', '--host', '127.0.0.1', '--port', String(PORT), '--strictPort'], {
   cwd: ROOT,
   stdio: ['ignore', 'pipe', 'pipe'],
+  shell: process.platform === 'win32',
 });
 
 const ready = new Promise((resolve, reject) => {
@@ -39,7 +42,7 @@ const browser = await puppeteer.launch({
     '--use-angle=swiftshader',
     '--enable-unsafe-swiftshader',
   ],
-  executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/local/bin/google-chrome',
+  executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
 });
 
 const page = await browser.newPage();

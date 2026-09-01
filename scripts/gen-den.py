@@ -4,8 +4,9 @@ import urllib.request
 import numpy as np
 from PIL import Image, ImageEnhance, ImageFilter, ImageDraw
 
-CACHE = "/workspace/scripts/cache"
-OUT = "/workspace/public/assets"
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+CACHE = os.path.join(ROOT, "scripts", "cache")
+OUT = os.path.join(ROOT, "public", "assets")
 W, H = 1920, 1080
 PX = 4
 UA = "SamuelDen/1.0 (github.com/SamuelOgulluk)"

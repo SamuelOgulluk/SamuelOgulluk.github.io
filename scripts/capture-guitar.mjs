@@ -2,10 +2,11 @@ import puppeteer from 'puppeteer';
 import { createServer } from 'http';
 import { readFile } from 'fs/promises';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-const ROOT = '/workspace';
+const ROOT = path.resolve(fileURLToPath(new URL('.', import.meta.url)), '..');
 const PORT = 8791;
-const OUT = '/tmp/guitar-raw.png';
+const OUT = path.join(ROOT, 'scripts', 'cache', 'guitar-raw.png');
 
 const mime = {
   '.html': 'text/html',
@@ -38,7 +39,7 @@ const browser = await puppeteer.launch({
     '--use-angle=swiftshader',
     '--enable-unsafe-swiftshader',
   ],
-  executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/local/bin/google-chrome',
+  executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
 });
 const page = await browser.newPage();
 page.on('console', (msg) => console.log('BROWSER:', msg.text()));

@@ -11,6 +11,16 @@ const Navbar = ({ view, onViewChange }) => {
           {t.den.back}
         </button>
       )}
+      {view === 'portfolio' && (
+        <a
+          href="https://samuelogulluk.github.io/lutra/"
+          className="lang-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {t.tabs.music}
+        </a>
+      )}
       <button
         onClick={() => setLanguage((prev) => (prev === 'en' ? 'fr' : 'en'))}
         className="lang-btn"

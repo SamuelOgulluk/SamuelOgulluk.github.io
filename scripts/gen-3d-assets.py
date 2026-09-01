@@ -4,7 +4,8 @@ import urllib.request
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter, ImageEnhance
 
-OUT = "/workspace/public/assets"
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+OUT = os.path.join(ROOT, "public", "assets")
 os.makedirs(OUT, exist_ok=True)
 UA = "SamuelDen/1.0 (github.com/SamuelOgulluk)"
 

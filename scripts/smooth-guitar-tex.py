@@ -5,9 +5,10 @@ import struct
 from PIL import Image, ImageFilter, ImageDraw
 import numpy as np
 
-GLB = "/workspace/public/models/guitar-round.glb"
-OUT0 = "/workspace/public/assets/sprites/guitar-body.png"
-OUT3 = "/workspace/public/assets/sprites/guitar-details.png"
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+GLB = os.path.join(ROOT, "public", "models", "guitar-round.glb")
+OUT0 = os.path.join(ROOT, "public", "assets", "sprites", "guitar-body.png")
+OUT3 = os.path.join(ROOT, "public", "assets", "sprites", "guitar-details.png")
 
 
 def glb_images():

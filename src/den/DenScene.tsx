@@ -13,7 +13,7 @@ const WALL = -1.5;
 const PH = {
   desk: '/models/ikea/wood-desk.glb',
   lamp: '/models/ph/desk_lamp_arm_01/desk_lamp_arm_01_1k.gltf',
-  laptop: '/models/wh/laptop-open.glb',
+  laptop: '/models/kenney/laptop.glb',
   frameA: '/models/ph/hanging_picture_frame_01/hanging_picture_frame_01_1k.gltf',
   frameB: '/models/ph/hanging_picture_frame_02/hanging_picture_frame_02_1k.gltf',
   plant: '/models/ph/potted_plant_04/potted_plant_04_1k.gltf',
@@ -248,7 +248,7 @@ const KeyboardStation = ({ hint, onHint, clearHint, onClick }) => {
   return (
     <Hotspot hint={hint} onOver={onHint} onOut={clearHint} onClick={onClick}>
       <group position={[1.88, 0, WALL + 0.62]} rotation={[0, -0.34, 0]}>
-        <FitGLB url="/models/wh/casio-xstand.glb" height={0.76} onMat={casioMat} />
+        <FitGLB url="/models/keyboard.glb" height={0.76} onMat={casioMat} />
         <group position={[-0.2, 0.752, -0.11]} rotation={[0, 0.1, 0]}>
           <FitGLB url={PH.laptop} height={0.15} onMat={laptopMat} />
           <mesh position={lid.pos} rotation={lid.rot}>
