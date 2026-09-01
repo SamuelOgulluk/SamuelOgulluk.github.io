@@ -29,6 +29,17 @@ const lampMat = (mat) => {
   }
 };
 
+const deskMat = (mat) => {
+  mat.map = null;
+  mat.normalMap = null;
+  mat.roughnessMap = null;
+  mat.metalnessMap = null;
+  mat.aoMap = null;
+  mat.color = new THREE.Color('#f1eee8');
+  mat.metalness = 0.04;
+  mat.roughness = 0.48;
+};
+
 const WallMaps = ({ onHint, clearHint, onClick, hint }) => {
   const [paris, france] = useTexture(['/assets/maps/paris.png', '/assets/maps/france.png']);
   useEffect(() => {
@@ -249,7 +260,7 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange, bake }) =>
         onClick={() => setFocus(focus === 'maps' ? 'home' : 'maps')}
       />
 
-      <FitGLB url={PH.desk} height={0.75} width={1.48} position={[0.02, 0, WALL + 0.42]} />
+      <FitGLB url={PH.desk} height={0.75} width={1.52} position={[0.02, 0, WALL + 0.48]} rotation={[0, Math.PI, 0]} onMat={deskMat} />
       <FitGLB url="/models/office-chair.glb" height={0.98} position={[-0.06, 0, WALL + 1.18]} rotation={[0, Math.PI, 0]} />
 
       <Laptop
@@ -264,7 +275,7 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange, bake }) =>
 
       <FitGLB url={PH.lamp} height={0.48} position={[0.42, 0.75, WALL + 0.5]} onMat={lampMat} />
 
-      <group position={[-2.12, 0, WALL + 0.12]} rotation={[0, -Math.PI / 2, 0]}>
+      <group position={[-2.12, 0, WALL + 0.04]} rotation={[0, -Math.PI / 2, 0]}>
         <Hotspot hint={t.den.diploma} onOver={hint} onOut={clear} onClick={() => setPanel('education')}>
           <FitGLB url={PH.shelf} height={1.48} />
         </Hotspot>
