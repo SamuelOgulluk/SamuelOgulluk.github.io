@@ -169,7 +169,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
       lab: "experience — ETH, CERN, the lab notes",
       desk: "projects — things I actually shipped",
       books: "education — ENS and the long road there",
-      music: "Lutra — piano, guitar, and the DAW",
+      music: "Lutra, Loutone — guitar, keyboard, and the DAW",
       tools: "utility — the toolbox (locked)",
       mail: "say hi — mailbox still works",
       otter: "that's Lutra. she lives here.",
@@ -181,7 +181,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
       maps: "home — Paris next to France",
       degree: "Degree",
       diploma: "education — the shelf and the long road there",
-      piano: "Lutra — the piano side of the den",
+      piano: "Loutone — keyboard, laptop, and the DAW",
       guitar: "Lutra — the guitar",
       otterLines: [
         "kwek.",
@@ -193,6 +193,21 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
         "if you wait, i nap behind the laptop.",
         "the toolbox is locked. obviously.",
       ],
+    },
+    loutone: {
+      title: "Loutone",
+      kicker: "local DAW — otters + tone",
+      summary:
+        "Loutone is a local desktop DAW (Tauri 2, Vite, React, Web Audio). The name comes from otters (loutres) and tone. No AI in V1.",
+      points: [
+        "Transport with BPM, time signature and loop",
+        "Arrangement for audio and MIDI clips",
+        "Piano roll with draw, quantize, swing and named chords",
+        "Instruments: piano, bass, pads, drums, lead, strings",
+        "Effects, mixer meters, save/load .softdaw.json",
+      ],
+      demo: "Open the demo",
+      code: "GitHub",
     },
     about: {
       title: "About",
@@ -343,7 +358,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
       lab: "expérience — ETH, CERN, les carnets",
       desk: "projets — ce que j'ai vraiment sorti",
       books: "formation — l'ENS et le chemin jusqu'ici",
-      music: "Lutra — piano, guitare, et la DAW",
+      music: "Lutra, Loutone — guitare, clavier, et la DAW",
       tools: "utilitaire — la boîte à outils (verrouillée)",
       mail: "écrire — la boîte aux lettres marche encore",
       otter: "c'est Lutra. elle habite ici.",
@@ -355,7 +370,7 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
       maps: "chez moi — Paris à côté de la France",
       degree: "Diplôme",
       diploma: "formation — l'étagère et le chemin jusqu'ici",
-      piano: "Lutra — le piano du bureau",
+      piano: "Loutone — clavier, laptop, et la DAW",
       guitar: "Lutra — la guitare",
       otterLines: [
         "kwek.",
@@ -367,6 +382,21 @@ export const TRANSLATIONS: { en: TranslationContent; fr: TranslationContent } = 
         "si tu attends, je dors derrière le laptop.",
         "la caisse est verrouillée. évidemment.",
       ],
+    },
+    loutone: {
+      title: "Loutone",
+      kicker: "DAW locale — loutres + tone",
+      summary:
+        "Loutone est une DAW desktop locale (Tauri 2, Vite, React, Web Audio). Le nom vient des loutres et de tone. Pas d'IA en V1.",
+      points: [
+        "Transport BPM, signature et boucle",
+        "Arrangement audio et MIDI",
+        "Piano roll : dessin, quantize, swing, accords par nom",
+        "Instruments : piano, basse, pads, batterie, lead, cordes",
+        "Effets, mixer, sauvegarde .softdaw.json",
+      ],
+      demo: "Ouvrir la démo",
+      code: "GitHub",
     },
     about: {
       title: "À propos",

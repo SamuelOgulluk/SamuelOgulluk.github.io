@@ -12,7 +12,7 @@ const URLS = [
   '/models/ph/book_encyclopedia_set_01/book_encyclopedia_set_01_1k.gltf',
   '/models/ph/wooden_bookshelf_worn/wooden_bookshelf_worn_1k.gltf',
   '/models/office-chair.glb',
-  '/models/piano.glb',
+  '/models/keyboard.glb',
   '/models/kenney/cardboardBoxClosed.glb',
   '/models/kenney/radio.glb',
 ];

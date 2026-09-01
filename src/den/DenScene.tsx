@@ -58,6 +58,35 @@ const WallMaps = ({ onHint, clearHint, onClick, hint }) => {
   );
 };
 
+const makeDawScreen = () => {
+  const src = document.createElement('canvas');
+  src.width = 640;
+  src.height = 400;
+  const g = src.getContext('2d');
+  g.fillStyle = '#071018';
+  g.fillRect(0, 0, 640, 400);
+  g.fillStyle = '#0c2430';
+  g.fillRect(0, 0, 640, 44);
+  g.fillStyle = '#7ee0c8';
+  g.font = '26px monospace';
+  g.fillText('Loutone', 16, 30);
+  g.fillStyle = '#3ecf8e';
+  g.fillRect(520, 12, 18, 18);
+  const rows = ['#2a6b8a', '#3ecf8e', '#e8a872', '#6aa8d1'];
+  for (let i = 0; i < 4; i += 1) {
+    g.fillStyle = '#102028';
+    g.fillRect(16, 64 + i * 72, 608, 64);
+    g.fillStyle = rows[i];
+    g.fillRect(88, 80 + i * 72, 40 + i * 70, 32);
+    g.fillStyle = '#8fd6ff';
+    g.font = '18px monospace';
+    g.fillText(`ch ${i + 1}`, 24, 102 + i * 72);
+  }
+  const tex = new THREE.CanvasTexture(src);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+};
+
 const makeScreen = (titles) => {
   const src = document.createElement('canvas');
   src.width = 640;
@@ -134,6 +163,25 @@ const LampKey = () => {
       <pointLight position={[0.58, 1.18, WALL + 0.66]} intensity={2.8} color="#ffc27a" distance={3.4} decay={2} />
       <pointLight position={[0.58, 1.22, WALL + 0.66]} intensity={0.55} color="#fff1c8" distance={1.1} />
     </>
+  );
+};
+
+const KeyboardStation = ({ hint, onHint, clearHint, onClick }) => {
+  const screen = useMemo(() => makeDawScreen(), []);
+  useEffect(() => () => screen.dispose(), [screen]);
+  return (
+    <Hotspot hint={hint} onOver={onHint} onOut={clearHint} onClick={onClick}>
+      <group position={[1.86, 0, WALL + 0.58]} rotation={[0, -0.38, 0]}>
+        <FitGLB url="/models/keyboard.glb" height={0.13} />
+        <group position={[-0.22, 0.13, -0.06]} rotation={[0, 0.12, 0]}>
+          <FitGLB url={PH.laptop} height={0.11} />
+          <mesh position={[0, 0.06, -0.006]} rotation={[-0.22, 0, 0]}>
+            <planeGeometry args={[0.155, 0.09]} />
+            <meshStandardMaterial map={screen} emissive="#0a2430" emissiveIntensity={0.85} roughness={0.28} />
+          </mesh>
+        </group>
+      </group>
+    </Hotspot>
   );
 };
 
@@ -231,17 +279,15 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange, bake }) =>
         <FitGLB url="/models/kenney/radio.glb" height={0.12} sit={false} position={[0.78, 0.82, WALL + 0.36]} rotation={[0, -0.4, 0]} />
       </Hotspot>
 
-      <Hotspot
+      <KeyboardStation
         hint={t.den.piano}
-        onOver={hint}
-        onOut={clear}
+        onHint={hint}
+        clearHint={clear}
         onClick={() => {
           setFocus('piano');
-          window.open(LUTRA, '_blank', 'noopener,noreferrer');
+          setPanel('loutone');
         }}
-      >
-        <FitGLB url="/models/piano.glb" height={1.08} position={[1.95, 0, WALL + 0.42]} rotation={[0, -0.55, 0]} />
-      </Hotspot>
+      />
 
       <Hotspot
         hint={t.den.guitar}

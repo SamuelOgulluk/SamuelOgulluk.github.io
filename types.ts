@@ -2,7 +2,7 @@ export type Language = 'en' | 'fr';
 
 export type AppView = 'portfolio' | 'utility';
 
-export type PanelId = 'about' | 'experience' | 'education' | 'skills' | 'projects' | 'contact';
+export type PanelId = 'about' | 'experience' | 'education' | 'skills' | 'projects' | 'contact' | 'loutone';
 
 export interface TranslationContent {
   headerTitle: string;
@@ -46,6 +46,14 @@ export interface TranslationContent {
     piano: string;
     guitar: string;
     otterLines: string[];
+  };
+  loutone: {
+    title: string;
+    kicker: string;
+    summary: string;
+    points: string[];
+    demo: string;
+    code: string;
   };
   about: {
     title: string;

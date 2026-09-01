@@ -7,8 +7,8 @@ Poly Haven models and textures — CC0 1.0 (https://polyhaven.com)
 Office chair — CC0, plaggy on OpenGameArt
   https://opengameart.org/content/office-chair
 
-Piano — OpenGameArt “3D Piano Model”, free for any use including commercial
-  https://opengameart.org/content/3d-piano-model
+Music keyboard — CC-BY 3.0, whilefun / While Fun Games on OpenGameArt
+  https://opengameart.org/content/music-keyboard
 
 Kenney Furniture Kit — CC0 1.0 (https://kenney.nl/assets/furniture-kit)
   radio, cardboardBoxClosed

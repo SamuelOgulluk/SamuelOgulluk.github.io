@@ -17,6 +17,7 @@ const InspectPanel = ({ panel, onClose }) => {
     skills: t.skills.title,
     projects: t.projects.title,
     contact: t.contact.title,
+    loutone: t.loutone.title,
   }[panel];
 
   return (
@@ -39,6 +40,38 @@ const InspectPanel = ({ panel, onClose }) => {
               </a>
               <a href="/cv.pdf" download className="btn btn-ghost">
                 {t.about.downloadCV}
+              </a>
+            </div>
+          </div>
+        )}
+        {panel === 'loutone' && (
+          <div>
+            <p className="mt-0 font-display text-xl text-ink">{t.loutone.title}</p>
+            <p className="mt-2 text-sm font-semibold text-accent">{t.loutone.kicker}</p>
+            <p className="mt-3 mb-0 text-base leading-relaxed text-soft">{t.loutone.summary}</p>
+            <ul className="mt-4 mb-0 list-disc pl-5 text-sm leading-relaxed text-soft">
+              {t.loutone.points.map((line) => (
+                <li key={line} className="mt-1">
+                  {line}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <a
+                href="https://samuelogulluk.github.io/Loutone/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary"
+              >
+                {t.loutone.demo}
+              </a>
+              <a
+                href="https://github.com/SamuelOgulluk/Loutone"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-ghost"
+              >
+                {t.loutone.code}
               </a>
             </div>
           </div>
