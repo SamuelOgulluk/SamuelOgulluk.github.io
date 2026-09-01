@@ -90,13 +90,11 @@ export const FramedMap = ({ url, mapUrl, height = 0.62, ...props }) => {
 };
 
 export const RoomShell = () => {
-  const [floorD, floorN, floorA, wallD, wallN, wallA] = useTexture([
+  const [floorD, floorN, wallD, wallN] = useTexture([
     '/assets/ph/wood_floor/diff.jpg',
     '/assets/ph/wood_floor/nor_gl.jpg',
-    '/assets/ph/wood_floor/arm.jpg',
     '/assets/ph/white_stucco/diff.jpg',
     '/assets/ph/white_stucco/nor_gl.jpg',
-    '/assets/ph/white_stucco/arm.jpg',
   ]);
 
   useEffect(() => {
@@ -106,23 +104,22 @@ export const RoomShell = () => {
       tex.anisotropy = 8;
       if (srgb) tex.colorSpace = THREE.SRGBColorSpace;
     };
-    prep(floorD, [3.2, 2.4], true);
-    prep(floorN, [3.2, 2.4], false);
-    prep(floorA, [3.2, 2.4], false);
-    prep(wallD, [2.2, 1.5], true);
-    prep(wallN, [2.2, 1.5], false);
-    prep(wallA, [2.2, 1.5], false);
+    prep(floorD, [6.2, 4.6], true);
+    prep(floorN, [6.2, 4.6], false);
+    prep(floorA, [6.2, 4.6], false);
+    prep(wallD, [1.6, 1.1], true);
+    prep(wallN, [1.6, 1.1], false);
+    prep(wallA, [1.6, 1.1], false);
   }, [floorD, floorN, floorA, wallD, wallN, wallA]);
 
   const wallMat = () => (
     <meshStandardMaterial
       map={wallD}
-      color="#fffdf8"
+      color="#ffffff"
       normalMap={wallN}
-      normalScale={new THREE.Vector2(0.28, 0.28)}
-      roughnessMap={wallA}
-      roughness={0.96}
-      metalness={0.01}
+      normalScale={new THREE.Vector2(0.16, 0.16)}
+      roughness={0.97}
+      metalness={0}
     />
   );
 
@@ -132,10 +129,10 @@ export const RoomShell = () => {
         <planeGeometry args={[6.2, 4.6]} />
         <meshStandardMaterial
           map={floorD}
+          color="#f6deB8"
           normalMap={floorN}
-          normalScale={new THREE.Vector2(1.2, 1.2)}
-          roughnessMap={floorA}
-          roughness={0.68}
+          normalScale={new THREE.Vector2(1.6, 1.6)}
+          roughness={0.52}
           metalness={0.02}
         />
       </mesh>
@@ -153,7 +150,7 @@ export const RoomShell = () => {
       </mesh>
       <mesh position={[0, 2.56, -0.1]} rotation={[Math.PI / 2, 0, 0]} receiveShadow>
         <planeGeometry args={[6.2, 4.6]} />
-        <meshStandardMaterial color="#faf7f2" roughness={0.96} />
+        <meshStandardMaterial color="#fdfbf7" roughness={0.98} />
       </mesh>
     </>
   );

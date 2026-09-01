@@ -150,8 +150,8 @@ const LampKey = () => {
         position={[0.58, 1.26, WALL + 0.7]}
         angle={0.92}
         penumbra={0.62}
-        intensity={58}
-        color="#ffb056"
+        intensity={48}
+        color="#ffb66a"
         castShadow
         distance={9}
         decay={1.35}
@@ -229,15 +229,15 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange, bake }) =>
     <>
       <CameraRig focus={focus} frozen={bake} />
       <BakeCapture enabled={bake} />
-      <hemisphereLight args={['#ffe2b4', '#3d2416', 0.42]} />
-      <ambientLight intensity={0.34} color="#ffd8b4" />
+      <hemisphereLight args={['#fff1dc', '#4a3220', 0.55]} />
+      <ambientLight intensity={0.46} color="#fff4e4" />
       <directionalLight
-        position={[-1.4, 2.55, 2.1]}
-        intensity={0.46}
-        color="#ffc48a"
+        position={[0.25, 2.9, 3.1]}
+        intensity={0.62}
+        color="#ffe9d0"
         castShadow={false}
       />
-      <pointLight position={[0.12, 1.62, 0.85]} intensity={7.5} color="#ffd0a0" distance={8.5} decay={2} />
+      <pointLight position={[0.1, 2.05, 1.15]} intensity={9} color="#ffe4c4" distance={10} decay={2} />
       <LampKey />
 
       <RoomShell />
@@ -269,7 +269,7 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange, bake }) =>
       </Hotspot>
 
       <Hotspot hint={t.den.diploma} onOver={hint} onOut={clear} onClick={() => setPanel('education')}>
-        <FitGLB url={PH.shelf} height={1.48} position={[-2.18, 0, WALL + 0.92]} rotation={[0, -Math.PI / 2 + 0.32, 0]} />
+        <FitGLB url={PH.shelf} height={1.48} position={[-1.92, 0, WALL + 0.88]} rotation={[0, -Math.PI / 2 + 0.48, 0]} />
       </Hotspot>
 
       <Hotspot hint={t.den.about} onOver={hint} onOut={clear} onClick={() => setPanel('about')}>
@@ -305,7 +305,7 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange, bake }) =>
       </Hotspot>
 
       <Hotspot hint={t.den.lab} onOver={hint} onOut={clear} onClick={() => setPanel('experience')}>
-        <FitGLB url={PH.books} height={0.14} sit={false} position={[-2.05, 1.12, WALL + 0.78]} rotation={[0, 0.4, 0]} />
+        <FitGLB url={PH.books} height={0.14} sit={false} position={[-1.82, 1.12, WALL + 0.72]} rotation={[0, 0.35, 0]} />
       </Hotspot>
 
       <Hotspot hint={t.den.tools} onOver={hint} onOut={clear} onClick={() => onViewChange('utility')}>

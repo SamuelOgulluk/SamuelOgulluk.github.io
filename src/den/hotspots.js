@@ -1,6 +1,6 @@
 export const HOTSPOTS = [
   { id: 'maps', hint: 'maps', x: 0.28, y: 0.12, w: 0.38, h: 0.26, zoom: 0.42 },
-  { id: 'diploma', hint: 'diploma', panel: 'education', x: 0.1, y: 0.28, w: 0.12, h: 0.28, zoom: 0.5 },
+  { id: 'diploma', hint: 'diploma', panel: 'education', x: 0.1, y: 0.22, w: 0.16, h: 0.42, zoom: 0.5 },
   { id: 'laptop', hint: 'desk', panel: 'projects', x: 0.396, y: 0.366, w: 0.15, h: 0.11, zoom: 0.72 },
   { id: 'guitar', hint: 'guitar', href: 'https://samuelogulluk.github.io/lutra/', x: 0.67, y: 0.34, w: 0.11, h: 0.44, zoom: 0.48 },
   { id: 'piano', hint: 'piano', panel: 'loutone', x: 0.755, y: 0.55, w: 0.18, h: 0.22, zoom: 0.48 },
@@ -13,7 +13,7 @@ export const HOTSPOTS = [
 
 const SIZES = {
   maps: [0.38, 0.26],
-  diploma: [0.12, 0.28],
+  diploma: [0.16, 0.42],
   laptop: [0.15, 0.11],
   guitar: [0.13, 0.4],
   piano: [0.18, 0.22],
