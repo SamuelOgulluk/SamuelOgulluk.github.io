@@ -11,9 +11,10 @@ const URLS = [
   '/models/ph/book_encyclopedia_set_01/book_encyclopedia_set_01_1k.gltf',
   '/models/ph/wooden_display_shelves_01/wooden_display_shelves_01_1k.gltf',
   '/models/ph/book_rows/book_rows.glb',
-  '/models/ikea/micke-desk.glb',
+  '/models/ikea/wood-desk.glb',
   '/models/office-chair.glb',
-  '/models/keyboard.glb',
+  '/models/wh/casio-xstand.glb',
+  '/models/wh/laptop-open.glb',
   '/models/kenney/cardboardBoxClosed.glb',
   '/models/kenney/radio.glb',
 ];
@@ -37,7 +38,7 @@ const shadowize = (src, onMat) => {
   });
 };
 
-const fitWrap = (src, height, width, sit) => {
+const fitWrap = (src, height, width, sit, depth) => {
   const box = new THREE.Box3().setFromObject(src);
   const size = box.getSize(new THREE.Vector3());
   src.position.sub(box.getCenter(new THREE.Vector3()));
@@ -46,17 +47,18 @@ const fitWrap = (src, height, width, sit) => {
   wrap.add(src);
   const sy = height ? height / Math.max(size.y, 0.01) : 1;
   const sx = width ? width / Math.max(size.x, 0.01) : sy;
-  wrap.scale.set(sx, sy, sy);
+  const sz = depth ? depth / Math.max(size.z, 0.01) : sy;
+  wrap.scale.set(sx, sy, sz);
   return wrap;
 };
 
-export const FitGLB = ({ url, height, width, sit = true, onMat, ...props }) => {
+export const FitGLB = ({ url, height, width, depth, sit = true, onMat, ...props }) => {
   const { scene } = useGLTF(url);
   const root = useMemo(() => {
     const src = scene.clone(true);
     shadowize(src, onMat);
-    return fitWrap(src, height, width, sit);
-  }, [scene, height, width, sit, onMat]);
+    return fitWrap(src, height, width, sit, depth);
+  }, [scene, height, width, depth, sit, onMat]);
   return <primitive object={root} {...props} />;
 };
 
@@ -67,7 +69,7 @@ export const BookRow = ({ name, height = 0.23, ...props }) => {
     if (!node) return new THREE.Group();
     const src = node.clone(true);
     shadowize(src);
-    return fitWrap(src, height, undefined, true);
+    return fitWrap(src, height, undefined, true, undefined);
   }, [scene, name, height]);
   return <primitive object={root} {...props} />;
 };
@@ -97,17 +99,17 @@ export const FramedMap = ({ url, mapUrl, height = 0.62, ...props }) => {
         mat.needsUpdate = true;
       }
     });
-    return fitWrap(src, height, undefined, false);
+    return fitWrap(src, height, undefined, false, undefined);
   }, [scene, mapTex, height]);
   return <primitive object={root} {...props} />;
 };
 
 export const RoomShell = () => {
   const [floorD, floorN, wallD, wallN] = useTexture([
-    '/assets/ph/wood_floor/diff.jpg',
-    '/assets/ph/wood_floor/nor_gl.jpg',
-    '/assets/ph/white_stucco/diff.jpg',
-    '/assets/ph/white_stucco/nor_gl.jpg',
+    '/assets/ph/laminate_floor_03/diff.jpg',
+    '/assets/ph/laminate_floor_03/nor_gl.jpg',
+    '/assets/ph/painted_plaster_wall/diff.jpg',
+    '/assets/ph/painted_plaster_wall/nor_gl.jpg',
   ]);
 
   useEffect(() => {
@@ -121,19 +123,19 @@ export const RoomShell = () => {
       if (srgb) tex.colorSpace = THREE.SRGBColorSpace;
       tex.needsUpdate = true;
     };
-    prep(floorD, [2.6, 2.0], true);
-    prep(floorN, [2.6, 2.0], false);
-    prep(wallD, [1.6, 1.1], true);
-    prep(wallN, [1.6, 1.1], false);
+    prep(floorD, [5.4, 4.2], true);
+    prep(floorN, [5.4, 4.2], false);
+    prep(wallD, [2.8, 2.0], true);
+    prep(wallN, [2.8, 2.0], false);
   }, [floorD, floorN, wallD, wallN]);
 
   const wallMat = () => (
     <meshStandardMaterial
       map={wallD}
-      color="#ffffff"
+      color="#e4d3ba"
       normalMap={wallN}
-      normalScale={new THREE.Vector2(0.16, 0.16)}
-      roughness={0.97}
+      normalScale={new THREE.Vector2(0.78, 0.78)}
+      roughness={0.92}
       metalness={0}
     />
   );
@@ -144,11 +146,11 @@ export const RoomShell = () => {
         <planeGeometry args={[6.2, 4.6]} />
         <meshStandardMaterial
           map={floorD}
-          color="#ffffff"
+          color="#c4a06c"
           normalMap={floorN}
-          normalScale={new THREE.Vector2(1.05, 1.05)}
-          roughness={0.48}
-          metalness={0.03}
+          normalScale={new THREE.Vector2(1.15, 1.15)}
+          roughness={0.58}
+          metalness={0.02}
         />
       </mesh>
       <mesh position={[0, 1.28, -1.56]} receiveShadow>
@@ -165,7 +167,7 @@ export const RoomShell = () => {
       </mesh>
       <mesh position={[0, 2.56, -0.1]} rotation={[Math.PI / 2, 0, 0]} receiveShadow>
         <planeGeometry args={[6.2, 4.6]} />
-        <meshStandardMaterial color="#fdfbf7" roughness={0.98} />
+        <meshStandardMaterial color="#ebe2d2" roughness={0.98} />
       </mesh>
     </>
   );

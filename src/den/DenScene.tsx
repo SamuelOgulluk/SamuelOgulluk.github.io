@@ -11,14 +11,83 @@ const LUTRA = 'https://samuelogulluk.github.io/lutra/';
 const WALL = -1.5;
 
 const PH = {
-  desk: '/models/ikea/micke-desk.glb',
+  desk: '/models/ikea/wood-desk.glb',
   lamp: '/models/ph/desk_lamp_arm_01/desk_lamp_arm_01_1k.gltf',
-  laptop: '/models/ph/classic_laptop/classic_laptop_1k.gltf',
+  laptop: '/models/wh/laptop-open.glb',
   frameA: '/models/ph/hanging_picture_frame_01/hanging_picture_frame_01_1k.gltf',
   frameB: '/models/ph/hanging_picture_frame_02/hanging_picture_frame_02_1k.gltf',
   plant: '/models/ph/potted_plant_04/potted_plant_04_1k.gltf',
   books: '/models/ph/book_encyclopedia_set_01/book_encyclopedia_set_01_1k.gltf',
   shelf: '/models/ph/wooden_display_shelves_01/wooden_display_shelves_01_1k.gltf',
+};
+
+const LAPTOP_H = 0.24;
+
+const laptopScreen = (h) => {
+  const k = h / LAPTOP_H;
+  return { pos: [0, 0.122 * k, -0.1 * k], rot: [-0.28, 0, 0], size: [0.3 * k, 0.168 * k] };
+};
+
+const solidMat = (mat) => {
+  mat.transparent = false;
+  mat.opacity = 1;
+  mat.alphaTest = 0;
+  mat.side = THREE.DoubleSide;
+  mat.needsUpdate = true;
+};
+
+const casioMat = (mat) => {
+  const n = `${mat.name || ''}`;
+  solidMat(mat);
+  if (n.includes('Charcoal')) {
+    mat.color = new THREE.Color('#16181a');
+    mat.metalness = 0.9;
+    mat.roughness = 0.26;
+    return;
+  }
+  if (n.includes('Aluminum') || n.includes('Mirror')) {
+    mat.color = new THREE.Color('#8b9298');
+    mat.metalness = 0.86;
+    mat.roughness = 0.3;
+    return;
+  }
+  if (n.includes('M00')) {
+    mat.color = new THREE.Color('#f3efe6');
+    mat.metalness = 0.04;
+    mat.roughness = 0.44;
+    return;
+  }
+  if (n.includes('M08')) {
+    mat.color = new THREE.Color('#121314');
+    mat.metalness = 0.1;
+    mat.roughness = 0.4;
+    return;
+  }
+  if (n.includes('M03')) {
+    mat.color = new THREE.Color('#9aa1a8');
+    mat.metalness = 0.22;
+    mat.roughness = 0.38;
+    return;
+  }
+  mat.color = new THREE.Color('#1b1d21');
+  mat.metalness = 0.2;
+  mat.roughness = 0.48;
+};
+
+const laptopMat = (mat) => {
+  const n = `${mat.name || ''}`.toLowerCase();
+  solidMat(mat);
+  if (n.includes('2020') || n.includes('glass') || n.includes('translucent')) return;
+  if (n.includes('default')) {
+    mat.color = new THREE.Color('#ece8e1');
+    mat.metalness = 0.06;
+    mat.roughness = 0.4;
+    return;
+  }
+  mat.color = new THREE.Color('#2a2c30');
+  mat.metalness = 0.78;
+  mat.roughness = 0.34;
+  mat.map = null;
 };
 
 const lampMat = (mat) => {
@@ -30,14 +99,9 @@ const lampMat = (mat) => {
 };
 
 const deskMat = (mat) => {
-  mat.map = null;
-  mat.normalMap = null;
-  mat.roughnessMap = null;
-  mat.metalnessMap = null;
-  mat.aoMap = null;
-  mat.color = new THREE.Color('#f1eee8');
   mat.metalness = 0.04;
-  mat.roughness = 0.48;
+  mat.roughness = 0.58;
+  if (mat.color) mat.color.multiply(new THREE.Color('#e8c49a'));
 };
 
 const WallMaps = ({ onHint, clearHint, onClick, hint }) => {
@@ -151,14 +215,14 @@ const LampKey = () => {
   const spot = useRef(null);
   useLayoutEffect(() => {
     if (!spot.current) return;
-        spot.current.target.position.set(0.02, 0.76, WALL + 0.45);
+        spot.current.target.position.set(0.02, 0.76, WALL + 0.32);
     spot.current.target.updateMatrixWorld();
   }, []);
   return (
     <>
       <spotLight
         ref={spot}
-        position={[0.42, 1.22, WALL + 0.62]}
+        position={[0.42, 1.22, WALL + 0.48]}
         angle={0.92}
         penumbra={0.62}
         intensity={48}
@@ -171,8 +235,8 @@ const LampKey = () => {
         shadow-camera-near={0.15}
         shadow-camera-far={8}
       />
-      <pointLight position={[0.42, 1.14, WALL + 0.58]} intensity={4.4} color="#ffc070" distance={4.2} decay={2} />
-      <pointLight position={[0.42, 1.18, WALL + 0.58]} intensity={0.85} color="#ffe4b8" distance={1.4} />
+      <pointLight position={[0.42, 1.14, WALL + 0.44]} intensity={4.4} color="#ffc070" distance={4.2} decay={2} />
+      <pointLight position={[0.42, 1.18, WALL + 0.44]} intensity={0.85} color="#ffe4b8" distance={1.4} />
     </>
   );
 };
@@ -180,14 +244,15 @@ const LampKey = () => {
 const KeyboardStation = ({ hint, onHint, clearHint, onClick }) => {
   const screen = useMemo(() => makeDawScreen(), []);
   useEffect(() => () => screen.dispose(), [screen]);
+  const lid = laptopScreen(0.15);
   return (
     <Hotspot hint={hint} onOver={onHint} onOut={clearHint} onClick={onClick}>
-      <group position={[1.86, 0, WALL + 0.58]} rotation={[0, -0.38, 0]}>
-        <FitGLB url="/models/keyboard.glb" height={0.13} />
-        <group position={[-0.22, 0.13, -0.06]} rotation={[0, 0.12, 0]}>
-          <FitGLB url={PH.laptop} height={0.11} />
-          <mesh position={[0, 0.06, -0.006]} rotation={[-0.22, 0, 0]}>
-            <planeGeometry args={[0.155, 0.09]} />
+      <group position={[1.88, 0, WALL + 0.62]} rotation={[0, -0.34, 0]}>
+        <FitGLB url="/models/wh/casio-xstand.glb" height={0.76} onMat={casioMat} />
+        <group position={[-0.2, 0.752, -0.11]} rotation={[0, 0.1, 0]}>
+          <FitGLB url={PH.laptop} height={0.15} onMat={laptopMat} />
+          <mesh position={lid.pos} rotation={lid.rot}>
+            <planeGeometry args={lid.size} />
             <meshStandardMaterial map={screen} emissive="#0a2430" emissiveIntensity={0.85} roughness={0.28} />
           </mesh>
         </group>
@@ -205,7 +270,7 @@ const Laptop = ({ t, onOpen, onHint, clearHint }) => {
 
   return (
     <group
-      position={[0.0, 0.75, WALL + 0.52]}
+      position={[0.0, 0.75, WALL + 0.38]}
       rotation={[0, 0.04, 0]}
       onPointerOver={(e) => {
         e.stopPropagation();
@@ -222,9 +287,9 @@ const Laptop = ({ t, onOpen, onHint, clearHint }) => {
         onOpen();
       }}
     >
-      <FitGLB url={PH.laptop} height={0.2} />
-      <mesh position={[0, 0.11, -0.01]} rotation={[-0.22, 0, 0]}>
-        <planeGeometry args={[0.28, 0.16]} />
+      <FitGLB url={PH.laptop} height={0.26} onMat={laptopMat} />
+      <mesh position={laptopScreen(0.26).pos} rotation={laptopScreen(0.26).rot}>
+        <planeGeometry args={laptopScreen(0.26).size} />
         <meshStandardMaterial map={screen} emissive="#10241c" emissiveIntensity={0.7} roughness={0.32} />
       </mesh>
     </group>
@@ -260,8 +325,8 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange, bake }) =>
         onClick={() => setFocus(focus === 'maps' ? 'home' : 'maps')}
       />
 
-      <FitGLB url={PH.desk} height={0.75} width={1.52} position={[0.02, 0, WALL + 0.48]} rotation={[0, Math.PI, 0]} onMat={deskMat} />
-      <FitGLB url="/models/office-chair.glb" height={0.98} position={[-0.06, 0, WALL + 1.18]} rotation={[0, Math.PI, 0]} />
+      <FitGLB url={PH.desk} height={0.75} width={1.52} depth={0.66} position={[0.02, 0, WALL + 0.34]} onMat={deskMat} />
+      <FitGLB url="/models/office-chair.glb" height={0.98} position={[-0.06, 0, WALL + 1.08]} rotation={[0, Math.PI, 0]} />
 
       <Laptop
         t={t}
@@ -273,7 +338,7 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange, bake }) =>
         clearHint={clear}
       />
 
-      <FitGLB url={PH.lamp} height={0.48} position={[0.42, 0.75, WALL + 0.5]} onMat={lampMat} />
+      <FitGLB url={PH.lamp} height={0.48} position={[0.42, 0.75, WALL + 0.36]} onMat={lampMat} />
 
       <group position={[-2.12, 0, WALL + 0.04]} rotation={[0, -Math.PI / 2, 0]}>
         <Hotspot hint={t.den.diploma} onOver={hint} onOut={clear} onClick={() => setPanel('education')}>
@@ -301,7 +366,7 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange, bake }) =>
       </Hotspot>
 
       <Hotspot hint={t.den.mail} onOver={hint} onOut={clear} onClick={() => setPanel('contact')}>
-        <FitGLB url="/models/kenney/radio.glb" height={0.12} sit={false} position={[0.48, 0.8, WALL + 0.32]} rotation={[0, -0.4, 0]} />
+        <FitGLB url="/models/kenney/radio.glb" height={0.12} sit={false} position={[0.48, 0.8, WALL + 0.18]} rotation={[0, -0.4, 0]} />
       </Hotspot>
 
       <KeyboardStation
