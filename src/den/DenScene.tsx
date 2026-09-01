@@ -5,13 +5,13 @@ import { useLanguage } from '@/App';
 import CameraRig from './CameraRig';
 import BakeCapture from './BakeCapture';
 import { Guitar } from './DenInstruments';
-import { FitGLB, FramedMap, RoomShell } from './KenneyProp';
+import { FitGLB, FramedMap, RoomShell, BookRow } from './KenneyProp';
 
 const LUTRA = 'https://samuelogulluk.github.io/lutra/';
 const WALL = -1.5;
 
 const PH = {
-  desk: '/models/ph/metal_office_desk/metal_office_desk_1k.gltf',
+  desk: '/models/ikea/micke-desk.glb',
   lamp: '/models/ph/desk_lamp_arm_01/desk_lamp_arm_01_1k.gltf',
   laptop: '/models/ph/classic_laptop/classic_laptop_1k.gltf',
   frameA: '/models/ph/hanging_picture_frame_01/hanging_picture_frame_01_1k.gltf',
@@ -140,14 +140,14 @@ const LampKey = () => {
   const spot = useRef(null);
   useLayoutEffect(() => {
     if (!spot.current) return;
-    spot.current.target.position.set(0.04, 0.78, WALL + 0.42);
+        spot.current.target.position.set(0.02, 0.76, WALL + 0.45);
     spot.current.target.updateMatrixWorld();
   }, []);
   return (
     <>
       <spotLight
         ref={spot}
-        position={[0.58, 1.26, WALL + 0.7]}
+        position={[0.42, 1.22, WALL + 0.62]}
         angle={0.92}
         penumbra={0.62}
         intensity={48}
@@ -160,8 +160,8 @@ const LampKey = () => {
         shadow-camera-near={0.15}
         shadow-camera-far={8}
       />
-      <pointLight position={[0.58, 1.18, WALL + 0.66]} intensity={4.4} color="#ffc070" distance={4.2} decay={2} />
-      <pointLight position={[0.58, 1.22, WALL + 0.66]} intensity={0.85} color="#ffe4b8" distance={1.4} />
+      <pointLight position={[0.42, 1.14, WALL + 0.58]} intensity={4.4} color="#ffc070" distance={4.2} decay={2} />
+      <pointLight position={[0.42, 1.18, WALL + 0.58]} intensity={0.85} color="#ffe4b8" distance={1.4} />
     </>
   );
 };
@@ -194,7 +194,7 @@ const Laptop = ({ t, onOpen, onHint, clearHint }) => {
 
   return (
     <group
-      position={[0.04, 0.76, WALL + 0.5]}
+      position={[0.0, 0.75, WALL + 0.52]}
       rotation={[0, 0.04, 0]}
       onPointerOver={(e) => {
         e.stopPropagation();
@@ -249,8 +249,8 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange, bake }) =>
         onClick={() => setFocus(focus === 'maps' ? 'home' : 'maps')}
       />
 
-      <FitGLB url={PH.desk} height={0.76} width={1.92} position={[0.02, 0, WALL + 0.5]} />
-      <FitGLB url="/models/office-chair.glb" height={0.98} position={[-0.1, 0, WALL + 1.32]} rotation={[0, Math.PI, 0]} />
+      <FitGLB url={PH.desk} height={0.75} width={1.48} position={[0.02, 0, WALL + 0.42]} />
+      <FitGLB url="/models/office-chair.glb" height={0.98} position={[-0.06, 0, WALL + 1.18]} rotation={[0, Math.PI, 0]} />
 
       <Laptop
         t={t}
@@ -262,22 +262,35 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange, bake }) =>
         clearHint={clear}
       />
 
-      <FitGLB url={PH.lamp} height={0.5} position={[0.58, 0.76, WALL + 0.62]} onMat={lampMat} />
+      <FitGLB url={PH.lamp} height={0.48} position={[0.42, 0.75, WALL + 0.5]} onMat={lampMat} />
 
-      <Hotspot hint={t.den.kit} onOver={hint} onOut={clear} onClick={() => setPanel('skills')}>
-        <FitGLB url={PH.books} height={0.16} sit={false} position={[-0.62, 0.84, WALL + 0.42]} rotation={[0, 0.18, 0]} />
-      </Hotspot>
-
-      <Hotspot hint={t.den.diploma} onOver={hint} onOut={clear} onClick={() => setPanel('education')}>
-        <FitGLB url={PH.shelf} height={1.48} position={[-1.92, 0, WALL + 0.88]} rotation={[0, -Math.PI / 2 + 0.48, 0]} />
-      </Hotspot>
+      <group position={[-2.12, 0, WALL + 0.12]} rotation={[0, -Math.PI / 2, 0]}>
+        <Hotspot hint={t.den.diploma} onOver={hint} onOut={clear} onClick={() => setPanel('education')}>
+          <FitGLB url={PH.shelf} height={1.48} />
+        </Hotspot>
+        <Hotspot hint={t.den.kit} onOver={hint} onOut={clear} onClick={() => setPanel('skills')}>
+          <BookRow name="book_row_0" height={0.22} position={[0.03, 0.38, -0.34]} rotation={[0, Math.PI / 2, 0]} />
+          <BookRow name="book_row_1" height={0.22} position={[0.03, 0.38, 0]} rotation={[0, Math.PI / 2, 0]} />
+          <BookRow name="book_row_2" height={0.22} position={[0.03, 0.38, 0.34]} rotation={[0, Math.PI / 2, 0]} />
+        </Hotspot>
+        <Hotspot hint={t.den.lab} onOver={hint} onOut={clear} onClick={() => setPanel('experience')}>
+          <BookRow name="book_row_3" height={0.22} position={[0.03, 0.75, -0.34]} rotation={[0, Math.PI / 2, 0]} />
+          <BookRow name="book_row_4" height={0.22} position={[0.03, 0.75, 0]} rotation={[0, Math.PI / 2, 0]} />
+          <FitGLB url={PH.books} height={0.22} width={0.3} sit position={[0.03, 0.75, 0.34]} rotation={[0, Math.PI / 2, 0]} />
+        </Hotspot>
+        <Hotspot hint={t.den.diploma} onOver={hint} onOut={clear} onClick={() => setPanel('education')}>
+          <BookRow name="book_row_5" height={0.22} position={[0.03, 1.12, -0.34]} rotation={[0, Math.PI / 2, 0]} />
+          <BookRow name="book_row_6" height={0.22} position={[0.03, 1.12, 0]} rotation={[0, Math.PI / 2, 0]} />
+          <BookRow name="book_row_7" height={0.22} position={[0.03, 1.12, 0.34]} rotation={[0, Math.PI / 2, 0]} />
+        </Hotspot>
+      </group>
 
       <Hotspot hint={t.den.about} onOver={hint} onOut={clear} onClick={() => setPanel('about')}>
-        <FitGLB url={PH.plant} height={0.72} position={[-1.55, 0, WALL + 0.38]} />
+        <FitGLB url={PH.plant} height={0.72} position={[-1.38, 0, WALL + 0.36]} />
       </Hotspot>
 
       <Hotspot hint={t.den.mail} onOver={hint} onOut={clear} onClick={() => setPanel('contact')}>
-        <FitGLB url="/models/kenney/radio.glb" height={0.12} sit={false} position={[0.78, 0.82, WALL + 0.36]} rotation={[0, -0.4, 0]} />
+        <FitGLB url="/models/kenney/radio.glb" height={0.12} sit={false} position={[0.48, 0.8, WALL + 0.32]} rotation={[0, -0.4, 0]} />
       </Hotspot>
 
       <KeyboardStation
@@ -302,10 +315,6 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange, bake }) =>
         <group position={[1.16, 0.58, WALL + 0.68]} rotation={[-0.18, 0.92, 0.06]}>
           <Guitar />
         </group>
-      </Hotspot>
-
-      <Hotspot hint={t.den.lab} onOver={hint} onOut={clear} onClick={() => setPanel('experience')}>
-        <FitGLB url={PH.books} height={0.14} sit={false} position={[-1.82, 1.12, WALL + 0.72]} rotation={[0, 0.35, 0]} />
       </Hotspot>
 
       <Hotspot hint={t.den.tools} onOver={hint} onOut={clear} onClick={() => onViewChange('utility')}>

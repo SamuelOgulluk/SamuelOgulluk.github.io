@@ -1,8 +1,11 @@
 Poly Haven models and textures — CC0 1.0 (https://polyhaven.com)
-  metal_office_desk, desk_lamp_arm_01, classic_laptop,
+  desk_lamp_arm_01, classic_laptop,
   hanging_picture_frame_01/02, potted_plant_04,
-  book_encyclopedia_set_01, wooden_display_shelves_01,
-  wood_floor, white_stucco
+  book_encyclopedia_set_01, decorative_book_set_01,
+  wooden_display_shelves_01, wood_floor, white_stucco
+
+IKEA MICKE desk — 3D model from ikea.com product page
+  https://www.ikea.com/gb/en/p/micke-desk-white-10244743/
 
 Office chair — CC0, plaggy on OpenGameArt
   https://opengameart.org/content/office-chair

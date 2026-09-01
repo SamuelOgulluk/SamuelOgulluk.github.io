@@ -3,7 +3,6 @@ import { useGLTF, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 
 const URLS = [
-  '/models/ph/metal_office_desk/metal_office_desk_1k.gltf',
   '/models/ph/desk_lamp_arm_01/desk_lamp_arm_01_1k.gltf',
   '/models/ph/classic_laptop/classic_laptop_1k.gltf',
   '/models/ph/hanging_picture_frame_01/hanging_picture_frame_01_1k.gltf',
@@ -11,6 +10,8 @@ const URLS = [
   '/models/ph/potted_plant_04/potted_plant_04_1k.gltf',
   '/models/ph/book_encyclopedia_set_01/book_encyclopedia_set_01_1k.gltf',
   '/models/ph/wooden_display_shelves_01/wooden_display_shelves_01_1k.gltf',
+  '/models/ph/book_rows/book_rows.glb',
+  '/models/ikea/micke-desk.glb',
   '/models/office-chair.glb',
   '/models/keyboard.glb',
   '/models/kenney/cardboardBoxClosed.glb',
@@ -56,6 +57,18 @@ export const FitGLB = ({ url, height, width, sit = true, onMat, ...props }) => {
     shadowize(src, onMat);
     return fitWrap(src, height, width, sit);
   }, [scene, height, width, sit, onMat]);
+  return <primitive object={root} {...props} />;
+};
+
+export const BookRow = ({ name, height = 0.23, ...props }) => {
+  const { scene } = useGLTF('/models/ph/book_rows/book_rows.glb');
+  const root = useMemo(() => {
+    const node = scene.getObjectByName(name);
+    if (!node) return new THREE.Group();
+    const src = node.clone(true);
+    shadowize(src);
+    return fitWrap(src, height, undefined, true);
+  }, [scene, name, height]);
   return <primitive object={root} {...props} />;
 };
 

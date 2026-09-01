@@ -13,14 +13,14 @@ export const HOTSPOTS = [
 
 const SIZES = {
   maps: [0.38, 0.26],
-  diploma: [0.16, 0.42],
+  diploma: [0.18, 0.48],
   laptop: [0.15, 0.11],
   guitar: [0.13, 0.4],
   piano: [0.18, 0.22],
   about: [0.08, 0.16],
-  kit: [0.05, 0.045],
+  kit: [0.08, 0.1],
   mail: [0.04, 0.04],
-  lab: [0.06, 0.06],
+  lab: [0.08, 0.1],
   tools: [0.07, 0.09],
 };
 
