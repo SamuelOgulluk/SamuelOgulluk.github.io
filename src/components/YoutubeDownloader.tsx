@@ -213,7 +213,7 @@ const YoutubeDownloader = () => {
       </form>
 
       {error && (
-        <p className="mt-4 rounded-[2px] border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700" role="alert">
+        <p className="alert-error mt-4" role="alert">
           {error}
         </p>
       )}
@@ -224,7 +224,7 @@ const YoutubeDownloader = () => {
             <img
               src={info.thumbnail}
               alt=""
-              className="h-40 w-full object-cover border border-line bg-white sm:h-28"
+              className="h-40 w-full object-cover border-[3px] border-ink bg-paper-deep sm:h-28"
               loading="lazy"
             />
           )}

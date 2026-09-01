@@ -20,7 +20,9 @@ export default defineConfig({
     sourcemap: false,
     rollupOptions: {
       output: {
-        manualChunks: undefined,
+        manualChunks(id) {
+          if (id.includes('node_modules/three') || id.includes('@react-three')) return 'three';
+        },
       },
     },
   },

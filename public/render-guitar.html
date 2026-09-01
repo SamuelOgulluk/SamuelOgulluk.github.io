@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Guitar render</title>
+    <style>
+      html, body { margin: 0; background: #ece0cc; overflow: hidden; }
+      canvas { display: block; }
+    </style>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "/node_modules/three/build/three.module.js",
+          "three/addons/": "/node_modules/three/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <script type="module">
+      import * as THREE from 'three';
+      import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+      const W = 800;
+      const H = 1360;
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+      renderer.setSize(W, H);
+      renderer.setPixelRatio(1);
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.1;
+      document.body.appendChild(renderer.domElement);
+
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color('#ece0cc');
+
+      const camera = new THREE.PerspectiveCamera(24, W / H, 0.05, 40);
+      camera.position.set(0.08, 0.14, 4.2);
+      camera.lookAt(0, 0.04, 0);
+
+      scene.add(new THREE.HemisphereLight('#fff6ea', '#c8a888', 0.78));
+      const key = new THREE.DirectionalLight('#ffe0b8', 1.4);
+      key.position.set(1.6, 2.6, 2.8);
+      scene.add(key);
+      const fill = new THREE.DirectionalLight('#fff8f2', 0.62);
+      fill.position.set(-2.0, 0.8, 1.8);
+      scene.add(fill);
+      const rim = new THREE.DirectionalLight('#ffe8c8', 0.42);
+      rim.position.set(-0.4, 1.2, -2.0);
+      scene.add(rim);
+
+      const steel = new THREE.MeshStandardMaterial({ color: '#1a1410', roughness: 0.48, metalness: 0.12 });
+      const stand = new THREE.Group();
+      const rod = (args, pos, rot) => {
+        const m = new THREE.Mesh(new THREE.CylinderGeometry(...args), steel);
+        m.position.set(...pos);
+        m.rotation.set(...rot);
+        stand.add(m);
+      };
+      rod([0.009, 0.01, 0.52, 8], [-0.11, 0.18, 0.04], [0.58, 0, 0.26]);
+      rod([0.009, 0.01, 0.52, 8], [0.11, 0.18, 0.04], [0.58, 0, -0.26]);
+      rod([0.009, 0.01, 0.5, 8], [0, 0.18, -0.09], [-0.46, 0, 0]);
+      const cradle = new THREE.Mesh(new THREE.TorusGeometry(0.06, 0.008, 8, 16, Math.PI), steel);
+      cradle.position.set(0, 0.46, 0);
+      cradle.rotation.set(1.2, 0, 0);
+      stand.add(cradle);
+      stand.position.set(0, -0.88, -0.02);
+
+      const texLoader = new THREE.TextureLoader();
+      const loadTex = (url) =>
+        new Promise((resolve) => {
+          texLoader.load(url, (t) => {
+            t.flipY = false;
+            t.colorSpace = THREE.SRGBColorSpace;
+            t.anisotropy = 16;
+            t.minFilter = THREE.LinearMipmapLinearFilter;
+            t.magFilter = THREE.LinearFilter;
+            t.generateMipmaps = true;
+            resolve(t);
+          });
+        });
+
+      const [bodyTex, detailTex] = await Promise.all([
+        loadTex('/public/assets/sprites/guitar-body.png'),
+        loadTex('/public/assets/sprites/guitar-details.png'),
+      ]);
+
+      const loader = new GLTFLoader();
+      loader.load('/public/models/guitar-round.glb', (gltf) => {
+        const guitar = gltf.scene;
+        guitar.traverse((o) => {
+          if (!o.isMesh) return;
+          const n = (o.name || '').toLowerCase();
+          if (n.includes('cube')) {
+            o.visible = false;
+            return;
+          }
+          const mat = o.material;
+          if (!mat) return;
+          const next = mat.clone();
+          const nm = `${o.name} ${mat.name || ''}`.toLowerCase();
+          next.map = /head|tuner|logo|material/.test(nm) ? detailTex : bodyTex;
+          next.roughness = 0.42;
+          next.metalness = 0.04;
+          next.needsUpdate = true;
+          o.material = next;
+          o.frustumCulled = false;
+        });
+        // second pass: any remaining original maps -> body
+        guitar.traverse((o) => {
+          if (!o.isMesh || !o.visible || !o.material) return;
+          if (o.material.map === bodyTex || o.material.map === detailTex) return;
+          o.material = o.material.clone();
+          o.material.map = bodyTex;
+          o.material.needsUpdate = true;
+        });
+
+        const wrap = new THREE.Group();
+        wrap.add(guitar);
+        guitar.updateMatrixWorld(true);
+        const box0 = new THREE.Box3().setFromObject(guitar);
+        guitar.position.sub(box0.getCenter(new THREE.Vector3()));
+        const size0 = box0.getSize(new THREE.Vector3());
+        wrap.scale.setScalar(1.78 / Math.max(size0.x, size0.y, size0.z));
+        wrap.rotation.set(0, 0.18, 0);
+
+        const root = new THREE.Group();
+        root.add(wrap);
+        root.add(stand);
+        root.position.set(0, 0.05, 0);
+        scene.add(root);
+        renderer.render(scene, camera);
+        window.__done = true;
+      }, undefined, (err) => {
+        window.__error = String(err);
+        window.__done = true;
+      });
+    </script>
+  </body>
+</html>

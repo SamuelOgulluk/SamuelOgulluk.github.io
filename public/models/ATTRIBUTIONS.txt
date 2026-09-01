@@ -1,0 +1,21 @@
+Poly Haven models and textures — CC0 1.0 (https://polyhaven.com)
+  desk_lamp_arm_01, classic_laptop,
+  hanging_picture_frame_01/02, potted_plant_04,
+  book_encyclopedia_set_01, decorative_book_set_01,
+  wooden_display_shelves_01, laminate_floor_03, painted_plaster_wall
+
+Wooden office desk — 3D Warehouse, Panagiotis K.
+  https://3dwarehouse.sketchup.com/model/17e342d8-0eef-403a-9744-c61721a31cc8
+
+Office chair — CC0, plaggy on OpenGameArt
+  https://opengameart.org/content/office-chair
+
+Music keyboard — CC-BY 3.0, whilefun / While Fun Games on OpenGameArt
+  https://opengameart.org/content/music-keyboard
+
+Kenney Furniture Kit — CC0 1.0 (https://kenney.nl/assets/furniture-kit)
+  radio, cardboardBoxClosed
+
+Maps — Wikimedia Commons
+  Numbered map of Paris with arrondissements.svg
+  France location map-Regions and departements-2016.svg

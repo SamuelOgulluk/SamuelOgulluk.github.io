@@ -9,22 +9,25 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        display: ['Outfit', 'IBM Plex Sans', 'sans-serif'],
-        body: ['IBM Plex Sans', 'sans-serif'],
+        display: ['Pixelify Sans', 'Nunito', 'sans-serif'],
+        pixel: ['Pixelify Sans', 'sans-serif'],
+        mono: ['VT323', 'ui-monospace', 'monospace'],
+        body: ['Nunito', 'sans-serif'],
       },
       colors: {
-        ink: '#14241c',
-        soft: '#3a4f44',
-        muted: '#6a7d72',
-        line: '#d5e4da',
+        ink: '#f3ead8',
+        soft: '#c8bfae',
+        muted: '#8d8578',
+        line: '#3a3548',
         accent: {
-          DEFAULT: '#2f8f5b',
-          hover: '#247448',
-          teal: '#3fa96e',
+          DEFAULT: '#7dcea0',
+          hover: '#63b888',
+          lamp: '#e8a872',
+          water: '#6aa8d1',
         },
         paper: {
-          DEFAULT: '#fbfdfb',
-          deep: '#eef6f0',
+          DEFAULT: '#1c1a28',
+          deep: '#12101c',
         },
       },
     },

@@ -1,39 +1,39 @@
 import React from 'react';
 import { useLanguage } from '@/App';
+import PixelDen from './PixelDen';
 
-const Home: React.FC = () => {
+const Home = ({ onViewChange }) => {
   const { t } = useLanguage();
 
   return (
-    <section
-      id="home"
-      className="flex min-h-[calc(100svh-8.5rem)] flex-col justify-center pb-8 pt-4 md:min-h-[calc(100vh-5.5rem)] md:pb-10 md:pt-6"
-    >
+    <section id="home" className="flex min-h-[calc(100svh-8.5rem)] flex-col justify-center pb-8 pt-3 md:min-h-[calc(100vh-5.5rem)] md:pb-10 md:pt-4">
       <p
-        className="animate-rise mb-2 max-w-3xl text-[0.88rem] font-semibold leading-snug tracking-normal text-accent normal-case sm:text-[0.95rem]"
-        style={{ animationDelay: '60ms' }}
+        className="animate-rise mb-3 font-mono text-[1.15rem] tracking-[0.12em] text-accent-lamp"
+        style={{ animationDelay: '40ms' }}
       >
-        {t.headerSubtitle}
+        {t.home.lookAround}
       </p>
-      <h1
-        className="animate-rise font-display text-[clamp(2.35rem,9vw,4.75rem)] font-bold leading-[1.05] tracking-[-0.03em] text-ink"
-        style={{ animationDelay: '120ms' }}
-      >
-        {t.headerTitle}
-      </h1>
-      <p
-        className="animate-rise mt-5 max-w-2xl text-base leading-relaxed text-soft sm:mt-6 sm:text-lg md:text-xl"
-        style={{ animationDelay: '200ms' }}
-      >
-        {t.about.bio}
-      </p>
-      <div className="animate-rise mt-7 flex flex-wrap gap-3" style={{ animationDelay: '280ms' }}>
-        <a href="#contact" className="btn btn-primary">
-          {t.contact.emailText}
-        </a>
-        <a href="/cv.pdf" download className="btn btn-ghost">
-          {t.about.downloadCV}
-        </a>
+
+      <div className="animate-rise" style={{ animationDelay: '80ms' }}>
+        <PixelDen onViewChange={onViewChange} />
+      </div>
+
+      <div className="dialogue animate-rise" style={{ animationDelay: '160ms' }}>
+        <span className="dialogue-name">{t.headerTitle}</span>
+        <p className="m-0 font-display text-xl text-ink md:text-2xl">{t.home.greeting}</p>
+        <p className="mt-2 m-0 text-sm font-semibold text-accent md:text-base">{t.headerSubtitle}</p>
+        <p className="mt-3 mb-0 max-w-2xl text-base leading-relaxed text-soft md:text-lg">
+          {t.about.bio}
+          <span className="caret" aria-hidden="true" />
+        </p>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <a href="#contact" className="btn btn-primary">
+            {t.contact.emailText}
+          </a>
+          <a href="/cv.pdf" download className="btn btn-ghost">
+            {t.about.downloadCV}
+          </a>
+        </div>
       </div>
     </section>
   );
