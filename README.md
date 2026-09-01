@@ -24,7 +24,15 @@ git reset --mixed HEAD
 git branch --track main origin/main
 ```
 
-Sous Windows PowerShell (si Git installé) : `scripts/link-git-repo.ps1`
+### Pousser la branche dev et nettoyer le remote
+
+```bash
+export PATH="$HOME/.local/bin:$PATH"
+gh auth login          # une seule fois
+bash scripts/git-push-dev.sh
+```
+
+Ne garde que `main` (prod) et `cursor/pixel-den-redesign-4a10` (dev) sur GitHub.
 
 ### Garder le contenu portfolio à jour depuis main
 
