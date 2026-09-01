@@ -10,7 +10,7 @@ const URLS = [
   '/models/ph/hanging_picture_frame_02/hanging_picture_frame_02_1k.gltf',
   '/models/ph/potted_plant_04/potted_plant_04_1k.gltf',
   '/models/ph/book_encyclopedia_set_01/book_encyclopedia_set_01_1k.gltf',
-  '/models/ph/wooden_bookshelf_worn/wooden_bookshelf_worn_1k.gltf',
+  '/models/ph/wooden_display_shelves_01/wooden_display_shelves_01_1k.gltf',
   '/models/office-chair.glb',
   '/models/keyboard.glb',
   '/models/kenney/cardboardBoxClosed.glb',
@@ -91,12 +91,12 @@ export const FramedMap = ({ url, mapUrl, height = 0.62, ...props }) => {
 
 export const RoomShell = () => {
   const [floorD, floorN, floorA, wallD, wallN, wallA] = useTexture([
-    '/assets/ph/herringbone_parquet/diff.jpg',
-    '/assets/ph/herringbone_parquet/nor_gl.jpg',
-    '/assets/ph/herringbone_parquet/arm.jpg',
-    '/assets/ph/painted_plaster_wall/diff.jpg',
-    '/assets/ph/painted_plaster_wall/nor_gl.jpg',
-    '/assets/ph/painted_plaster_wall/arm.jpg',
+    '/assets/ph/wood_floor/diff.jpg',
+    '/assets/ph/wood_floor/nor_gl.jpg',
+    '/assets/ph/wood_floor/arm.jpg',
+    '/assets/ph/white_stucco/diff.jpg',
+    '/assets/ph/white_stucco/nor_gl.jpg',
+    '/assets/ph/white_stucco/arm.jpg',
   ]);
 
   useEffect(() => {
@@ -106,16 +106,24 @@ export const RoomShell = () => {
       tex.anisotropy = 8;
       if (srgb) tex.colorSpace = THREE.SRGBColorSpace;
     };
-    prep(floorD, [5, 4], true);
-    prep(floorN, [5, 4], false);
-    prep(floorA, [5, 4], false);
-    prep(wallD, [3, 2], true);
-    prep(wallN, [3, 2], false);
-    prep(wallA, [3, 2], false);
+    prep(floorD, [3.2, 2.4], true);
+    prep(floorN, [3.2, 2.4], false);
+    prep(floorA, [3.2, 2.4], false);
+    prep(wallD, [2.2, 1.5], true);
+    prep(wallN, [2.2, 1.5], false);
+    prep(wallA, [2.2, 1.5], false);
   }, [floorD, floorN, floorA, wallD, wallN, wallA]);
 
   const wallMat = () => (
-    <meshStandardMaterial map={wallD} normalMap={wallN} roughnessMap={wallA} roughness={0.92} metalness={0.02} />
+    <meshStandardMaterial
+      map={wallD}
+      color="#fffdf8"
+      normalMap={wallN}
+      normalScale={new THREE.Vector2(0.28, 0.28)}
+      roughnessMap={wallA}
+      roughness={0.96}
+      metalness={0.01}
+    />
   );
 
   return (
@@ -127,8 +135,8 @@ export const RoomShell = () => {
           normalMap={floorN}
           normalScale={new THREE.Vector2(1.2, 1.2)}
           roughnessMap={floorA}
-          roughness={0.72}
-          metalness={0.03}
+          roughness={0.68}
+          metalness={0.02}
         />
       </mesh>
       <mesh position={[0, 1.28, -1.56]} receiveShadow>
@@ -145,7 +153,7 @@ export const RoomShell = () => {
       </mesh>
       <mesh position={[0, 2.56, -0.1]} rotation={[Math.PI / 2, 0, 0]} receiveShadow>
         <planeGeometry args={[6.2, 4.6]} />
-        <meshStandardMaterial color="#f3ebe0" roughness={0.95} />
+        <meshStandardMaterial color="#faf7f2" roughness={0.96} />
       </mesh>
     </>
   );

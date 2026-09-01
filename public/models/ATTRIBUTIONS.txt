@@ -1,8 +1,8 @@
 Poly Haven models and textures — CC0 1.0 (https://polyhaven.com)
   metal_office_desk, desk_lamp_arm_01, classic_laptop,
   hanging_picture_frame_01/02, potted_plant_04,
-  book_encyclopedia_set_01, wooden_bookshelf_worn,
-  herringbone_parquet, painted_plaster_wall
+  book_encyclopedia_set_01, wooden_display_shelves_01,
+  wood_floor, white_stucco
 
 Office chair — CC0, plaggy on OpenGameArt
   https://opengameart.org/content/office-chair

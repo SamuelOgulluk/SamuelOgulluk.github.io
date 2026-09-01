@@ -18,7 +18,7 @@ const PH = {
   frameB: '/models/ph/hanging_picture_frame_02/hanging_picture_frame_02_1k.gltf',
   plant: '/models/ph/potted_plant_04/potted_plant_04_1k.gltf',
   books: '/models/ph/book_encyclopedia_set_01/book_encyclopedia_set_01_1k.gltf',
-  shelf: '/models/ph/wooden_bookshelf_worn/wooden_bookshelf_worn_1k.gltf',
+  shelf: '/models/ph/wooden_display_shelves_01/wooden_display_shelves_01_1k.gltf',
 };
 
 const lampMat = (mat) => {
@@ -150,8 +150,8 @@ const LampKey = () => {
         position={[0.58, 1.26, WALL + 0.7]}
         angle={0.92}
         penumbra={0.62}
-        intensity={42}
-        color="#ffb56a"
+        intensity={58}
+        color="#ffb056"
         castShadow
         distance={9}
         decay={1.35}
@@ -160,8 +160,8 @@ const LampKey = () => {
         shadow-camera-near={0.15}
         shadow-camera-far={8}
       />
-      <pointLight position={[0.58, 1.18, WALL + 0.66]} intensity={2.8} color="#ffc27a" distance={3.4} decay={2} />
-      <pointLight position={[0.58, 1.22, WALL + 0.66]} intensity={0.55} color="#fff1c8" distance={1.1} />
+      <pointLight position={[0.58, 1.18, WALL + 0.66]} intensity={4.4} color="#ffc070" distance={4.2} decay={2} />
+      <pointLight position={[0.58, 1.22, WALL + 0.66]} intensity={0.85} color="#ffe4b8" distance={1.4} />
     </>
   );
 };
@@ -229,14 +229,15 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange, bake }) =>
     <>
       <CameraRig focus={focus} frozen={bake} />
       <BakeCapture enabled={bake} />
-      <hemisphereLight args={['#ffc090', '#1a100c', 0.22]} />
-      <ambientLight intensity={0.16} color="#ffd2a8" />
+      <hemisphereLight args={['#ffe2b4', '#3d2416', 0.42]} />
+      <ambientLight intensity={0.34} color="#ffd8b4" />
       <directionalLight
-        position={[-1.6, 2.4, 1.8]}
-        intensity={0.18}
-        color="#c8b49a"
+        position={[-1.4, 2.55, 2.1]}
+        intensity={0.46}
+        color="#ffc48a"
         castShadow={false}
       />
+      <pointLight position={[0.12, 1.62, 0.85]} intensity={7.5} color="#ffd0a0" distance={8.5} decay={2} />
       <LampKey />
 
       <RoomShell />
@@ -268,7 +269,7 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange, bake }) =>
       </Hotspot>
 
       <Hotspot hint={t.den.diploma} onOver={hint} onOut={clear} onClick={() => setPanel('education')}>
-        <FitGLB url={PH.shelf} height={1.22} position={[-1.88, 0, WALL + 1.02]} rotation={[0, 0.55, 0]} />
+        <FitGLB url={PH.shelf} height={1.48} position={[-2.18, 0, WALL + 0.92]} rotation={[0, -Math.PI / 2 + 0.32, 0]} />
       </Hotspot>
 
       <Hotspot hint={t.den.about} onOver={hint} onOut={clear} onClick={() => setPanel('about')}>
@@ -304,7 +305,7 @@ const DenScene = ({ focus, setFocus, setHint, setPanel, onViewChange, bake }) =>
       </Hotspot>
 
       <Hotspot hint={t.den.lab} onOver={hint} onOut={clear} onClick={() => setPanel('experience')}>
-        <FitGLB url={PH.books} height={0.14} sit={false} position={[-1.78, 0.7, WALL + 1.08]} rotation={[0, 0.55, 0]} />
+        <FitGLB url={PH.books} height={0.14} sit={false} position={[-2.05, 1.12, WALL + 0.78]} rotation={[0, 0.4, 0]} />
       </Hotspot>
 
       <Hotspot hint={t.den.tools} onOver={hint} onOut={clear} onClick={() => onViewChange('utility')}>
