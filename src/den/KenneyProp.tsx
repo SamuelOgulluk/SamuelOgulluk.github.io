@@ -101,16 +101,18 @@ export const RoomShell = () => {
     const prep = (tex, repeat, srgb) => {
       tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
       tex.repeat.set(repeat[0], repeat[1]);
-      tex.anisotropy = 8;
+      tex.anisotropy = 16;
+      tex.minFilter = THREE.LinearMipmapLinearFilter;
+      tex.magFilter = THREE.LinearFilter;
+      tex.generateMipmaps = true;
       if (srgb) tex.colorSpace = THREE.SRGBColorSpace;
+      tex.needsUpdate = true;
     };
-    prep(floorD, [6.2, 4.6], true);
-    prep(floorN, [6.2, 4.6], false);
-    prep(floorA, [6.2, 4.6], false);
+    prep(floorD, [2.6, 2.0], true);
+    prep(floorN, [2.6, 2.0], false);
     prep(wallD, [1.6, 1.1], true);
     prep(wallN, [1.6, 1.1], false);
-    prep(wallA, [1.6, 1.1], false);
-  }, [floorD, floorN, floorA, wallD, wallN, wallA]);
+  }, [floorD, floorN, wallD, wallN]);
 
   const wallMat = () => (
     <meshStandardMaterial
@@ -129,11 +131,11 @@ export const RoomShell = () => {
         <planeGeometry args={[6.2, 4.6]} />
         <meshStandardMaterial
           map={floorD}
-          color="#f6deB8"
+          color="#ffffff"
           normalMap={floorN}
-          normalScale={new THREE.Vector2(1.6, 1.6)}
-          roughness={0.52}
-          metalness={0.02}
+          normalScale={new THREE.Vector2(1.05, 1.05)}
+          roughness={0.48}
+          metalness={0.03}
         />
       </mesh>
       <mesh position={[0, 1.28, -1.56]} receiveShadow>
